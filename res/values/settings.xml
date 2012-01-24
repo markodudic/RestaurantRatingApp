@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="server_url">http://poli.sites.innovatif.com/android/</string>
-	<string name="server_user">poli2011</string>
-	<string name="server_pass">rekord</string>
+	<string name="server_url">http://10.0.2.2:8080/RestaurantRating/</string>
+	<string name="server_user"></string>
+	<string name="server_pass"></string>
 
 <!-- 		 
 	<string name="server_url">http://kbp.innovatif.com/blaz/android/pass/</string>

@@ -6,6 +6,7 @@ import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,7 @@ public class ListAdapter extends BaseAdapter {
 	      View vi=convertView;
 	      ViewHolder holder;
 	      if(convertView==null){
-	 
-	          vi = inflater.inflate(R.layout.two_line_list, null);
+	    	  vi = inflater.inflate(R.layout.two_line_list, null);
 	 
 	          holder=new ViewHolder();
 	          holder.textRate=(TextView)vi.findViewById(R.id.text_rate);
@@ -64,15 +64,16 @@ public class ListAdapter extends BaseAdapter {
 	          vi.setTag(holder);
 	      }
 	      else {
-		      try {
-		    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
-		          holder=(ViewHolder)vi.getTag();
-		      	  holder.textRate.setText(jobject.getString("avgRate"));
-		      	  holder.textUser.setText(jobject.getString("userName")+" "+jobject.getString("userSurname"));
-		      	  holder.textRestaurant.setText(jobject.getString("restaurantName"));
-		          holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
-		      } catch (Exception e) {}
+	          holder=(ViewHolder)vi.getTag();
 	      }
+
+	      try {
+	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
+		      holder.textRate.setText(jobject.getString("avgRate"));
+			  holder.textUser.setText(jobject.getString("userName")+" "+jobject.getString("userSurname"));
+			  holder.textRestaurant.setText(jobject.getString("restaurantName"));
+			  holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
+	      } catch (Exception e) {}
 	      
 	      return vi;
 	  }

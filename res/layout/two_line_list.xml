@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="60sp"
-		  restaurantrating:font_name="@string/font_text"
-	     android:textStyle="normal" />
+		restaurantrating:font_name="@string/font_text"
+	    android:textStyle="normal" />
     
     <TwoLineListItem
         android:id="@+id/twoLineListItem1"
@@ -27,7 +27,7 @@
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
 	        android:textSize="40sp"
-		  	  restaurantrating:font_name="@string/font_text"
+		  	restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
 	
 	    <TextView android:id="@+id/text_restaurant"
@@ -36,7 +36,7 @@
 	        android:paddingTop="60px" 
 	        android:includeFontPadding="false"
 	        android:textSize="20sp"
-		  	  restaurantrating:font_name="@string/font_text"
+		  	restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
 
 	    <TextView android:id="@+id/text_hours_ago"
@@ -45,7 +45,7 @@
 	        android:paddingTop="90px" 
 	        android:includeFontPadding="false"
 	        android:textSize="20sp"
-		  	  restaurantrating:font_name="@string/font_text"
+		  	restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
     </TwoLineListItem>
 

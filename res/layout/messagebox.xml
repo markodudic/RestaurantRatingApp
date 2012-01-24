@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+   xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:padding="10dip" > 
+	
+	<si.kubit.restaurantrating.TextViewFont android:id="@+id/msg_body" 
+		restaurantrating:font_name="@string/font_text"
+		style="@style/MessageBoxText"
+		android:text="@string/msg_text" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"/>
+</ScrollView>

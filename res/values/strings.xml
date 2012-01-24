@@ -4,5 +4,12 @@
     <string name="hello">Hello World, RestaurantRatingAppActivity!</string>
     <string name="app_name">Restaurant Rating</string>
     <string name="hours_ago">HOURS AGO</string>
-        
+    
+    <string name="loading">Nalaganje...</string>
+	<string name="json_error">Nepravilen odgovor strežnika</string> 
+	<string name="json_title">Povezava na strežnik</string> 
+    
+    <string name="msg_text">Tekst sporočila</string>
+    <string name="msg_body">Sporočilo</string>
+    
 </resources>

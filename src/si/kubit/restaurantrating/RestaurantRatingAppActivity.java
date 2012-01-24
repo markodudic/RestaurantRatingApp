@@ -1,10 +1,11 @@
 package si.kubit.restaurantrating;
 
 import org.json.JSONObject;
-import org.json.JSONTokener;
+
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class RestaurantRatingAppActivity extends Activity {
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		Log.d("LOCATION=",lastKnownLocation.getLatitude() + " " + lastKnownLocation.getLongitude());
+		//Log.d("LOCATION=",lastKnownLocation.getLatitude() + " " + lastKnownLocation.getLongitude());
     }
 
 	@Override
@@ -40,11 +41,26 @@ public class RestaurantRatingAppActivity extends Activity {
     
     private void GetUsersRatesList()
     {
-    	String userRates = "[{\"userName\":\"marko\",\"avgRate\":\"3.7\",\"rateDateTime\":\"2012-01-23 14:36:35.0\",\"rateHoursAgo\":\"2\",\"userSurname\":\"dudić\",\"restaurantName\":\"Joe Peña's Cantina y Bar\"},{\"userName\":\"marko\",\"avgRate\":\"3.75\",\"rateDateTime\":\"2012-01-23 14:36:33.0\",\"rateHoursAgo\":\"2\",\"userSurname\":\"dudić\",\"restaurantName\":\"Joe Peña's Cantina y Bar\"},{\"userName\":\"marko\",\"avgRate\":\"3.5\",\"rateDateTime\":\"2012-01-23 14:34:56.0\",\"rateHoursAgo\":\"2\",\"userSurname\":\"dudić\",\"restaurantName\":\"Joe Peña's Cantina y Bar\"}]";
+    	String userRates = "";
+        Comm c = new Comm(getString(R.string.server_url), null, null);
+        try { 
+        	userRates = c.get("userrates");
+        } catch (Exception e) {
+			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
+   		}
     	
-    	ListView lv = (ListView) findViewById(R.id.userRateslist);
+        ListView lv = (ListView) findViewById(R.id.userRateslist);
         ListAdapter listAdapter = new ListAdapter(this, userRates, getApplicationContext());
 		lv.setAdapter(listAdapter);
     }      
-        
+ 
+    
+	private void showMessageBox(String closeTime, String redirect, String msg, String title) {
+		Intent messageBox = new Intent(this, MessageBox.class);
+    	messageBox.putExtra("redirect", redirect);
+    	messageBox.putExtra("closeTime", closeTime);
+		messageBox.putExtra("msg", msg);
+		messageBox.putExtra("title", title);
+		startActivityForResult(messageBox, 1);
+	}    
 }
