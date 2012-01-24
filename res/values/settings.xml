@@ -10,6 +10,6 @@
 	<string name="server_pass">test</string>
 	 -->
 
-	<string name="font_button">arial.ttf</string>
+	<string name="font_text">arial.ttf</string>
 
 </resources>
