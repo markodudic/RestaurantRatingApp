@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, RestaurantRatingAppActivity!</string>
+    <string name="app_name">Restaurant Rating</string>
+    <string name="hours_ago">HOURS AGO</string>
+        
+</resources>
