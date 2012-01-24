@@ -13,21 +13,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class ListAdapter extends BaseAdapter {
+public class UserRatesListAdapter extends BaseAdapter {
 
 	  private Activity activity;
 	  private JSONArray jdata;
 	  private static LayoutInflater inflater=null;
 	  private Context context;
 	 
-	  public ListAdapter(Activity a, String userRates, Context context) {
+	  public UserRatesListAdapter(Activity a, String userRates, Context context) {
 	      this.activity = a;  
 	      this.context = context;
 	      try {
 	    	  jdata = (JSONArray)new JSONTokener(userRates).nextValue();
 	      } catch (Exception e) {}
 
-	      ListAdapter.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);      
+	      UserRatesListAdapter.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);      
 	  }
 		
 	  public int getCount() {
@@ -53,7 +53,7 @@ public class ListAdapter extends BaseAdapter {
 	      View vi=convertView;
 	      ViewHolder holder;
 	      if(convertView==null){
-	    	  vi = inflater.inflate(R.layout.two_line_list, null);
+	    	  vi = inflater.inflate(R.layout.user_rates_list, null);
 	 
 	          holder=new ViewHolder();
 	          holder.textRate=(TextView)vi.findViewById(R.id.text_rate);

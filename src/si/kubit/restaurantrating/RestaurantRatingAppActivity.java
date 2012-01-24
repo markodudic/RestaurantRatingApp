@@ -1,18 +1,14 @@
 package si.kubit.restaurantrating;
 
-import org.json.JSONObject;
-
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 
-public class RestaurantRatingAppActivity extends Activity {
+public class RestaurantRatingAppActivity extends Activity implements OnClickListener {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,10 +17,17 @@ public class RestaurantRatingAppActivity extends Activity {
         Log.d("**********************************", "START");
 		GetUsersRatesList();
 
-		// Acquire a reference to the system Location Manager
-		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		//Log.d("LOCATION=",lastKnownLocation.getLatitude() + " " + lastKnownLocation.getLongitude());
+		
+		View mapButtonSubmit = findViewById(R.id.button_map); 
+		mapButtonSubmit.setOnClickListener(this);
+		View settingsButtonSubmit = findViewById(R.id.button_settings); 
+		settingsButtonSubmit.setOnClickListener(this);
+		View friendsButtonSubmit = findViewById(R.id.button_friends); 
+		friendsButtonSubmit.setOnClickListener(this);
+		View rateButtonSubmit = findViewById(R.id.button_rate); 
+		rateButtonSubmit.setOnClickListener(this);
+		View userButtonSubmit = findViewById(R.id.button_user); 
+		userButtonSubmit.setOnClickListener(this);
     }
 
 	@Override
@@ -38,6 +41,23 @@ public class RestaurantRatingAppActivity extends Activity {
 		finish(); 
     }
 
+    public void onClick(View v) {
+    	switch (v.getId()) { 
+			case R.id.button_map:
+    			Intent restaurants = new Intent(this, RestaurantsActivity.class); 
+    			startActivity(restaurants); 
+				break;
+			case R.id.button_settings:
+				break;
+			case R.id.button_friends:
+				break;
+			case R.id.button_rate:
+				break;
+			case R.id.button_user:
+				break;
+    	}
+	}
+    
     
     private void GetUsersRatesList()
     {
@@ -49,8 +69,8 @@ public class RestaurantRatingAppActivity extends Activity {
 			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
    		}
     	
-        ListView lv = (ListView) findViewById(R.id.userRateslist);
-        ListAdapter listAdapter = new ListAdapter(this, userRates, getApplicationContext());
+        ListView lv = (ListView) findViewById(R.id.user_rates_list);
+        UserRatesListAdapter listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
 		lv.setAdapter(listAdapter);
     }      
  

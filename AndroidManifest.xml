@@ -19,13 +19,18 @@
         <activity
             android:label="@string/app_name"
             android:name=".RestaurantRatingAppActivity" 
-   	      android:launchMode="singleInstance" >
+   	      android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        		android:launchMode="singleInstance" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".MessageBox" 
+      <activity android:name=".RestaurantsActivity" 
+        	android:launchMode="singleInstance"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
+  		<activity android:name=".MessageBox" 
 			android:label="@string/msg_body"
         	android:theme="@android:style/Theme.Dialog"  >
 		</activity>

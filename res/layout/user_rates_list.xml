@@ -9,10 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="60sp"
-		restaurantrating:font_name="@string/font_text"
-	    android:textStyle="normal" />
-    
-    <TwoLineListItem
+		  restaurantrating:font_name="@string/font_text"
+	     android:textStyle="normal" />
+        
+    <LinearLayout
         android:id="@+id/twoLineListItem1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -26,28 +26,26 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:textSize="40sp"
-		  	restaurantrating:font_name="@string/font_text"
+	        android:textSize="30sp"
+		  	  restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
 	
 	    <TextView android:id="@+id/text_restaurant"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:paddingTop="60px" 
 	        android:includeFontPadding="false"
 	        android:textSize="20sp"
-		  	restaurantrating:font_name="@string/font_text"
+		  	  restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
 
 	    <TextView android:id="@+id/text_hours_ago"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:paddingTop="90px" 
 	        android:includeFontPadding="false"
-	        android:textSize="20sp"
-		  	restaurantrating:font_name="@string/font_text"
+	        android:textSize="15sp"
+		  	  restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
-    </TwoLineListItem>
+    </LinearLayout>
 
 	
 </LinearLayout>
