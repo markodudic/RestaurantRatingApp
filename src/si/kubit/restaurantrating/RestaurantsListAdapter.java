@@ -41,12 +41,13 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	  public long getItemId(int position) {
 	      return position;
 	  }
-	 
+
 	  public static class ViewHolder{
 	      public TextView textRate;
 	      public TextView textReviews;
 	      public TextView textRestaurantName;
 	      public TextView textRestaurantCategory;
+	      public TextView textRestaurantDistance;
 	  }
 	 
 	  public View getView(int position, View convertView, ViewGroup parent) {
@@ -60,6 +61,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	          holder.textReviews=(TextView)vi.findViewById(R.id.text_reviews);
 	          holder.textRestaurantName = (TextView)vi.findViewById(R.id.text_restaurant_name);
 	          holder.textRestaurantCategory = (TextView)vi.findViewById(R.id.text_restaurant_category);
+	          holder.textRestaurantDistance = (TextView)vi.findViewById(R.id.text_restaurant_distance);
 	 
 	          vi.setTag(holder);
 	      }
@@ -73,6 +75,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 			  holder.textReviews.setText(jobject.getString("rateCount")+" "+context.getString(R.string.reviews));
 			  holder.textRestaurantName.setText(jobject.getString("name"));
 			  holder.textRestaurantCategory.setText(jobject.getString("category"));
+			  holder.textRestaurantDistance.setText(jobject.getString("distance")+" "+context.getString(R.string.distance));
 	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return vi;

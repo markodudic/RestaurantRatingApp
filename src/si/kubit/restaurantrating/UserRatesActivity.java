@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
-public class RestaurantRatingAppActivity extends Activity implements OnClickListener {
+public class UserRatesActivity extends Activity implements OnClickListener {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
 		GetUsersRatesList();
 
@@ -44,14 +44,14 @@ public class RestaurantRatingAppActivity extends Activity implements OnClickList
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_map:
-    			Intent restaurants = new Intent(this, RestaurantsActivity.class); 
-    			startActivity(restaurants); 
 				break;
 			case R.id.button_settings:
 				break;
 			case R.id.button_friends:
 				break;
 			case R.id.button_rate:
+    			Intent restaurants = new Intent(this, RestaurantsActivity.class); 
+    			startActivity(restaurants); 
 				break;
 			case R.id.button_user:
 				break;

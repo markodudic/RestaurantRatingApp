@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	 xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+	xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout android:layout_height="wrap_content" 
      	android:gravity="center" 
-	   android:layout_width="wrap_content"
+	  	android:layout_width="wrap_content"
 		android:orientation="vertical">
 		
 	    <TextView android:id="@+id/text_rate"
@@ -14,16 +14,16 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textSize="60sp"
-			  restaurantrating:font_name="@string/font_text"
-		     android:textStyle="normal" />
+	        restaurantrating:font_name="@string/font_text"
+	        android:textStyle="normal" />
 	    
 	    <TextView android:id="@+id/text_reviews"
 	        android:layout_marginTop="1dip"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textSize="15sp"
-			  restaurantrating:font_name="@string/font_text"
-		     android:textStyle="normal" />
+	        restaurantrating:font_name="@string/font_text"
+	        android:textStyle="normal" />
 	    
 	 </LinearLayout>
         
@@ -34,7 +34,7 @@
         android:orientation="vertical" 
         android:paddingTop="5px" 
         android:paddingBottom="5px"
-	     android:textStyle="normal" >
+        android:textStyle="normal" >
 	
 	    <TextView android:id="@+id/text_restaurant_name"
 	        android:layout_marginTop="1dip"
@@ -42,7 +42,7 @@
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
 	        android:textSize="40sp"
-		  	  restaurantrating:font_name="@string/font_text"
+	        restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
 	
 	    <TextView android:id="@+id/text_restaurant_category"
@@ -50,9 +50,17 @@
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
 	        android:textSize="20sp"
-		  	  restaurantrating:font_name="@string/font_text"
+	        restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" />
 
+	    <TextView android:id="@+id/text_restaurant_distance"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:includeFontPadding="false"
+	        android:textSize="15sp"
+	        restaurantrating:font_name="@string/font_text"
+	        android:textStyle="normal" />
+	    
     </LinearLayout>
 
 	
