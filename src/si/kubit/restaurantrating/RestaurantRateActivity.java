@@ -47,7 +47,8 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		try {
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
 			String restaurant = extras.getString("restaurant");
-			JSONObject jobject = (JSONObject)new JSONTokener(restaurant).nextValue();
+			Log.d("restaurant=", restaurant);
+		    JSONObject jobject = (JSONObject)new JSONTokener(restaurant).nextValue();
 	    	
 			TextView textRate = (TextView)this.findViewById(R.id.text_rate);
 			TextView textReviews=(TextView)this.findViewById(R.id.text_reviews);
@@ -58,6 +59,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			Button buttonPhotos = (Button)this.findViewById(R.id.button_photos);
 			TextView textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
 			
+			Log.d("RATEEEEEEEE=", jobject.getString("rateAvg"));
 		    textRate.setText(jobject.getString("rateAvg"));
 			textReviews.setText(jobject.getString("rateCount")+" "+getString(R.string.reviews));
 			textRestaurantName.setText(jobject.getString("name"));
