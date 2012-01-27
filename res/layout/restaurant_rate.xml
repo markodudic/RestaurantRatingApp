@@ -110,54 +110,39 @@
 		android:orientation="vertical"
 		android:layout_weight="10">
 
-	    <TextView android:id="@+id/text_restaurant_tip_title"
+	    <TextView  android:id="@+id/text_restaurant_rate_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
 	        android:textSize="15sp"
 	        restaurantrating:font_name="@string/font_text"
 	        android:textStyle="normal" 
-	        android:text="rate it!"
 	        android:layout_weight="0"/>
 	    
-	    <TextView android:id="@+id/text_restaurant_tip_food"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:textSize="30sp"
-	        restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal"
-	        android:text="@string/tip_food"
+	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:layout_width="wrap_content"
+        	  android:layout_height="wrap_content"
+	    	  restaurantrating:rate_item_text="@string/tip_food"
 	        android:layout_weight="1" />
 	    	    
-	    <TextView android:id="@+id/text_restaurant_tip_ambient"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:textSize="30sp"
-	        restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal"
-	        android:text="@string/tip_ambient"
+	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:layout_width="wrap_content"
+        	  android:layout_height="wrap_content"
+	    	  restaurantrating:rate_item_text="@string/tip_ambient"
 	        android:layout_weight="1" />
-	    
-	    <TextView android:id="@+id/text_restaurant_tip_service"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:textSize="30sp"
-	        restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal"
-	        android:text="@string/tip_service"
+
+
+	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:layout_width="wrap_content"
+        	  android:layout_height="wrap_content"
+	    	  restaurantrating:rate_item_text="@string/tip_service"
 	        android:layout_weight="1" />
-	    	    
-	    <TextView android:id="@+id/text_restaurant_tip_value"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:textSize="30sp"
-	        restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal"
-	        android:text="@string/tip_value"
+
+
+	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:layout_width="wrap_content"
+        	  android:layout_height="wrap_content"
+	    	  restaurantrating:rate_item_text="@string/tip_value"
 	        android:layout_weight="1" />
 	    
         	    

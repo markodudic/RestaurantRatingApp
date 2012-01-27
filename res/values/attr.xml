@@ -2,6 +2,7 @@
 <resources> 
      <declare-styleable name="restaurantrating"> 
         <attr name="title_text" format="string" /> 
+        <attr name="rate_item_text" format="string" /> 
         <attr name="font_name" format="string" /> 
     </declare-styleable>  
 </resources>

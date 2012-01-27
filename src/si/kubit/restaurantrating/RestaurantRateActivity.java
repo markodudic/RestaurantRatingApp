@@ -56,7 +56,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			TextView textRestaurantDistance = (TextView)this.findViewById(R.id.text_restaurant_distance);
 			Button buttonTips = (Button)this.findViewById(R.id.button_tips);
 			Button buttonPhotos = (Button)this.findViewById(R.id.button_photos);
-			TextView textTipTitle = (TextView)this.findViewById(R.id.text_restaurant_tip_title);
+			TextView textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
 			
 		    textRate.setText(jobject.getString("rateAvg"));
 			textReviews.setText(jobject.getString("rateCount")+" "+getString(R.string.reviews));
@@ -65,7 +65,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			textRestaurantDistance.setText(jobject.getString("distance")+" "+getString(R.string.distance));
 			buttonTips.setText(getString(R.string.tips) + " (" + jobject.getString("tipCount") + ")");
 			buttonPhotos.setText(getString(R.string.photos) + " (" + jobject.getString("photoCount") + ")");
-			textTipTitle.setText(getString(R.string.tip_title_rate_it));
+			textRateTitle.setText(getString(R.string.rate_title));
 			
 			
 		} catch (Exception e) {e.printStackTrace();}			
