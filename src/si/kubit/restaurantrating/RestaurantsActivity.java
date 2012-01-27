@@ -83,6 +83,7 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 			    	
 			    	Intent intentRestaurantRate = new Intent(RestaurantsActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();
+				  	Log.d("RRRRRRRRRRRR=", jobject.toString());
 				  	extras.putString("restaurant", jobject.toString());
 				  	intentRestaurantRate.putExtra("si.kubit.restaurantrating.RestaurantRateActivity", extras);
 				  	RestaurantsActivity.this.startActivity(intentRestaurantRate);
@@ -140,7 +141,8 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	        Comm c = new Comm(getString(R.string.server_url), null, null);
 	        try { 
 	        	restaurants = c.post("venues", nameValuePairs);
-
+	        	Log.d("restaurants RRRRRRRRRRRR=", restaurants);
+			  	
 		        RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, restaurants, getApplicationContext());
 				lv.setAdapter(listAdapter);
 				

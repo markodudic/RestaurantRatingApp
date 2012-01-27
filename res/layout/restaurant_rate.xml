@@ -120,30 +120,34 @@
 	        android:layout_weight="0"/>
 	    
 	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:id="@+id/layout_rate_food"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_food"
-	        android:layout_weight="1" />
+	    	  android:layout_weight="1" />
 	    	    
 	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:id="@+id/layout_rate_ambient"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_ambient"
-	        android:layout_weight="1" />
+	    	  android:layout_weight="1" />
 
 
 	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:id="@+id/layout_rate_service"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_service"
-	        android:layout_weight="1" />
+	    	  android:layout_weight="1" />
 
 
 	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+        	  android:id="@+id/layout_rate_value"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_value"
-	        android:layout_weight="1" />
+	    	  android:layout_weight="1" />
 	    
         	    
     </LinearLayout>	     

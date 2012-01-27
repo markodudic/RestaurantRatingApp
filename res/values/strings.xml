@@ -14,7 +14,8 @@
     <string name="tip_service">SERVICE</string>
     <string name="tip_value">VALUE</string>
     <string name="rate_title">RATE IT LIKE A POLAROID PICTURE!</string>
-        
+    <string name="rate_values_title">THANK YOU! INACTIVE ICONS!</string>
+    
 	<string name="location_error">Lokacijo ni možno določiti. Preverite če imate prižgan GPS.</string> 
 	<string name="location_title">Določanje lokacije</string> 
     
