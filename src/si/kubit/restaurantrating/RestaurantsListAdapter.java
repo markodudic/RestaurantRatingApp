@@ -20,12 +20,10 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	  private static LayoutInflater inflater=null;
 	  private Context context;
 	 
-	  public RestaurantsListAdapter(Activity a, String data, Context context) {
+	  public RestaurantsListAdapter(Activity a, JSONArray jdata, Context context) {
 	      this.activity = a;  
 	      this.context = context;
-	      try {
-	    	  jdata = (JSONArray)new JSONTokener(data).nextValue();
-	      } catch (Exception e) {}
+	      this.jdata = jdata;
 
 	      RestaurantsListAdapter.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);      
 	  }
@@ -71,7 +69,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 
 	      try {
 	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
-		      holder.textRate.setText(jobject.getString("rateAvg"));
+	    	  holder.textRate.setText(jobject.getString("rateAvg"));
 			  holder.textReviews.setText(jobject.getString("rateCount")+" "+context.getString(R.string.reviews));
 			  holder.textRestaurantName.setText(jobject.getString("name"));
 			  holder.textRestaurantCategory.setText(jobject.getString("category"));

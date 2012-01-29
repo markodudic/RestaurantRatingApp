@@ -31,9 +31,10 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	LocationListener locationListener;
 	String provider;
 	
-	String restaurants = "";
+	private String restaurants = "";
+	private JSONArray jRestaurants;
     
-	ListView lv;
+	private ListView lv;
 	
 	
     /** Called when the activity is first created. */
@@ -78,19 +79,16 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 		    	
 		    	try {
-		    		JSONArray jdata = (JSONArray)new JSONTokener(restaurants).nextValue();
-			    	JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
+		    		JSONObject jobject = (JSONObject) jRestaurants.getJSONObject(position);
 			    	
 			    	Intent intentRestaurantRate = new Intent(RestaurantsActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();
-				  	Log.d("RRRRRRRRRRRR=", jobject.toString());
+				  	
 				  	extras.putString("restaurant", jobject.toString());
 				  	intentRestaurantRate.putExtra("si.kubit.restaurantrating.RestaurantRateActivity", extras);
 				  	RestaurantsActivity.this.startActivity(intentRestaurantRate);
 
 		    	} catch (Exception e) {e.printStackTrace();}
-		    	
-			      
 		    }				
 		});
 
@@ -112,7 +110,7 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
     @Override
     protected void onPause() {
     	super.onPause();
-		finish(); 
+		//finish(); 
     }
 
     public void onClick(View v) {
@@ -141,12 +139,13 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	        Comm c = new Comm(getString(R.string.server_url), null, null);
 	        try { 
 	        	restaurants = c.post("venues", nameValuePairs);
-	        	Log.d("restaurants RRRRRRRRRRRR=", restaurants);
+	        	jRestaurants = (JSONArray)new JSONTokener(restaurants).nextValue();
+	        	Log.d("+++++++++++++", jRestaurants.toString());
 			  	
-		        RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, restaurants, getApplicationContext());
+		        RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext());
 				lv.setAdapter(listAdapter);
 				
-		  		int l = ((JSONArray)new JSONTokener(restaurants).nextValue()).length();
+				int l = jRestaurants.length();
 		  		TextView places = (TextView)findViewById(R.id.text_places_nearby);
 		  		places.setText(l + " " + getString(R.string.places_nearby));
 		  		

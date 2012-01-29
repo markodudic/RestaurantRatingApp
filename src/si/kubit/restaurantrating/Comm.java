@@ -26,7 +26,7 @@ public class Comm {
 		this.pass = pass;
 	}
 	
-	public String post(String url, List<NameValuePair> nameValuePairs) {
+	public String post(String url, List<NameValuePair> nameValuePairs) throws Exception {
 		Log.d("comm", this.host+url);
 		String response = null;
 		
@@ -35,20 +35,16 @@ public class Comm {
 	    if (user != null)
 	    	httppost.addHeader("Authorization", "Basic " + Base64.encodeToString(new String(this.user+":"+this.pass).getBytes(), false));
 	    
-	    try {
-	    	if (nameValuePairs != null)
-	    		httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	        ResponseHandler<String> responseHandler=new BasicResponseHandler();
-	        response = httpclient.execute(httppost, responseHandler);
-	        Log.d("comm", "http-response "+response.toString());
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    	Log.d("comm", "http-error "+e.toString());
-	    }
+    	if (nameValuePairs != null)
+    		httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        ResponseHandler<String> responseHandler=new BasicResponseHandler();
+        response = httpclient.execute(httppost, responseHandler);
+        Log.d("comm", "http-response "+response.toString());
+
         return response;
 	}
 	
-	public String get(String url) {
+	public String get(String url) throws Exception {
 		Log.d("comm", this.host+url);
 		String response = null;
 		
@@ -57,14 +53,10 @@ public class Comm {
 	    if (user != null)
 	    	httpget.addHeader("Authorization", "Basic " + Base64.encodeToString(new String(this.user+":"+this.pass).getBytes(), false));
 	    
-	    try {
-	        ResponseHandler<String> responseHandler=new BasicResponseHandler();
-	        response = httpclient.execute(httpget, responseHandler);
-	        Log.d("comm", "http-response "+response.toString());
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    	Log.d("comm", "http-error "+e.toString());
-	    }
-        return response;
+	    ResponseHandler<String> responseHandler=new BasicResponseHandler();
+	    response = httpclient.execute(httpget, responseHandler);
+	    Log.d("comm", "http-response "+response.toString());
+	    
+	    return response;
 	}
 }
