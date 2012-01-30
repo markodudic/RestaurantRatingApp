@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout android:layout_width="fill_parent" 
+     	android:gravity="center" 
+     	android:layout_height="50dip"
+		android:orientation="horizontal">
+
+       <Button android:id="@+id/button_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location" />
+
+	    <TextView android:id="@+id/text_tips_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:includeFontPadding="false"
+	        android:gravity="center" 
+	        android:textSize="20sp"
+		  	restaurantrating:font_name="@string/font_text"
+	        android:textStyle="normal" 
+	        android:text="tips" />
+
+	    <Button android:id="@+id/button_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tip" />
+	 </LinearLayout>	        
+         	   
+    <ListView android:id="@+id/restuarant_tips_list"
+	       android:layout_width="fill_parent"
+	       android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:drawSelectorOnTop="false">
+	 </ListView>	 
+        
+        
+</LinearLayout>

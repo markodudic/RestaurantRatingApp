@@ -145,9 +145,8 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		        RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext());
 				lv.setAdapter(listAdapter);
 				
-				int l = jRestaurants.length();
-		  		TextView places = (TextView)findViewById(R.id.text_places_nearby);
-		  		places.setText(l + " " + getString(R.string.places_nearby));
+				TextView places = (TextView)findViewById(R.id.text_places_nearby);
+		  		places.setText(jRestaurants.length() + " " + getString(R.string.places_nearby));
 		  		
 	        } catch (Exception e) {
 				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));

@@ -7,23 +7,19 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import android.app.Activity;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class RestaurantRateActivity extends Activity implements OnClickListener {
 	
-	private String restaurants = "";
 	private String restaurantId;
 	private String rateFoodAvg;
 	private String rateAmbientAvg;
@@ -62,6 +58,10 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		mapButtonSubmit.setOnClickListener(this);
 		View settingsButtonSubmit = findViewById(R.id.button_settings); 
 		settingsButtonSubmit.setOnClickListener(this);
+		View tipsButtonSubmit = findViewById(R.id.button_tips); 
+		tipsButtonSubmit.setOnClickListener(this);
+		View photosButtonSubmit = findViewById(R.id.button_photos); 
+		photosButtonSubmit.setOnClickListener(this);
 
 
     }
@@ -200,6 +200,20 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			case R.id.button_map:
 				break;
 			case R.id.button_settings:
+				break;
+			case R.id.button_tips:
+		    	Intent intentRestaurantTips = new Intent(RestaurantRateActivity.this, RestaurantTipsActivity.class);
+			  	Bundle extras = new Bundle();
+			  	extras.putString("restaurant_id", restaurantId);
+			  	intentRestaurantTips.putExtra("si.kubit.restaurantrating.RestaurantTipsActivity", extras);
+			  	RestaurantRateActivity.this.startActivity(intentRestaurantTips);
+				break;
+			case R.id.button_photos:
+		    	Intent intentRestaurantPhotos = new Intent(RestaurantRateActivity.this, RestaurantPhotosActivity.class);
+			  	extras = new Bundle();
+			  	extras.putString("restaurant_id", restaurantId);
+			  	intentRestaurantPhotos.putExtra("si.kubit.restaurantrating.RestaurantPhotosActivity", extras);
+			  	RestaurantRateActivity.this.startActivity(intentRestaurantPhotos);
 				break;
     	}
 	}

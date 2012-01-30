@@ -34,7 +34,19 @@
       		android:launchMode="singleInstance"
 				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 			</activity>	
-			<activity android:name=".MessageBox" 
+      	<activity android:name=".RestaurantTipsActivity" 
+      		android:launchMode="singleInstance"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+			</activity>	
+     	<activity android:name=".RestaurantPhotosActivity" 
+      		android:launchMode="singleInstance"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+			</activity>	
+     	<activity android:name=".RestaurantPhotoActivity" 
+      		android:launchMode="singleInstance"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+			</activity>	
+     	<activity android:name=".MessageBox" 
 				android:label="@string/msg_body"
       		android:theme="@android:style/Theme.Dialog"  >
 			</activity>
