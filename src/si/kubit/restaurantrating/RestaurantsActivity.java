@@ -17,11 +17,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +38,8 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	private JSONArray jRestaurants;
     
 	private ListView lv;
+	private EditText filterText;
+	private RestaurantsListAdapter listAdapter;
 	
 	
     /** Called when the activity is first created. */
@@ -76,11 +81,11 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		
 		lv = (ListView) findViewById(R.id.restaurant_list);
         lv.setOnItemClickListener(new OnItemClickListener() {
-		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-		    	
+		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
 		    	try {
-		    		JSONObject jobject = (JSONObject) jRestaurants.getJSONObject(position);
-			    	
+		    		//JSONObject jobject = (JSONObject) jRestaurants.getJSONObject(position);
+		    		JSONObject jobject = (JSONObject) listAdapter.getItem(position);
+		    		
 			    	Intent intentRestaurantRate = new Intent(RestaurantsActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();
 				  	
@@ -91,9 +96,23 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		    	} catch (Exception e) {e.printStackTrace();}
 		    }				
 		});
+        
+        filterText = (EditText) findViewById(R.id.text_search);
+        filterText.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(Editable s) {
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			}
+
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (listAdapter != null)
+					listAdapter.filter(s);
+			}
+        });
 
     }
-    
+
 	private void registerListener() { 
 		locationManager.requestLocationUpdates(provider, 0, 0, locationListener);
 		//zaradi emulatorja
@@ -104,13 +123,12 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() { 
 		super.onResume();
-		registerListener();
+		//registerListener();
 	}
 	
     @Override
     protected void onPause() {
     	super.onPause();
-		//finish(); 
     }
 
     public void onClick(View v) {
@@ -142,7 +160,7 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	        	jRestaurants = (JSONArray)new JSONTokener(restaurants).nextValue();
 	        	Log.d("+++++++++++++", jRestaurants.toString());
 			  	
-		        RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext());
+		        listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext());
 				lv.setAdapter(listAdapter);
 				
 				TextView places = (TextView)findViewById(R.id.text_places_nearby);

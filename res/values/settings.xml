@@ -2,8 +2,8 @@
 <resources> 
 	<!-- string name="server_url">http://10.0.2.2:8080/RestaurantRating/</string-->
 	<!-- string name="server_url">http://93.103.12.155:8080/RestaurantRating/</string -->
-	<string name="server_url">http://192.168.1.107:8080/RestaurantRating/</string>
-	<!-- string name="server_url">http://192.168.1.103:8080/RestaurantRating/</string -->
+	<!-- string name="server_url">http://192.168.1.107:8080/RestaurantRating/</string -->
+	<string name="server_url">http://192.168.1.103:8080/RestaurantRating/</string>
 	<string name="server_user"></string>
 	<string name="server_pass"></string>
 

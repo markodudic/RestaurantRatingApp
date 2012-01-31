@@ -17,6 +17,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 
 	  private Activity activity;
 	  private JSONArray jdata;
+	  private JSONArray jdataAll;
 	  private static LayoutInflater inflater=null;
 	  private Context context;
 	 
@@ -24,6 +25,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	      this.activity = a;  
 	      this.context = context;
 	      this.jdata = jdata;
+	      this.jdataAll = jdata;
 
 	      RestaurantsListAdapter.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);      
 	  }
@@ -32,10 +34,25 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	  	return jdata.length();    	
 	  }
 	 
-	  public Object getItem(int position) {
-	      return position;
+	  public int getCountAll() {
+		  	return jdataAll.length();    	
 	  }
-	 
+
+	  public Object getItem(int position) {
+	      try {
+	    	  return jdata.getJSONObject(position);
+	      } catch (Exception e) {e.printStackTrace();}
+	      return null;
+	  }
+
+	  public Object getItemAll(int position) {
+	      try {
+	    	  return jdataAll.getJSONObject(position);
+	      } catch (Exception e) {e.printStackTrace();}
+	      return null;
+	  }
+
+		
 	  public long getItemId(int position) {
 	      return position;
 	  }
@@ -71,11 +88,29 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
 	    	  holder.textRate.setText(jobject.getString("rateAvg"));
 			  holder.textReviews.setText(jobject.getString("rateCount")+" "+context.getString(R.string.reviews));
-			  holder.textRestaurantName.setText(jobject.getString("name"));
-			  holder.textRestaurantCategory.setText(jobject.getString("category"));
+			  holder.textRestaurantName.setText(jobject.getString("name").toUpperCase());
+			  holder.textRestaurantCategory.setText(jobject.getString("category").toUpperCase());
 			  holder.textRestaurantDistance.setText(jobject.getString("distance")+" "+context.getString(R.string.distance));
 	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return vi;
 	  }
+
+	  
+	  public void filter(CharSequence s) {
+	      try {
+			  jdata = new JSONArray();
+			  for (int i=0; i<getCountAll(); i++) {
+				  JSONObject jobject=(JSONObject)this.getItemAll(i);
+				  String name = jobject.getString("name"); 
+				  String srch = (s+"").toUpperCase();
+				  Log.d(name.toUpperCase(), srch);
+				  if (name.toUpperCase().contains(srch)) {
+					  jdata.put(jobject);
+				  }		       
+			  }
+			  notifyDataSetChanged();
+	      } catch (Exception e) {e.printStackTrace();}
+	  }
+
 }
