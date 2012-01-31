@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	 xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+	xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+    android:id="@+id/user_rate_layout"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    style="@style/UserRateList"
+    android:gravity="top" >
 
-    <TextView android:id="@+id/text_rate"
-        android:layout_marginTop="1dip"
+    <si.kubit.restaurantrating.TextViewFont 
+        android:id="@+id/text_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="60sp"
-		  restaurantrating:font_name="@string/font_text"
-	     android:textStyle="normal" />
+        restaurantrating:font_name="@string/font_big_text"
+        style="@style/TextRate" />
         
     <LinearLayout
         android:id="@+id/twoLineListItem1"
+        android:paddingTop="5dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:paddingTop="5px" 
-        android:paddingBottom="5px"
-	     android:textStyle="normal" >
+        android:orientation="vertical" >
 	
-	    <TextView android:id="@+id/text_user"
-	        android:layout_marginTop="1dip"
+	    <si.kubit.restaurantrating.TextViewFont
+	        android:id="@+id/text_user"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:textSize="30sp"
-		  	  restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal" />
+		  	restaurantrating:font_name="@string/font_big_text"
+	        style="@style/TextUser" />
 	
-	    <TextView android:id="@+id/text_restaurant"
+	    <si.kubit.restaurantrating.TextViewFont
+	        android:id="@+id/text_restaurant"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:textSize="20sp"
-		  	  restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal" />
+	        restaurantrating:font_name="@string/font_list_small"
+	        style="@style/TextUserUnder.Blue" />
 
-	    <TextView android:id="@+id/text_hours_ago"
+	    <si.kubit.restaurantrating.TextViewFont
+	        android:id="@+id/text_hours_ago"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:textSize="15sp"
-		  	  restaurantrating:font_name="@string/font_text"
-	        android:textStyle="normal" />
+	        restaurantrating:font_name="@string/font_list_small"
+	        style="@style/TextUserUnder" />
     </LinearLayout>
 
 	

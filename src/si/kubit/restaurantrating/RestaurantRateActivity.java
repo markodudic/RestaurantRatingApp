@@ -191,7 +191,6 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
     	super.onPause();
     	mHandler.removeCallbacks(mSetRatesTask);
     	mHandler.removeCallbacks(mShowRatesTask);
-    	finish(); 
     }
 
     public void onClick(View v) {

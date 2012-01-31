@@ -19,7 +19,7 @@ public class TextViewFont extends TextView {
     	super(context, attrs);
 		TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.restaurantrating, 0, 0);
 		String fontName = array.getString(R.styleable.restaurantrating_font_name);
-		if (fontName == null) fontName = context.getString(R.string.font_text);
+		if (fontName == null) fontName = context.getString(R.string.font_big_text);
 		Typeface font = Typeface.createFromAsset(context.getAssets(), fontName);  
     	this.setTypeface(font); 
     }

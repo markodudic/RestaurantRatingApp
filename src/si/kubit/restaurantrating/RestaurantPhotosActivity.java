@@ -18,7 +18,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -47,17 +46,10 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
         grid.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
     	        try { 
-    	        	JSONObject jData = (JSONObject)jPhotos.get(arg2);
-    	        	JSONArray photos = (JSONArray)((JSONObject)jData.get("sizes")).get("items");
-			        String imageUri = ((JSONObject)photos.get(0)).getString("url");
-			        JSONObject user = (JSONObject)jData.get("user");
-    	        	
 			        Intent intentRestaurantPhoto = new Intent(RestaurantPhotosActivity.this, RestaurantPhotoActivity.class);
 				  	Bundle extras = new Bundle();
-				  	extras.putString("count", jPhotos.length()+"");
-				  	extras.putString("selected", arg2+"");
-				  	extras.putString("photo_url", imageUri);
-				  	extras.putString("user", user.getString("firstName") + " " + user.getString("lastName"));
+				  	extras.putString("photos", jPhotos.toString());
+				  	extras.putInt("position", arg2);
 				  	intentRestaurantPhoto.putExtra("si.kubit.restaurantrating.RestaurantPhotoActivity", extras);
 				  	RestaurantPhotosActivity.this.startActivity(intentRestaurantPhoto);
     	        } catch (Exception e) {}
@@ -78,7 +70,6 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     @Override
     protected void onPause() {
     	super.onPause();
-		//finish(); 
     } 
 
     public void onClick(View v) {
@@ -172,8 +163,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 				return null;
 			}
 	    }
-
-
-	    
 	}
+
+
 }

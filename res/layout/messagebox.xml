@@ -6,7 +6,7 @@
 	android:padding="10dip" > 
 	
 	<si.kubit.restaurantrating.TextViewFont android:id="@+id/msg_body" 
-		restaurantrating:font_name="@string/font_text"
+		restaurantrating:font_name="@string/font_list_small"
 		style="@style/MessageBoxText"
 		android:text="@string/msg_text" 
 		android:layout_width="wrap_content" 

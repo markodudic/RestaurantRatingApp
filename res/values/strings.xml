@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, RestaurantRatingAppActivity!</string>
-    <string name="app_name">Restaurant Rating</string>
+    <string name="app_name">APP TITLE</string>
     <string name="hours_ago">HOURS AGO</string>
     <string name="reviews">REV</string>
     <string name="distance">m</string>

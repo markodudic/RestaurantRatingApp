@@ -6,11 +6,13 @@ import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class UserRatesListAdapter extends BaseAdapter {
@@ -60,7 +62,7 @@ public class UserRatesListAdapter extends BaseAdapter {
 	          holder.textUser=(TextView)vi.findViewById(R.id.text_user);
 	          holder.textRestaurant = (TextView)vi.findViewById(R.id.text_restaurant);
 	          holder.textHoursAgo = (TextView)vi.findViewById(R.id.text_hours_ago);
-	 
+	          
 	          vi.setTag(holder);
 	      }
 	      else {
@@ -70,10 +72,23 @@ public class UserRatesListAdapter extends BaseAdapter {
 	      try {
 	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
 		      holder.textRate.setText(jobject.getString("avgRate"));
-			  holder.textUser.setText(jobject.getString("userName")+" "+jobject.getString("userSurname"));
-			  holder.textRestaurant.setText(jobject.getString("restaurantName"));
+			  holder.textUser.setText((jobject.getString("userName")+" "+jobject.getString("userSurname")).toUpperCase());
+			  holder.textRestaurant.setText(jobject.getString("restaurantName").toUpperCase());
 			  holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
-	      } catch (Exception e) {}
+			  
+			  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.user_rate_layout);
+        	  if (position%2==0) {
+	        	  lh.setBackgroundColor(context.getResources().getColor(R.color.secondListColor));
+		          holder.textRate.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textUser.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	          }	 else {
+	        	  lh.setBackgroundColor(context.getResources().getColor(R.color.firstListColor));
+		          holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  holder.textUser.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.secondListColor));  	  
+	          }
+	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return vi;
 	  }
