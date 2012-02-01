@@ -10,14 +10,12 @@
 	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="settings" />
+            android:background="@drawable/settings"
+    		android:layout_width="37sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="10dip" />
 
-		<LinearLayout 
-	    	android:layout_weight="1"
-	    	android:layout_width="0dip"
-	    	android:layout_height="0dip"/>
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
 
 	    <si.kubit.restaurantrating.TextViewFont 
 	        android:id="@+id/text_app_title"
@@ -28,15 +26,13 @@
 	        style="@style/AppTitle" 
 	    	android:text="@string/app_name" />
 
-	    <LinearLayout 
-	    	android:layout_weight="1"
-	    	android:layout_width="0dip"
-	    	android:layout_height="0dip"/>
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
 	    
 	    <Button android:id="@+id/button_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="map" />
+            android:background="@drawable/map"
+    		android:layout_width="46sp"
+            android:layout_height="38sp"
+            android:layout_marginRight="10dip"  />
 	 </LinearLayout>	        
          	   
     <ListView android:id="@+id/user_rates_list"
@@ -50,21 +46,75 @@
      	android:gravity="center" 
 	   android:layout_height="50dip"
 		android:orientation="horizontal">
-       <Button android:id="@+id/button_friends"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="friends" />
 
-       <Button android:id="@+id/button_rate"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="rate" />
+        <LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+        
+	    <LinearLayout android:layout_width="wrap_content" 
+	     	android:gravity="center" 
+		   	android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+	       <Button android:id="@+id/button_friends"
+	           android:background="@drawable/friends"
+	           android:layout_width="39sp"
+	           android:layout_height="26sp" />
+	       
+		    <si.kubit.restaurantrating.TextViewFont
+		        android:id="@+id/text_user"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:includeFontPadding="false"
+			  	restaurantrating:font_name="@string/font_small_text"
+		        style="@style/TextUser.Small"
+		        android:text="@string/friends" />
+       </LinearLayout>
 
-       <Button android:id="@+id/button_user"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="user" />
-
+        <LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+        
+	    <LinearLayout android:layout_width="wrap_content" 
+	     	android:gravity="center" 
+		   	android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+	       <Button android:id="@+id/button_rate"
+           		android:background="@drawable/rate_food"
+    	   		android:layout_width="40sp"
+           		android:layout_height="63sp" />
+	       
+		    <si.kubit.restaurantrating.TextViewFont
+		        android:id="@+id/text_user"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:includeFontPadding="false"
+			  	restaurantrating:font_name="@string/font_small_text"
+		        style="@style/TextUser.Small"
+		        android:text="@string/rate_food" />
+       </LinearLayout>
+       
+	    
+       <LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+       
+	    <LinearLayout android:layout_width="wrap_content" 
+	     	android:gravity="center" 
+		   	android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+	       <Button android:id="@+id/button_user"
+	           android:background="@drawable/user"
+	           android:layout_width="30sp"
+	           android:layout_height="26sp" />
+	       
+		    <si.kubit.restaurantrating.TextViewFont
+		        android:id="@+id/text_user"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        restaurantrating:font_name="@string/font_small_text"
+		        style="@style/TextUser.Small"
+		        android:text="@string/user" />
+       </LinearLayout>
+       
+       <LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+       
     </LinearLayout>	        
         
 </LinearLayout>

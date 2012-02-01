@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="MessageBoxText">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    
 	<style name="AppTitleLayout">
       <item name="android:layout_height">50dip</item>
       <item name="android:gravity">center</item>
@@ -15,175 +20,87 @@
       <item name="android:gravity">center</item>
    	</style>
 
+	<style name="SearchLayout">
+      <item name="android:gravity">center</item>
+      <item name="android:background">#9789a2</item>
+   	</style>
+	
+	<style name="Search">
+      <item name="android:textColor">#000000</item>
+      <item name="android:textSize">20sp</item>
+      <item name="android:paddingTop">0dip</item>
+      <item name="android:paddingBottom">0dip</item>
+      <item name="android:gravity">center_vertical|left</item>
+   	</style>
+
+	
 	<style name="TextRate">
       <item name="android:textSize">75sp</item>
       <item name="android:paddingBottom">0dip</item>
       <item name="android:paddingLeft">10dip</item>
       <item name="android:paddingRight">20dip</item>
 	  <item name="android:gravity">top|center_horizontal</item>
+      <item name="android:textColor">#ffffff</item>
+	</style>
+	
+	<style name="TextRate.Big">
+      <item name="android:textSize">95sp</item>
    	</style>
-		
+   			
 	<style name="TextUser">
       <item name="android:textSize">36sp</item>
       <item name="android:paddingTop">0dip</item>
       <item name="android:paddingBottom">0dip</item>
-      <item name="android:gravity">center</item>
-   	</style>
+      <item name="android:gravity">left</item>
+      <item name="android:textColor">#ffffff</item>
+    </style>
 
 	<style name="TextUserUnder">
-      <item name="android:textSize">14sp</item>
+      <item name="android:textSize">12sp</item>
       <item name="android:paddingTop">0dip</item>
       <item name="android:paddingBottom">0dip</item>
       <item name="android:gravity">center</item>
-   	</style>
+      <item name="android:textColor">#ffffff</item>
+  	</style>
 		
 	<style name="TextUserUnder.Blue">
       <item name="android:textColor">#00c6d2</item>
    	</style>
-	
+
+	<style name="TextUserUnder.Blue.Left">
+      <item name="android:gravity">center_vertical|left</item>
+   	</style>
+		
 	<style name="UserRateList">
       <item name="android:background">#ffffff</item>
    	</style>
 		
+	<style name="TextUser.Small">
+      <item name="android:textSize">13sp</item>
+   	  <item name="android:gravity">center</item>
+    </style>
+			
+	<style name="TextRestaurant">
+      <item name="android:textSize">40sp</item>
+      <item name="android:paddingTop">0dip</item>
+      <item name="android:paddingBottom">0dip</item>
+      <item name="android:gravity">left</item>
+      <item name="android:textColor">#ffffff</item>
+    </style>	
+
+	<style name="TextRateItem">
+      <item name="android:textSize">40sp</item>
+      <item name="android:paddingTop">0dip</item>
+      <item name="android:paddingBottom">0dip</item>
+      <item name="android:paddingLeft">10dip</item>
+      <item name="android:gravity">left</item>
+      <item name="android:textColor">#000000</item>
+    </style>
+
+	<style name="TextUserUnder.Big">
+      <item name="android:textSize">24sp</item>
+  	</style>
+	
 		
 	
-	
-	
-	
-		
-	
-	
-	
-	
-	<style name="MenuText">
-        <item name="android:textColor">#000000</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-	<style name="MessageBoxText">
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-	<style name="MenuText.Small">
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_width">250sp</item>
-    </style>
-
-	<style name="MenuText.Checkbox">
-        <item name="android:textSize">16sp</item>
-    </style>
-
-	<style name="EditText">
-        <item name="android:layout_width">250sp</item>
-    </style>
-
-	<style name="SeekBar">
-        <item name="android:layout_width">200sp</item>
-    </style>
-
-	<style name="MenuLayout">
-        <item name="android:layout_width">250sp</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-	<style name="LayoutBorderHorizontal">
-        <item name="android:layout_width">16dip</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-    
-	<style name="LayoutBorderVertical">
-        <item name="android:layout_height">16dip</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-    
-    <style name="MenuText.Score">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">40sp</item>
-        <item name="android:layout_width">250sp</item>
-    </style>
-    
-	<style name="ButtonText">
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">16dip</item>
-        <item name="android:gravity">center</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowRadius">2</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">-1</item>
-    </style>   
-    
-	<style name="ButtonText.Main">
-        <item name="android:width">170dip</item>
-    </style>   
-
-	<style name="ButtonText.Long">
-        <item name="android:layout_width">520dip</item>
-    </style>
-       
-	<style name="ButtonText.Middle">
-        <item name="android:layout_width">250dip</item>
-    </style>
-
-	<style name="ButtonText.Short">
-        <item name="android:layout_width">170dip</item>
-    </style>   
-
-	<style name="ButtonText.Play">
-        <item name="android:textSize">40dip</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:paddingTop">165dip</item>
-        <item name="android:paddingLeft">50dip</item>
-    </style>
-
-	<style name="ButtonText.PlaySmall">
-        <item name="android:textSize">18dip</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center_vertical|center_horizontal</item>
-    </style>
-
-	<style name="Anchor">
-        <item name="android:textSize">16dip</item>
-        <item name="android:gravity">center_vertical|left</item>
-        <item name="android:textColor">#BD5012</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:layout_height">42dip</item>
-        <item name="android:layout_width">250sp</item>
-    </style>
-    
-	<style name="ChecboxLayout">
-        <item name="android:layout_height">42dip</item>
-    </style>
-    
-    <style name="ScoreText">
-        <item name="android:textColor">#000000</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-    
-    <style name="ScoreText.Bold">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="ScoreText.Right">
-        <item name="android:gravity">right</item>
-    </style>
-    
-    <style name="ScoreText.Bold.Right">
-        <item name="android:gravity">right</item>
-    </style>    
-
-    <style name="ScoreText.Bold.Left">
-        <item name="android:gravity">left</item>
-    </style>    
-
-    <style name="ScoreText.Bold.Left.Big">
-        <item name="android:textSize">20sp</item>
-    </style>    
-
-    <style name="ScoreTable">
-        <item name="android:layout_width">500dip</item>
-    </style> 
-
-       
 </resources>

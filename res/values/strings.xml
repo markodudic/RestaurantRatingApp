@@ -7,8 +7,8 @@
     <string name="reviews">REV</string>
     <string name="distance">m</string>
     <string name="places_nearby">places nearby</string>
-    <string name="tips">user tips</string>
-    <string name="photos">user photos</string>
+    <string name="tips">USER TIPS</string>
+    <string name="photos">USER PHOTOS</string>
     <string name="tip_food">FOOD</string>
     <string name="tip_ambient">AMBIENT</string>
     <string name="tip_service">SERVICE</string>
@@ -20,6 +20,12 @@
     <string name="photos_small">PHOTOS</string>
     <string name="of">of</string>
     <string name="search">Search</string>
+    <string name="user">User</string>
+    <string name="friends">Friends</string>
+    <string name="rate_food">Rate food</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    
     
 	<string name="location_error">Lokacijo ni možno določiti. Preverite če imate prižgan GPS.</string> 
 	<string name="location_title">Določanje lokacije</string> 

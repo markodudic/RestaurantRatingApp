@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class RestaurantsListAdapter extends BaseAdapter {
@@ -91,6 +92,22 @@ public class RestaurantsListAdapter extends BaseAdapter {
 			  holder.textRestaurantName.setText(jobject.getString("name").toUpperCase());
 			  holder.textRestaurantCategory.setText(jobject.getString("category").toUpperCase());
 			  holder.textRestaurantDistance.setText(jobject.getString("distance")+" "+context.getString(R.string.distance));
+			  
+			  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.restaurants_layout);
+        	  if (position%2==0) {
+	        	  lh.setBackgroundColor(context.getResources().getColor(R.color.secondListColor));
+		          holder.textRate.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textReviews.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textRestaurantName.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textRestaurantDistance.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	          }	 else {
+	        	  lh.setBackgroundColor(context.getResources().getColor(R.color.firstListColor));
+		          holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  holder.textReviews.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  holder.textRestaurantName.setTextColor(context.getResources().getColor(R.color.secondListColor));  	  
+	        	  holder.textRestaurantDistance.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	          }
+			  
 	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return vi;

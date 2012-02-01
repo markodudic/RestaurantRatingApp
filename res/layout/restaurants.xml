@@ -6,44 +6,49 @@
     android:orientation="vertical" >
 
     <LinearLayout android:layout_width="fill_parent" 
-     	android:gravity="center" 
-	   android:layout_height="50dip"
-		android:orientation="horizontal">
+		style="@style/AppTitleLayout" 
+	    android:orientation="horizontal">
 
-       <Button android:id="@+id/button_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="settings" />
+       <Button android:id="@+id/button_cancel"
+            android:background="@drawable/cancel"
+    		android:layout_width="83sp"
+            android:layout_height="34sp"
+            android:layout_marginLeft="10dip"
+            style="@style/TextUser.Small"
+		    android:text="@string/cancel" />
 
-	    <TextView android:id="@+id/text_app_title"
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+
+	    <si.kubit.restaurantrating.TextViewFont 
+	        android:id="@+id/text_app_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:gravity="center" 
-	   	  android:textSize="20sp"
-		  	  restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal" 
-	        android:text="@string/app_name" />
+	        restaurantrating:font_name="@string/font_big_text"
+	        style="@style/AppTitle" 
+	    	android:text="@string/app_name" />
 
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+	    
 	    <Button android:id="@+id/button_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="map" />
-	 </LinearLayout>	        
+            android:background="@drawable/map"
+    		android:layout_width="46sp"
+            android:layout_height="38sp"
+            android:layout_marginRight="10dip"  />
+	 </LinearLayout>        
          	   
     <LinearLayout android:layout_width="fill_parent" 
-     	android:gravity="center" 
-	   android:layout_height="wrap_content"
-		android:orientation="horizontal">
+     	android:layout_height="wrap_content"
+		style="@style/SearchLayout" 
+	    android:orientation="horizontal">
 
 	   <EditText 
-	   	android:layout_width="fill_parent" 
-	   	android:layout_height="40sp" 
-	   	android:id="@+id/text_search"
-	      android:gravity="left" 
-	   	android:textSize="20sp"
-		  	android:hint="@string/search"
-        restaurantrating:font_name="@string/font_list_small" />
+	   		android:layout_width="fill_parent" 
+	   		android:layout_height="40sp" 
+	   		android:id="@+id/text_search"
+	      	android:hint="@string/search"
+        	style="@style/Search" 
+	    	restaurantrating:font_name="@string/font_list_small" />
 	 </LinearLayout>	        
         
     <ListView android:id="@+id/restaurant_list"
@@ -56,17 +61,14 @@
    
     <LinearLayout android:layout_width="fill_parent" 
      	android:gravity="center" 
-	   android:layout_height="50dip"
+	   	android:layout_height="50dip"
 		android:orientation="horizontal">
 	    <TextView android:id="@+id/text_places_nearby"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:gravity="center" 
-	   	  android:textSize="20sp"
-		  	  restaurantrating:font_name="@string/font_list_small"
-	        android:textStyle="normal" 
-	        android:text="places nearby" />
+	        restaurantrating:font_name="@string/font_list_small"
+	        style="@style/TextUser.Small"
+		    android:text="@string/places_nearby" />
 
     </LinearLayout>	        
         

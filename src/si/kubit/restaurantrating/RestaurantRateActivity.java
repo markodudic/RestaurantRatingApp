@@ -56,8 +56,8 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 
 		View mapButtonSubmit = findViewById(R.id.button_map); 
 		mapButtonSubmit.setOnClickListener(this);
-		View settingsButtonSubmit = findViewById(R.id.button_settings); 
-		settingsButtonSubmit.setOnClickListener(this);
+		View backButtonSubmit = findViewById(R.id.button_back); 
+		backButtonSubmit.setOnClickListener(this);
 		View tipsButtonSubmit = findViewById(R.id.button_tips); 
 		tipsButtonSubmit.setOnClickListener(this);
 		View photosButtonSubmit = findViewById(R.id.button_photos); 
@@ -80,22 +80,24 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			rateServiceAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateServiceAvg")));
 			rateValueAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateValueAvg")));
 
-			TextView textRate = (TextView)this.findViewById(R.id.text_rate);
+			TextView restaurantNameValue = (TextView) findViewById(R.id.text_restaurnt_name);
+	        TextView textRate = (TextView)this.findViewById(R.id.text_rate);
 			TextView textReviews=(TextView)this.findViewById(R.id.text_reviews);
 			TextView textRestaurantName = (TextView)this.findViewById(R.id.text_restaurant_name);
 			TextView textRestaurantCategory = (TextView)this.findViewById(R.id.text_restaurant_category);
 			TextView textRestaurantDistance = (TextView)this.findViewById(R.id.text_restaurant_distance);
-			Button buttonTips = (Button)this.findViewById(R.id.button_tips);
-			Button buttonPhotos = (Button)this.findViewById(R.id.button_photos);
+			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
+			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
 			textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
 			
+			restaurantNameValue.setText(jobject.getString("name").toUpperCase());
 			textRate.setText(decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg"))));
 			textReviews.setText(jobject.getString("rateCount")+" "+getString(R.string.reviews));
-			textRestaurantName.setText(jobject.getString("name"));
-			textRestaurantCategory.setText(jobject.getString("category"));
+			textRestaurantName.setText(jobject.getString("name").toUpperCase());
+			textRestaurantCategory.setText(jobject.getString("category").toUpperCase());
 			textRestaurantDistance.setText(jobject.getString("distance")+" "+getString(R.string.distance));
-			buttonTips.setText(getString(R.string.tips) + " (" + jobject.getString("tipCount") + ")");
-			buttonPhotos.setText(getString(R.string.photos) + " (" + jobject.getString("photoCount") + ")");
+			buttonTips.setText(getString(R.string.tips) + "\n (" + jobject.getString("tipCount") + ")");
+			buttonPhotos.setText(getString(R.string.photos) + "\n (" + jobject.getString("photoCount") + ")");
 			textRateTitle.setText(getString(R.string.rate_title));
 			
 			mHandler.removeCallbacks(mSetRatesTask);
@@ -198,7 +200,9 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		switch (v.getId()) { 
 			case R.id.button_map:
 				break;
-			case R.id.button_settings:
+			case R.id.button_back:
+		    	Intent intentRestaurants = new Intent(RestaurantRateActivity.this, RestaurantsActivity.class);
+			  	RestaurantRateActivity.this.startActivity(intentRestaurants);
 				break;
 			case R.id.button_tips:
 		    	Intent intentRestaurantTips = new Intent(RestaurantRateActivity.this, RestaurantTipsActivity.class);

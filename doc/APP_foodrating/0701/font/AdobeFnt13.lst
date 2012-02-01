@@ -1,0 +1,243 @@
+%!Adobe-FontList 1.13
+%Locale:0x424
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\License.txt
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:SteelfishRg-Regular
+FamilyName:Steelfish
+StyleName:Regular
+FullName:SteelfishRg-Regular
+MenuName:Steelfish Rg
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\steelfish_rg.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:43592
+FileModTime:1327651944
+WeightClass:400
+WidthClass:5
+AngleClass:0
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\@Font-Face License.txt
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\how_to_use_webfonts.html
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\steelfish_regular_macroman\steelfish_rg-demo.html
+FileModTime:1327651945
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\steelfish_regular_macroman\steelfish_rg-webfont.eot
+FileModTime:1327651945
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\steelfish_regular_macroman\steelfish_rg-webfont.svg
+FileModTime:1327651945
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\steelfish_regular_macroman\steelfish_rg-webfont.ttf
+FileModTime:1327651945
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\steelfish_regular_macroman\steelfish_rg-webfont.woff
+FileModTime:1327651945
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\web fonts\steelfish_regular_macroman\stylesheet.css
+FileModTime:1327651945
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINEngschrift.20
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:DINEngschrift
+FamilyName:DINEngschrift
+StyleName:Regular
+FullName:DINEngschrift
+MenuName:DINEngschrift
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINEngschrift.TTF
+DataFormat:sfntData
+FileLength:37408
+FileModTime:1327651944
+WeightClass:400
+WidthClass:5
+AngleClass:0
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINEngschriftAlternate.20
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:DINEngschriftAlternate
+FamilyName:DINEngschrift
+StyleName:Alternate
+FullName:DINEngschrift Alternate
+MenuName:DINEngschrift
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINEngschriftAlternate.TTF
+DataFormat:sfntData
+FileLength:37520
+FileModTime:1327651944
+WeightClass:400
+WidthClass:5
+AngleClass:0
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINMittelschrift.20
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:DINMittelschrift
+FamilyName:DINMittelschrift
+StyleName:Regular
+FullName:DINMittelschrift
+MenuName:DINMittelschrift
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINMittelschrift.TTF
+DataFormat:sfntData
+FileLength:37780
+FileModTime:1327651944
+WeightClass:400
+WidthClass:5
+AngleClass:0
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINMittelschriftAlternate.20
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:DINMittelschriftAlternate
+FamilyName:DINMittelschrift
+StyleName:Alternate
+FullName:DINMittelschrift Alternate
+MenuName:DINMittelschrift
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINMittelschriftAlternate.TTF
+DataFormat:sfntData
+FileLength:37952
+FileModTime:1327651944
+WeightClass:400
+WidthClass:5
+AngleClass:0
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINNeuzeitGroteskBoldCond.20
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:DINNeuzeitGroteskBoldCond
+FamilyName:DINNeuzeitGrotesk
+StyleName:BoldCond
+FullName:DINNeuzeitGrotesk BoldCond
+MenuName:DINNeuzeitGrotesk
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINNeuzeitGroteskBoldCond.TTF
+DataFormat:sfntData
+FileLength:36752
+FileModTime:1327651944
+WeightClass:400
+WidthClass:5
+AngleClass:0
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINNeuzeitGroteskLight.20
+FileModTime:1327651944
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:DINNeuzeitGroteskLight
+FamilyName:DINNeuzeitGrotesk
+StyleName:Light
+FullName:DINNeuzeitGrotesk Light
+MenuName:DINNeuzeitGrotesk
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\projects\android\RestaurantRatingApp\doc\APP_foodrating\0701\Font\DIN slo\DINNeuzeitGroteskLight.TTF
+DataFormat:sfntData
+FileLength:37504
+FileModTime:1327651944
+WeightClass:300
+WidthClass:5
+AngleClass:0
+%EndFont
+

@@ -89,9 +89,9 @@ public class RestaurantRateItemLayout extends LinearLayout implements OnClickLis
 		for (int i=0; i<rateitems.length; i++) {
 			TextView rateItem = (TextView) rateitems[i];
     		if (i < sel)
-    			rateItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_press));
+    			rateItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_1_press));
     		else
-    			rateItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item));
+    			rateItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_1));
     	}
 		
 		

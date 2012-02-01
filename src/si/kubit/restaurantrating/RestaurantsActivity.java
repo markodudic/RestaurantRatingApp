@@ -51,8 +51,8 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		
 		View mapButtonSubmit = findViewById(R.id.button_map); 
 		mapButtonSubmit.setOnClickListener(this);
-		View settingsButtonSubmit = findViewById(R.id.button_settings); 
-		settingsButtonSubmit.setOnClickListener(this);
+		View cancelButtonSubmit = findViewById(R.id.button_cancel); 
+		cancelButtonSubmit.setOnClickListener(this);
 
 		// Acquire a reference to the system Location Manager
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -136,7 +136,9 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 			case R.id.button_map:
 				registerListener();
 				break;
-			case R.id.button_settings:
+			case R.id.button_cancel:
+		    	Intent intentUserRates = new Intent(RestaurantsActivity.this, UserRatesActivity.class);
+			  	RestaurantsActivity.this.startActivity(intentUserRates);
 				break;
     	}
 	}
