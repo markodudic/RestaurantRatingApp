@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    style="@style/LayoutDefaultLight">
 
     <ImageView android:id="@+id/icon_user" 
-      android:layout_width="72px"
-      android:layout_height="fill_parent"
-      android:layout_marginTop="5px" />
+      android:layout_width="80px"
+      android:layout_height="80px"
+      android:layout_marginTop="10px"
+      android:layout_marginLeft="10px"
+      android:layout_marginBottom="10px"
+      android:layout_marginRight="10px" />
     
     
     <LinearLayout
@@ -16,24 +20,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" 
         android:paddingTop="5px" 
-        android:paddingBottom="5px"
-	     android:textStyle="normal" >
+        android:paddingBottom="5px" >
 	
 	    <TextView android:id="@+id/text_tip"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:textSize="20sp"
-	        restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal" />
+	        restaurantrating:font_name="@string/font_list_small" 
+	        style="@style/TextTip" />
 
 	    <TextView android:id="@+id/text_user"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:includeFontPadding="false"
-	        android:textSize="15sp"
-	        restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal" />
+	        restaurantrating:font_name="@string/font_list_small" 
+	        style="@style/TextUserUnder.Blue" />
     </LinearLayout>
 
 	

@@ -73,9 +73,10 @@ public class RestaurantTipsListAdapter extends BaseAdapter {
 
 	      try {
 	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
-		      holder.textTip.setText(jobject.getString("text"));
-			  holder.textUser.setText(((JSONObject)jobject.getJSONObject("user")).getString("firstName"));
-			  String imageStr = ((JSONObject)jobject.getJSONObject("user")).getString("photo");
+		      holder.textTip.setText(jobject.getString("text").toUpperCase());
+		      JSONObject user = (JSONObject)jobject.getJSONObject("user");
+		      holder.textUser.setText(user.getString("firstName").toUpperCase() + (user.has("lastName")?" " + user.getString("lastName").toUpperCase():""));
+			  String imageStr = user.getString("photo");
 			  Drawable image = ImageOperations(imageStr);
 			  holder.imageUser.setImageDrawable(image);
 	      } catch (Exception e) {}

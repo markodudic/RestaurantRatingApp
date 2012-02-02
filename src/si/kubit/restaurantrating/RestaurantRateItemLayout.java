@@ -1,9 +1,8 @@
 package si.kubit.restaurantrating;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
-import android.os.Bundle;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,8 @@ public class RestaurantRateItemLayout extends LinearLayout implements OnClickLis
 	TextView rate_item_value;
 	TextView[] rateitems = new TextView[5];
 	int rateItemSelected = 0;
-
+	Drawable rateItem;
+	Drawable rateItemPress;
 	
 	
 	public RestaurantRateItemLayout(Context context) {
@@ -38,28 +38,34 @@ public class RestaurantRateItemLayout extends LinearLayout implements OnClickLis
 		
 		TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.restaurantrating, 0, 0);
 		String text = array.getString(R.styleable.restaurantrating_rate_item_text);
+		rateItem = array.getDrawable(R.styleable.restaurantrating_rate_item);
+		rateItemPress = array.getDrawable(R.styleable.restaurantrating_rate_item_press);
 
 		TextView t = (TextView)findViewById(R.id.text_rate_item);
 		t.setText(text);
 		
 		rateItem1 = (TextView) findViewById(R.id.rate_item_1); 
 		rateItem1.setOnClickListener(this);
+		rateItem1.setBackgroundDrawable(rateItem);
 		rateitems[0] = rateItem1;
 		rateItem2 = (TextView) findViewById(R.id.rate_item_2); 
 		rateItem2.setOnClickListener(this);
+		rateItem2.setBackgroundDrawable(rateItem);
 		rateitems[1] = rateItem2;
 		rateItem3 = (TextView) findViewById(R.id.rate_item_3); 
 		rateItem3.setOnClickListener(this);
+		rateItem3.setBackgroundDrawable(rateItem);
 		rateitems[2] = rateItem3;
 		rateItem4 = (TextView) findViewById(R.id.rate_item_4); 
 		rateItem4.setOnClickListener(this);
+		rateItem4.setBackgroundDrawable(rateItem);
 		rateitems[3] = rateItem4;
 		rateItem5 = (TextView) findViewById(R.id.rate_item_5); 
 		rateItem5.setOnClickListener(this);
+		rateItem5.setBackgroundDrawable(rateItem);
 		rateitems[4] = rateItem5;
-		rate_item_value = (TextView) findViewById(R.id.rate_item_value); 
-		
-    }
+		rate_item_value = (TextView) findViewById(R.id.rate_item_value); 	
+    } 
 
     
     public void onClick(View v) {
@@ -87,11 +93,11 @@ public class RestaurantRateItemLayout extends LinearLayout implements OnClickLis
     	rate_item_value.setText(sel+"");
 		
 		for (int i=0; i<rateitems.length; i++) {
-			TextView rateItem = (TextView) rateitems[i];
+			TextView rateItemView = (TextView) rateitems[i];
     		if (i < sel)
-    			rateItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_1_press));
+    			rateItemView.setBackgroundDrawable(rateItemPress);
     		else
-    			rateItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_1));
+    			rateItemView.setBackgroundDrawable(rateItem);
     	}
 		
 		

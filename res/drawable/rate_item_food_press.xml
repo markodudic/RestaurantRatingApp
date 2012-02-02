@@ -6,8 +6,8 @@
         android:width="36sp"
         android:height="36sp" />
     <solid
-        android:color="#FFFFFF" />
+        android:color="@color/foodRateColor" />
     <stroke
         android:width="4sp"
-        android:color="#638d43" />
+        android:color="@color/foodRateColor" />
 </shape>

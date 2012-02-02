@@ -20,7 +20,10 @@ import android.widget.TextView;
 
 public class RestaurantRateActivity extends Activity implements OnClickListener {
 	
+	JSONObject jobject;
+	
 	private String restaurantId;
+	private String rateAvg;
 	private String rateFoodAvg;
 	private String rateAmbientAvg;
 	private String rateServiceAvg;
@@ -43,9 +46,8 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_rate);
-        
-        Log.d("**********************************", "RestaurantsRateActivity");
-        layoutRateFood = (View) this.findViewById(R.id.layout_rate_food);
+        		
+		layoutRateFood = (View) this.findViewById(R.id.layout_rate_food);
 		rateFoodValue = (TextView) layoutRateFood.findViewById(R.id.rate_item_value);
         layoutRateAmbient = (View) this.findViewById(R.id.layout_rate_ambient);
 		rateAmbientValue = (TextView) layoutRateAmbient.findViewById(R.id.rate_item_value);
@@ -73,8 +75,10 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
 			String restaurant = extras.getString("restaurant");
 			Log.d("restaurant=", restaurant);
-			JSONObject jobject = new JSONObject(restaurant);
+			jobject = new JSONObject(restaurant);
+
 			restaurantId = (String) jobject.getString("id");
+			rateAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg")));
 			rateFoodAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateFoodAvg")));
 			rateAmbientAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAmbientAvg")));
 			rateServiceAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateServiceAvg")));
@@ -102,16 +106,11 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			
 			mHandler.removeCallbacks(mSetRatesTask);
 	        mHandler.postDelayed(mSetRatesTask, 2000);
-	        
-
-	            
-	            
 		} catch (Exception e) {e.printStackTrace();}			
 	}
 	
     private Runnable mSetRatesTask = new Runnable() {
  	   public void run() {
- 	       Log.d("RUN", "********************************");
  	       int rateFood = Integer.parseInt(rateFoodValue.getText()+"");
  	       int rateAmbient = Integer.parseInt(rateAmbientValue.getText()+"");
  	       int rateService = Integer.parseInt(rateServiceValue.getText()+"");
@@ -121,13 +120,29 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
  	    	   rateAmbient > 0 &&
  	    	   rateService > 0 &&
  	    	   rateValue > 0) {
- 	 	       Log.d("**********", "PREKINI IZVAJANJE"); 
+ 	    	   textRateTitle.setText(getString(R.string.rate_values_title));
  	 	       setRateItem(layoutRateFood, rateFood);
  	 	       setRateItem(layoutRateAmbient, rateAmbient);
  	 	       setRateItem(layoutRateService, rateService);
  	 	       setRateItem(layoutRateValue, rateValue);
- 	 	       textRateTitle.setText(getString(R.string.rate_values_title));
- 	        
+ 	 	        
+ 	 	       //nastavim nove vrednosti za rate
+ 	 	       try {
+ 	 	    	   int count = Integer.parseInt(jobject.getString("rateCount"));
+ 	 	    	   jobject.put("rateAvg", ((Double.parseDouble(rateAvg)*count)+rateFood+rateAmbient+rateService+rateValue)/(count+4));
+	 	 	       jobject.put("rateFoodAvg", ((Double.parseDouble(rateFoodAvg)*count)+rateFood)/(count+1));
+	 	 	       jobject.put("rateAmbientAvg", ((Double.parseDouble(rateAmbientAvg)*count)+rateAmbient)/(count+1));
+	 	 	       jobject.put("rateServiceAvg", ((Double.parseDouble(rateServiceAvg)*count)+rateService)/(count+1));
+	 	 	       jobject.put("rateValueAvg", ((Double.parseDouble(rateValueAvg)*count)+rateValue)/(count+1));
+	 	 	       rateFoodAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateFoodAvg")));
+	 	 	       rateAmbientAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAmbientAvg")));
+	 			   rateServiceAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateServiceAvg")));
+	 			   rateValueAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateValueAvg")));
+	 			   TextView textRate = (TextView)findViewById(R.id.text_rate);
+	 			   textRate.setText(decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg"))));
+ 	 			} catch (Exception e) {e.printStackTrace();}			
+ 				
+ 			   //vpisem podatke v bazo
 	 	 	   List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	 	       nameValuePairs.add(new BasicNameValuePair("restaurant_id", restaurantId+""));
 	 	       nameValuePairs.add(new BasicNameValuePair("user_id", "1"));
@@ -154,11 +169,16 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
  	
     private Runnable mShowRatesTask = new Runnable() {
   	   public void run() {
-  	       Log.d("RUN2", "********************************");
-  	       showRateItem(layoutRateFood, rateFoodAvg);
-  	       showRateItem(layoutRateAmbient, rateAmbientAvg);
-  	       showRateItem(layoutRateService, rateServiceAvg);
-  	       showRateItem(layoutRateValue, rateValueAvg);
+  		   int rateFood = Integer.parseInt(rateFoodValue.getText()+"");
+	       int rateAmbient = Integer.parseInt(rateAmbientValue.getText()+"");
+	       int rateService = Integer.parseInt(rateServiceValue.getText()+"");
+	       int rateValue = Integer.parseInt(rateValueValue.getText()+"");
+
+	       
+	       showRateItem(layoutRateFood, rateFoodAvg, rateFood);
+  	       showRateItem(layoutRateAmbient, rateAmbientAvg, rateAmbient);
+  	       showRateItem(layoutRateService, rateServiceAvg, rateService);
+  	       showRateItem(layoutRateValue, rateValueAvg, rateValue);
  		   mHandler.removeCallbacks(mShowRatesTask);
    	   }
   	};
@@ -181,9 +201,11 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
       rateItem5.setVisibility(rate > 4 ? View.VISIBLE : View.INVISIBLE);
 	}
 
-  	private void showRateItem(View layout, String rateAvg) {
+  	private void showRateItem(View layout, String rateAvg, int rate) {
         TextView rateItem5 = (TextView) layout.findViewById(R.id.rate_item_5);
         rateItem5.setText(rateAvg);
+        if (rate < 5)
+        	rateItem5.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_default));
         rateItem5.setVisibility(View.VISIBLE);
 
   	}	
@@ -196,8 +218,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
     }
 
     public void onClick(View v) {
-    	Log.d("******CLICK ********", "");
-		switch (v.getId()) { 
+    	switch (v.getId()) { 
 			case R.id.button_map:
 				break;
 			case R.id.button_back:

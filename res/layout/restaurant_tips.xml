@@ -6,30 +6,38 @@
     android:orientation="vertical" >
 
     <LinearLayout android:layout_width="fill_parent" 
-     	android:gravity="center" 
-     	android:layout_height="50dip"
-		android:orientation="horizontal">
+		style="@style/AppTitleLayout" 
+	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="location" />
+            android:background="@drawable/cancel"
+    		android:layout_width="83sp"
+            android:layout_height="34sp"
+            android:layout_marginLeft="10dip"
+            restaurantrating:font_name="@string/font_small_text"
+	        style="@style/TextUser.Small"
+		    android:text="@string/location" />
 
-	    <TextView android:id="@+id/text_tips_title"
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+
+	    <si.kubit.restaurantrating.TextViewFont 
+	        android:id="@+id/text_tips_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:gravity="center" 
-	        android:textSize="20sp"
-		  	restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal" 
-	        android:text="tips" />
+	        restaurantrating:font_name="@string/font_big_text"
+	        style="@style/AppTitle" 
+	    	android:text="tips" />
 
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+	    
 	    <Button android:id="@+id/button_tip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tip" />
-	 </LinearLayout>	        
+            android:background="@drawable/tip"
+    		android:layout_width="38sp"
+            android:layout_height="38sp"
+            android:layout_marginRight="10dip"  />
+	 </LinearLayout>        
+	        
          	   
     <ListView android:id="@+id/restuarant_tips_list"
 	       android:layout_width="fill_parent"

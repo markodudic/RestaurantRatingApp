@@ -3,6 +3,8 @@
      <declare-styleable name="restaurantrating"> 
         <attr name="title_text" format="string" /> 
         <attr name="rate_item_text" format="string" /> 
+        <attr name="rate_item" format="integer" /> 
+        <attr name="rate_item_press" format="integer" /> 
         <attr name="sel_rate_value" format="string" /> 
         <attr name="font_name" format="string" /> 
     </declare-styleable>  

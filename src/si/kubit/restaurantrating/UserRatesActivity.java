@@ -67,14 +67,14 @@ public class UserRatesActivity extends Activity implements OnClickListener {
         Comm c = new Comm(getString(R.string.server_url), null, null);
         try { 
         	userRates = c.get("userrates");
-
+        	Log.d("RATES", userRates);
         	ListView lv = (ListView) findViewById(R.id.user_rates_list);
             UserRatesListAdapter listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
     		lv.setAdapter(listAdapter);
         } catch (SocketException e) {
 			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.conn_error), getString(R.string.conn_title));
    		} catch (Exception ne) {
-			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
+   			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
    		}
     }      
  

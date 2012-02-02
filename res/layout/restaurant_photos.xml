@@ -3,33 +3,40 @@
 	 xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    style="@style/LayoutDefaultLight" >
 
     <LinearLayout android:layout_width="fill_parent" 
-     	android:gravity="center" 
-     	android:layout_height="50dip"
-		android:orientation="horizontal">
+		style="@style/AppTitleLayout" 
+	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="location" />
+            android:background="@drawable/cancel"
+    		android:layout_width="83sp"
+            android:layout_height="34sp"
+            android:layout_marginLeft="10dip"
+            style="@style/TextUser.Small"
+		    android:text="@string/location" />
 
-	    <TextView android:id="@+id/text_photos_title"
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+
+	    <si.kubit.restaurantrating.TextViewFont 
+	        android:id="@+id/text_photos_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:gravity="center" 
-	        android:textSize="20sp"
-		  	restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal" 
-	        android:text="photos" />
+	        restaurantrating:font_name="@string/font_big_text"
+	        style="@style/AppTitle" 
+	    	android:text="photos" />
 
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+	    
 	    <Button android:id="@+id/button_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="photo" />
-	 </LinearLayout>	        
+            android:background="@drawable/photo"
+    		android:layout_width="38sp"
+            android:layout_height="38sp"
+            android:layout_marginRight="10dip"  />
+	 </LinearLayout>  	        
 
      <GridView android:id="@+id/grid_photos"
 		android:layout_width="fill_parent" 

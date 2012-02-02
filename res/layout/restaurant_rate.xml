@@ -108,7 +108,7 @@
      	android:layout_height="fill_parent"
 		android:orientation="vertical"
 		android:layout_weight="10"
-		android:background="#ffffff">
+		style="@style/LayoutDefaultLight" >
 
 	    <si.kubit.restaurantrating.TextViewFont
 	        android:id="@+id/text_restaurant_rate_title"
@@ -125,6 +125,8 @@
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_food"
+	    	  restaurantrating:rate_item="@drawable/rate_item_food"
+	    	  restaurantrating:rate_item_press="@drawable/rate_item_food_press"
 	    	  android:layout_weight="1" />
 	    	    
 	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
@@ -132,6 +134,8 @@
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_ambient"
+	    	  restaurantrating:rate_item="@drawable/rate_item_ambient"
+	    	  restaurantrating:rate_item_press="@drawable/rate_item_ambient_press"
 	    	  android:layout_weight="1" />
 
 
@@ -140,6 +144,8 @@
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_service"
+	    	  restaurantrating:rate_item="@drawable/rate_item_service"
+	    	  restaurantrating:rate_item_press="@drawable/rate_item_service_press"
 	    	  android:layout_weight="1" />
 
 
@@ -148,6 +154,8 @@
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_value"
+	    	  restaurantrating:rate_item="@drawable/rate_item_value"
+	    	  restaurantrating:rate_item_press="@drawable/rate_item_value_press"
 	    	  android:layout_weight="1" />
 	    
         	    
@@ -165,7 +173,7 @@
      	android:gravity="center" 
 	   	android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:background="#ffffff"
+		style="@style/LayoutDefaultLight"
 		android:paddingBottom="20px" >
 	    
 		<LinearLayout android:layout_weight="1" android:layout_width="10dip"	android:layout_height="0dip"/>

@@ -34,7 +34,6 @@
   
 		 <si.kubit.restaurantrating.TextViewFont
 		    android:id="@+id/rate_item_1"
-		    android:background="@drawable/rate_item_1"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content" />
 
@@ -42,7 +41,6 @@
 		 
 		<si.kubit.restaurantrating.TextViewFont
 		    android:id="@+id/rate_item_2"
-		    android:background="@drawable/rate_item_1"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"/>
 
@@ -50,7 +48,6 @@
 		
 		<si.kubit.restaurantrating.TextViewFont
 		    android:id="@+id/rate_item_3"
-		    android:background="@drawable/rate_item_1"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"/>
 		
@@ -59,8 +56,7 @@
 		<si.kubit.restaurantrating.TextViewFont
 		    android:id="@+id/rate_item_4"
 		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:background="@drawable/rate_item_1" />
+		    android:layout_height="wrap_content" />
 
 		<LinearLayout android:layout_weight="1" android:layout_width="10dip"	android:layout_height="0dip"/>
 
@@ -68,7 +64,6 @@
 		    android:id="@+id/rate_item_5"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:background="@drawable/rate_item_1"
 		    restaurantrating:font_name="@string/font_big_text"
 			style="@style/TextUserUnder.Big"  />
 	    

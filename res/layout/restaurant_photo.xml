@@ -6,25 +6,32 @@
     android:orientation="vertical" >
 
     <LinearLayout android:layout_width="fill_parent" 
-     	android:gravity="center" 
-     	android:layout_height="50dip"
-		android:orientation="horizontal">
+		style="@style/AppTitleLayout" 
+	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_number_photos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="photos" />
+            android:background="@drawable/cancel"
+    		android:layout_width="83sp"
+            android:layout_height="34sp"
+            android:layout_marginLeft="10dip"
+            restaurantrating:font_name="@string/font_small_text"
+	        style="@style/TextUser.Small"
+		    android:text="photos" />
 
-	    <TextView android:id="@+id/text_photo_title"
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
+
+	    <si.kubit.restaurantrating.TextViewFont 
+	        android:id="@+id/text_photo_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
-	        android:gravity="center" 
-	        android:textSize="20sp"
-		  	restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal" 
-	        android:text="number photos" />
-	 </LinearLayout>	
+	        restaurantrating:font_name="@string/font_big_text"
+	        style="@style/AppTitle" 
+	    	android:text="number photos" />
+
+		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>	    
+	</LinearLayout>  
+	
 	 
     <LinearLayout android:layout_width="fill_parent" 
      	android:gravity="center" 
@@ -40,23 +47,18 @@
          	   
     <LinearLayout
         android:id="@+id/twoLineListItem1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:gravity="center" 
-	    android:orientation="vertical" 
-        android:paddingTop="5px" 
-        android:paddingBottom="5px"
-	    android:textStyle="normal" >
+     	android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="10dip">
 	
-	    <TextView android:id="@+id/text_user"
+	    <si.kubit.restaurantrating.TextViewFont 
+	        android:id="@+id/text_user"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:gravity="center" 
-	        android:includeFontPadding="false"
-	        android:textSize="15sp"
-	        restaurantrating:font_name="@string/font_big_text"
-	        android:textStyle="normal"
-	        android:text="user" />
+	        restaurantrating:font_name="@string/font_small_text"
+	        style="@style/TextUser.Small"
+		    android:text="user" />
     </LinearLayout>   
          
 </LinearLayout>
