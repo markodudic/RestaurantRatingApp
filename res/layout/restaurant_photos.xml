@@ -6,7 +6,7 @@
     android:orientation="vertical"
     style="@style/LayoutDefaultLight" >
 
-    <LinearLayout android:layout_width="fill_parent" 
+    <FrameLayout android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
 	    android:orientation="horizontal">
 
@@ -15,28 +15,29 @@
     		android:layout_width="83sp"
             android:layout_height="34sp"
             android:layout_marginLeft="10dip"
+            android:layout_marginTop="5dip"
+            android:layout_gravity="left|top"
             style="@style/TextUser.Small"
 		    android:text="@string/location" />
 
-		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
-
-	    <si.kubit.restaurantrating.TextViewFont 
+		<si.kubit.restaurantrating.TextViewFont 
 	        android:id="@+id/text_photos_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
 	        restaurantrating:font_name="@string/font_big_text"
-	        style="@style/AppTitle" 
+	        style="@style/AppTitle"
+	    	android:layout_gravity="center_horizontal|top" 
 	    	android:text="photos" />
 
-		<LinearLayout android:layout_weight="1" android:layout_width="0dip"	android:layout_height="0dip"/>
-	    
-	    <Button android:id="@+id/button_photo"
+		<Button android:id="@+id/button_photo"
             android:background="@drawable/photo"
     		android:layout_width="38sp"
             android:layout_height="38sp"
+            android:layout_marginTop="5dip"
+            android:layout_gravity="right|top"
             android:layout_marginRight="10dip"  />
-	 </LinearLayout>  	        
+	 </FrameLayout>  	        
 
      <GridView android:id="@+id/grid_photos"
 		android:layout_width="fill_parent" 

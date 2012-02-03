@@ -174,12 +174,12 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 	       int rateService = Integer.parseInt(rateServiceValue.getText()+"");
 	       int rateValue = Integer.parseInt(rateValueValue.getText()+"");
 
-	       
 	       showRateItem(layoutRateFood, rateFoodAvg, rateFood);
   	       showRateItem(layoutRateAmbient, rateAmbientAvg, rateAmbient);
   	       showRateItem(layoutRateService, rateServiceAvg, rateService);
   	       showRateItem(layoutRateValue, rateValueAvg, rateValue);
- 		   mHandler.removeCallbacks(mShowRatesTask);
+	       
+	       mHandler.removeCallbacks(mShowRatesTask);
    	   }
   	};
   	
@@ -194,6 +194,16 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
       rateItem3.setClickable(false);
       rateItem4.setClickable(false);
       rateItem5.setClickable(false);
+      rateItem1.setOnClickListener(null);
+      rateItem2.setOnClickListener(null);
+      rateItem3.setOnClickListener(null);
+      rateItem4.setOnClickListener(null);
+      rateItem5.setOnClickListener(null);
+      rateItem1.setOnTouchListener(null);
+      rateItem2.setOnTouchListener(null);
+      rateItem3.setOnTouchListener(null);
+      rateItem4.setOnTouchListener(null);
+      rateItem5.setOnTouchListener(null);
       rateItem1.setVisibility(rate > 0 ? View.VISIBLE : View.INVISIBLE);
       rateItem2.setVisibility(rate > 1 ? View.VISIBLE : View.INVISIBLE);
       rateItem3.setVisibility(rate > 2 ? View.VISIBLE : View.INVISIBLE);

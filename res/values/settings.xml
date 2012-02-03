@@ -24,5 +24,6 @@
 	<color name="ambientRateColor">#a23603</color>
 	<color name="serviceRateColor">#43758d</color>
 	<color name="valueRateColor">#2e8374</color>
-							
+	<color name="translucentBlack">#DD000000</color>
+					
 </resources>

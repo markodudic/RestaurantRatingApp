@@ -17,7 +17,6 @@ public class UserRatesActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
-		GetUsersRatesList();
 
 		
 		View mapButtonSubmit = findViewById(R.id.button_map); 
@@ -35,6 +34,7 @@ public class UserRatesActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() { 
 		super.onResume();
+		GetUsersRatesList();
 	}
 	
     @Override
