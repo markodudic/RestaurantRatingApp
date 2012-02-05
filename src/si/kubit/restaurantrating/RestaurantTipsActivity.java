@@ -85,7 +85,6 @@ public class RestaurantTipsActivity extends Activity implements OnClickListener 
    		}
     }      
  
-    
 	private void showMessageBox(String closeTime, String redirect, String msg, String title) {
 		Intent messageBox = new Intent(this, MessageBox.class);
     	messageBox.putExtra("redirect", redirect);

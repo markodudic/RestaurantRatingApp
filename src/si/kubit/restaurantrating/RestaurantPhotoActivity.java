@@ -3,23 +3,18 @@ package si.kubit.restaurantrating;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.SocketException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -27,10 +22,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class RestaurantPhotoActivity extends Activity implements OnClickListener {
     /** Called when the activity is first created. */
@@ -122,7 +115,24 @@ public class RestaurantPhotoActivity extends Activity implements OnClickListener
 		        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 		        imageView.setLayoutParams(new Gallery.LayoutParams(Gallery.LayoutParams.FILL_PARENT, Gallery.LayoutParams.FILL_PARENT));
 
-			  	textUser.setText(user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));	  	
+		        //dolocim cas
+		        String date = jData.getString("createdAt");
+		        Date dateD = new Date(Long.parseLong(date) * 1000);
+		        
+		        Calendar calendar1 = Calendar.getInstance();
+		        Calendar calendar2 = Calendar.getInstance();
+		        calendar1.setTime(dateD);
+		        calendar2.setTime(new Date());
+		        long milliseconds1 = calendar1.getTimeInMillis();
+		        long milliseconds2 = calendar2.getTimeInMillis();
+		        long diff = milliseconds2 - milliseconds1;
+		        //long diffSeconds = diff / 1000;
+		        //long diffMinutes = diff / (60 * 1000);
+		        //long diffHours = diff / (60 * 60 * 1000);
+		        long diffDays = diff / (24 * 60 * 60 * 1000);
+		        
+		        //izpis
+		        textUser.setText(getString(R.string.added) + " " + diffDays + " " + getString(R.string.days_ago) + " " + user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));	  	
 			  	textPhotosTitle.setText((position+1) + " " + mContext.getString(R.string.of) + " " + jPhotos.length());
 
 	        } catch (Exception e) {e.printStackTrace();}

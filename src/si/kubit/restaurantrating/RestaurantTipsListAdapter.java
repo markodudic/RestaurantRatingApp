@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -50,6 +52,7 @@ public class RestaurantTipsListAdapter extends BaseAdapter {
 	 
 	  public static class ViewHolder{
 	      public TextView textTip;
+	      public TextView textUserPrefix;
 	      public TextView textUser;
 	      public ImageView imageUser;
 	  }
@@ -62,6 +65,7 @@ public class RestaurantTipsListAdapter extends BaseAdapter {
 	 
 	          holder=new ViewHolder();
 	          holder.textTip=(TextView)vi.findViewById(R.id.text_tip);
+	          holder.textUserPrefix=(TextView)vi.findViewById(R.id.text_user_prefix);
 	          holder.textUser=(TextView)vi.findViewById(R.id.text_user);
 	          holder.imageUser = (ImageView)vi.findViewById(R.id.icon_user);
 	          
@@ -74,6 +78,25 @@ public class RestaurantTipsListAdapter extends BaseAdapter {
 	      try {
 	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
 		      holder.textTip.setText(jobject.getString("text").toUpperCase());
+
+		      //dolocim cas
+		      String date = jobject.getString("createdAt");
+		      Date dateD = new Date(Long.parseLong(date) * 1000);
+			
+		      Calendar calendar1 = Calendar.getInstance();
+		      Calendar calendar2 = Calendar.getInstance();
+		      calendar1.setTime(dateD);
+		      calendar2.setTime(new Date());
+		      long milliseconds1 = calendar1.getTimeInMillis();
+		      long milliseconds2 = calendar2.getTimeInMillis();
+		      long diff = milliseconds2 - milliseconds1;
+		      //long diffSeconds = diff / 1000;
+		      //long diffMinutes = diff / (60 * 1000);
+		      //long diffHours = diff / (60 * 60 * 1000);
+		      long diffDays = diff / (24 * 60 * 60 * 1000);
+		      holder.textUserPrefix.setText(diffDays + " " + context.getString(R.string.days_ago).toUpperCase() + " ");
+			
+		      //izpis
 		      JSONObject user = (JSONObject)jobject.getJSONObject("user");
 		      holder.textUser.setText(user.getString("firstName").toUpperCase() + (user.has("lastName")?" " + user.getString("lastName").toUpperCase():""));
 			  String imageStr = user.getString("photo");

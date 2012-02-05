@@ -46,13 +46,14 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
         grid.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
     	        try { 
-			        Intent intentRestaurantPhoto = new Intent(RestaurantPhotosActivity.this, RestaurantPhotoActivity.class);
+			        //pripravim podatke
+    	        	Intent intentRestaurantPhoto = new Intent(RestaurantPhotosActivity.this, RestaurantPhotoActivity.class);
 				  	Bundle extras = new Bundle();
 				  	extras.putString("photos", jPhotos.toString());
 				  	extras.putInt("position", arg2);
 				  	intentRestaurantPhoto.putExtra("si.kubit.restaurantrating.RestaurantPhotoActivity", extras);
 				  	RestaurantPhotosActivity.this.startActivity(intentRestaurantPhoto);
-    	        } catch (Exception e) {}
+    	        } catch (Exception e) {e.printStackTrace();}
             }
         });
         
@@ -106,8 +107,8 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
    			ne.printStackTrace();
 			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
    		}
-    }      
- 
+    }          
+
     
 	private void showMessageBox(String closeTime, String redirect, String msg, String title) {
 		Intent messageBox = new Intent(this, MessageBox.class);

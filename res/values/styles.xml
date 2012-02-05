@@ -80,7 +80,11 @@
 		
 	<style name="TextUserUnder.Blue">
       <item name="android:textColor">#00c6d2</item>
-   	</style>
+   </style>
+
+	<style name="TextUserUnder.Dark">
+      <item name="android:textColor">#69646c</item>
+   </style>
 
 	<style name="TextUserUnder.Blue.Left">
       <item name="android:gravity">center_vertical|left</item>

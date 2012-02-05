@@ -22,6 +22,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -49,6 +50,8 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
         setContentView(R.layout.restaurants);
         Log.d("**********************************", "RestaurantsActivity");
 		
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        
 		View mapButtonSubmit = findViewById(R.id.button_map); 
 		mapButtonSubmit.setOnClickListener(this);
 		View cancelButtonSubmit = findViewById(R.id.button_cancel); 

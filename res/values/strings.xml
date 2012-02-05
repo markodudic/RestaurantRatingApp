@@ -26,7 +26,8 @@
     <string name="cancel">Cancel</string>
     <string name="back">Back</string>
     <string name="location">Location</string>
-    
+    <string name="added">Added</string>
+    <string name="days_ago">days ago by</string>
     
 	<string name="location_error">Lokacijo ni možno določiti. Preverite če imate prižgan GPS.</string> 
 	<string name="location_title">Določanje lokacije</string> 
