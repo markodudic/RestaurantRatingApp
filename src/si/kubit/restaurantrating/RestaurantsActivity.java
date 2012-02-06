@@ -62,11 +62,12 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		Criteria crit = new Criteria();
 		crit.setAccuracy(Criteria.ACCURACY_FINE);
 		provider = locationManager.getBestProvider(crit, true);
-
+		
 		// Define a listener that responds to location updates
 		locationListener = new LocationListener() {
 		    public void onLocationChanged(Location location) {
 		      // Called when a new location is found by the network location provider.
+		    	Log.d("GET LOCATION", "******************");
 				GetRestaurantsList(location);
 				locationManager.removeUpdates(locationListener);
 			}
@@ -114,6 +115,8 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 			}
         });
 
+		Location lastKnownLocation = locationManager.getLastKnownLocation(provider);
+		GetRestaurantsList(lastKnownLocation);
     }
 
 	private void registerListener() { 
@@ -172,6 +175,7 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		  		places.setText(jRestaurants.length() + " " + getString(R.string.places_nearby));
 		  		
 	        } catch (Exception e) {
+	        	e.printStackTrace();
 				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
 	   		}
 	    	
