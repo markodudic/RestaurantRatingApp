@@ -62,6 +62,7 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		Criteria crit = new Criteria();
 		crit.setAccuracy(Criteria.ACCURACY_FINE);
 		provider = locationManager.getBestProvider(crit, true);
+		Log.d("PROVIDER", provider);
 		
 		// Define a listener that responds to location updates
 		locationListener = new LocationListener() {
@@ -116,7 +117,10 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
         });
 
 		Location lastKnownLocation = locationManager.getLastKnownLocation(provider);
-		GetRestaurantsList(lastKnownLocation);
+		if(lastKnownLocation != null) { 
+			Log.d("lastKnownLocation", lastKnownLocation.getLatitude() + "-" + lastKnownLocation.getLongitude());
+			GetRestaurantsList(lastKnownLocation);
+		}
     }
 
 	private void registerListener() { 
