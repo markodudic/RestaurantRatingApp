@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
 	<!-- string name="server_url">http://10.0.2.2:8080/RestaurantRating/</string -->
-	<!-- string name="server_url">http://93.103.12.155:8080/RestaurantRating/</string -->
+	<string name="server_url">http://93.103.12.155:8080/RestaurantRating/</string>
 	<!-- string name="server_url">http://192.168.1.107:8080/RestaurantRating/</string -->
-	<string name="server_url">http://192.168.1.103:8080/RestaurantRating/</string>
+	<!-- string name="server_url">http://192.168.1.103:8080/RestaurantRating/</string -->
 	<string name="server_user"></string>
 	<string name="server_pass"></string>
 
@@ -14,7 +14,8 @@
 	 -->
 
 	<string name="font_big_text">steelfish_rg.otf</string>
-	<string name="font_list_small">DINMittelschrift.TTF</string>
+	<!--string name="font_list_small">DINMittelschrift.TTF</string-->
+	<string name="font_list_small">PFDinDisplayPro-Reg_0.ttf</string>
 	<string name="font_small_text">HelveticaBold.ttf</string>
 	
 	<color name="firstListColor">#ffffff</color>
