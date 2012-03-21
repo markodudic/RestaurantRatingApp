@@ -7,16 +7,12 @@
 
     <FrameLayout android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
-	    android:orientation="horizontal">
+	    android:orientation="horizontal"
+    android:background="@drawable/layout_rounded_top">
 
        <Button android:id="@+id/button_cancel"
             android:background="@drawable/cancel"
-    		android:layout_width="83sp"
-            android:layout_height="34sp"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="5dip"
-            android:layout_gravity="left|top"
-            style="@style/TextUser.Small"
+    			style="@style/TextUser.Small.AppTitleButtonLeft"
 		    android:text="@string/cancel" />
 
 	    <si.kubit.restaurantrating.TextViewFont 
@@ -26,31 +22,34 @@
 	        android:includeFontPadding="false"
 	        restaurantrating:font_name="@string/font_big_text"
 	        style="@style/AppTitle" 
-	    	android:text="@string/app_name"
-	    	android:layout_gravity="center_horizontal|top" />
+	    	android:text="@string/app_name" />
 
 	    <Button android:id="@+id/button_map"
             android:background="@drawable/map"
-    		android:layout_width="46sp"
-            android:layout_height="38sp"
-            android:layout_marginTop="5dip"
-            android:layout_gravity="right|top"
-            android:layout_marginRight="10dip"  />
+    			style="@style/AppTitleButtonMap"  />
 	 </FrameLayout>        
          	   
-    <LinearLayout android:layout_width="fill_parent" 
-     	android:layout_height="wrap_content"
+    <FrameLayout android:layout_width="fill_parent" 
+     	android:layout_height="40dip"
 		style="@style/SearchLayout" 
 	    android:orientation="horizontal">
 
 	   <EditText 
 	   		android:layout_width="fill_parent" 
-	   		android:layout_height="40sp" 
+	   		android:layout_height="32sp" 
 	   		android:id="@+id/text_search"
 	      	android:hint="@string/search"
-        	style="@style/Search" 
-	    	restaurantrating:font_name="@string/font_list_small" />
-	 </LinearLayout>	        
+        		style="@style/Search" 
+        		android:background="@drawable/layout_rounded"
+	    		restaurantrating:font_name="@string/font_list_small" />
+
+    	<ImageView android:id="@+id/search_img"
+    		android:background="@drawable/search"
+    		android:layout_height="wrap_content" 
+        	android:layout_width="wrap_content"
+        	style="@style/SearchIcon" />
+
+	 </FrameLayout>	        
         
 	<FrameLayout 
 	    android:layout_width="fill_parent"
@@ -67,10 +66,10 @@
 	   
 	    <LinearLayout android:layout_width="fill_parent" 
 	     	android:gravity="center" 
-		   	android:layout_height="50dip"
-			android:background="@color/translucentBlack"
-	    	android:orientation="horizontal"
-	    	android:layout_gravity="center_horizontal|bottom">
+		   android:layout_height="50dip"
+			android:orientation="horizontal"
+	    	android:layout_gravity="center_horizontal|bottom"
+    		android:background="@drawable/layout_rounded_bottom_transparent">
 		   
 		    <TextView android:id="@+id/text_places_nearby"
 		        android:layout_width="wrap_content"

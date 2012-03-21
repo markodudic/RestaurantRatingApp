@@ -15,16 +15,14 @@
 	    <si.kubit.restaurantrating.TextViewFont 
 	        android:id="@+id/text_rate"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
 	        restaurantrating:font_name="@string/font_big_text"
 	        style="@style/TextRate.Big" />
 	    
 	    <si.kubit.restaurantrating.TextViewFont 
 	        android:id="@+id/text_reviews"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
 	        restaurantrating:font_name="@string/font_list_small"
-	        style="@style/TextUserUnder" />
+	        style="@style/TextUserUnder.Reviews" />
 	    
 	 </LinearLayout>
         
@@ -58,5 +56,10 @@
 	    
     </LinearLayout>
 
+    <ImageView android:id="@+id/restaurants_next"
+    		android:background="@drawable/next"
+    		android:layout_height="wrap_content" 
+        	android:layout_width="wrap_content"
+        	style="@style/NextIcon" />
 	
 </LinearLayout>

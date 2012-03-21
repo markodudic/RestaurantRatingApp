@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -28,6 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RestaurantsActivity extends Activity implements OnClickListener {
 	
@@ -78,7 +80,10 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		    public void onProviderEnabled(String provider) {}
 
 		    public void onProviderDisabled(String provider) {
-				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
+	        	Toast toast = Toast.makeText(RestaurantsActivity.this, getString(R.string.location_error), Toast.LENGTH_LONG);
+	        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+	        	toast.show();
+//				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
 		    }
 		  };
 
@@ -158,7 +163,10 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
     {
 
 		if (location == null) {
-			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
+        	Toast toast = Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+//			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
 		} else {
 			Log.d("GetRestaurantsList=",location.getLatitude() + " " + location.getLongitude());
 	
@@ -180,7 +188,10 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		  		
 	        } catch (Exception e) {
 	        	e.printStackTrace();
-				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
+	        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+	        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+	        	toast.show();
+//				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
 	   		}
 	    	
 		}

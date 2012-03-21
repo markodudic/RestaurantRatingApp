@@ -6,9 +6,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class UserRatesActivity extends Activity implements OnClickListener {
     /** Called when the activity is first created. */
@@ -72,9 +74,15 @@ public class UserRatesActivity extends Activity implements OnClickListener {
             UserRatesListAdapter listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
     		lv.setAdapter(listAdapter);
         } catch (SocketException e) {
-			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.conn_error), getString(R.string.conn_title));
+        	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+			//showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.conn_error), getString(R.string.conn_title));
    		} catch (Exception ne) {
-   			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
+        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   			//showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
    		}
     }      
  

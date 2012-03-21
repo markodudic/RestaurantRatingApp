@@ -18,13 +18,17 @@
 	<string name="font_list_small">PFDinDisplayPro-Reg_0.ttf</string>
 	<string name="font_small_text">HelveticaBold.ttf</string>
 	
+	<color name="titleColor">#9789a2</color>
 	<color name="firstListColor">#ffffff</color>
-	<color name="secondListColor">#000000</color>
+	<color name="secondListColor">#232323</color>
 	<color name="backgroundColor">#232323</color>
 	<color name="foodRateColor">#638d43</color>
 	<color name="ambientRateColor">#a23603</color>
 	<color name="serviceRateColor">#43758d</color>
 	<color name="valueRateColor">#2e8374</color>
+	<color name="smallTextColor">#00c6d2</color>
+	<color name="smallTextDarkColor">#69646c</color>
 	<color name="translucentBlack">#DD000000</color>
+	
 					
 </resources>
