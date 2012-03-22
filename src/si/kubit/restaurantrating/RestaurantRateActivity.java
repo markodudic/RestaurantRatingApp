@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -16,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class RestaurantRateActivity extends Activity implements OnClickListener {
@@ -40,6 +43,8 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 	private TextView rateValueValue;
 	private TextView textRateTitle;
 	private DecimalFormat decimalFormat = new DecimalFormat("0.0");
+
+	ListView lv;
 	
     /** Called when the activity is first created. */
     @Override
@@ -65,7 +70,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		View photosButtonSubmit = findViewById(R.id.button_photos); 
 		photosButtonSubmit.setOnClickListener(this);
 
-
+		lv = (ListView) findViewById(R.id.restaurant_rate_list);
     }
     
 	@Override
@@ -84,22 +89,27 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			rateServiceAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateServiceAvg")));
 			rateValueAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateValueAvg")));
 
-			TextView restaurantNameValue = (TextView) findViewById(R.id.text_restaurnt_name);
-	        TextView textRate = (TextView)this.findViewById(R.id.text_rate);
+			/*TextView textRate = (TextView)this.findViewById(R.id.text_rate);
 			TextView textReviews=(TextView)this.findViewById(R.id.text_reviews);
 			TextView textRestaurantName = (TextView)this.findViewById(R.id.text_restaurant_name);
 			TextView textRestaurantCategory = (TextView)this.findViewById(R.id.text_restaurant_category);
 			TextView textRestaurantDistance = (TextView)this.findViewById(R.id.text_restaurant_distance);
-			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
-			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
-			textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
 			
-			restaurantNameValue.setText(jobject.getString("name").toUpperCase());
 			textRate.setText(decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg"))));
 			textReviews.setText(jobject.getString("rateCount")+" "+getString(R.string.reviews));
 			textRestaurantName.setText(jobject.getString("name").toUpperCase());
 			textRestaurantCategory.setText(jobject.getString("category").toUpperCase());
 			textRestaurantDistance.setText(jobject.getString("distance")+" "+getString(R.string.distance));
+			*/
+			JSONArray jdata = new JSONArray();
+			jdata.put(jobject);
+			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext());
+			lv.setAdapter(listAdapter);
+			
+			
+			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
+			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
+			textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
 			buttonTips.setText(getString(R.string.tips) + "\n (" + jobject.getString("tipCount") + ")");
 			buttonPhotos.setText(getString(R.string.photos) + "\n (" + jobject.getString("photoCount") + ")");
 			textRateTitle.setText(getString(R.string.rate_title));

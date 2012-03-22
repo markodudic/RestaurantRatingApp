@@ -1,5 +1,7 @@
 package si.kubit.restaurantrating;
 
+import java.text.DecimalFormat;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -21,6 +23,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 	  private JSONArray jdataAll;
 	  private static LayoutInflater inflater=null;
 	  private Context context;
+	  private DecimalFormat decimalFormat = new DecimalFormat("0.0");
 	 
 	  public RestaurantsListAdapter(Activity a, JSONArray jdata, Context context) {
 	      this.activity = a;  
@@ -87,7 +90,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
 
 	      try {
 	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
-	    	  holder.textRate.setText(jobject.getString("rateAvg"));
+	    	  holder.textRate.setText(decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg"))));
 			  holder.textReviews.setText(jobject.getString("rateCount")+" "+context.getString(R.string.reviews));
 			  holder.textRestaurantName.setText(jobject.getString("name").toUpperCase());
 			  holder.textRestaurantCategory.setText(jobject.getString("category").toUpperCase());

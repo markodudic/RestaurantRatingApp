@@ -74,7 +74,8 @@ public class UserRatesListAdapter extends BaseAdapter {
 		      holder.textRate.setText(jobject.getString("avgRate"));
 			  holder.textUser.setText((jobject.getString("userName")+" "+jobject.getString("userSurname")).toUpperCase());
 			  holder.textRestaurant.setText(jobject.getString("restaurantName").toUpperCase());
-			  holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
+			  //holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
+			  holder.textHoursAgo.setText(Util.formatTime(jobject.getString("rateDateTime"), jobject.getString("rateHoursAgo"), context));
 			  
 			  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.user_rate_layout);
         	  if (position%2==0) {

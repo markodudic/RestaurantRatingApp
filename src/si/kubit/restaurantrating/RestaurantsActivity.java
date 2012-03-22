@@ -126,6 +126,12 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 			Log.d("lastKnownLocation", lastKnownLocation.getLatitude() + "-" + lastKnownLocation.getLongitude());
 			GetRestaurantsList(lastKnownLocation);
 		}
+		//dummy podatki za emulator
+		Location loc = new Location(provider);
+		loc.setLongitude(14.5d);
+		loc.setLatitude(46.05d);
+		GetRestaurantsList(loc);
+		//
     }
 
 	private void registerListener() { 

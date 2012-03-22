@@ -96,20 +96,24 @@
     	</style>
 
 	<style name="TextRate">
+      <item name="android:layout_width">80dip</item>
       <item name="android:textSize">64sp</item>
       <item name="android:paddingTop">0dip</item>
       <item name="android:paddingBottom">0dip</item>
-      <item name="android:paddingLeft">10dip</item>
-      <item name="android:paddingRight">20dip</item>
+      <item name="android:paddingLeft">0dip</item>
+      <item name="android:paddingRight">0dip</item>
 	  <item name="android:gravity">top|center_horizontal</item>
 	  <item name="android:textColor">#ffffff</item>
 	</style>
 	
 	<style name="TextRate.Big">
-      <item name="android:textSize">95sp</item>
+      <item name="android:layout_width">130dip</item>
+	  <item name="android:textSize">94sp</item>
       <item name="android:layout_height">100dip</item>
       <item name="android:layout_marginTop">-8dip</item>	        
-   	</style>
+      <item name="android:paddingLeft">10dip</item>
+      <item name="android:paddingRight">10dip</item>
+     </style>
    			
 	<style name="TextRateLayout">
       <item name="android:layout_height">50dip</item>

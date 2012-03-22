@@ -132,7 +132,7 @@ public class RestaurantPhotoActivity extends Activity implements OnClickListener
 		        long diffDays = diff / (24 * 60 * 60 * 1000);
 		        
 		        //izpis
-		        textUser.setText(getString(R.string.added) + " " + diffDays + " " + getString(R.string.days_ago) + " " + user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));	  	
+		        textUser.setText(getString(R.string.added) + " " + diffDays + " " + getString(R.string.days_ago_by) + " " + user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));	  	
 			  	textPhotosTitle.setText((position+1) + " " + mContext.getString(R.string.of) + " " + jPhotos.length());
 
 	        } catch (Exception e) {e.printStackTrace();}
