@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -128,12 +130,14 @@ public class RestaurantPhotoActivity extends Activity implements OnClickListener
 		        long diff = milliseconds2 - milliseconds1;
 		        //long diffSeconds = diff / 1000;
 		        //long diffMinutes = diff / (60 * 1000);
-		        //long diffHours = diff / (60 * 60 * 1000);
+		        long diffHours = diff / (60 * 60 * 1000);
 		        long diffDays = diff / (24 * 60 * 60 * 1000);
 		        
 		        //izpis
-		        textUser.setText(getString(R.string.added) + " " + diffDays + " " + getString(R.string.days_ago_by) + " " + user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));	  	
-			  	textPhotosTitle.setText((position+1) + " " + mContext.getString(R.string.of) + " " + jPhotos.length());
+		        //textUser.setText(getString(R.string.added) + " " + diffDays + " " + getString(R.string.days_ago_by) + " " + user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));	  	
+		        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        textUser.setText(Util.formatTime(df1.format(dateD), diffHours+"", mContext) + " " + user.getString("firstName") + (user.has("lastName")?" " + user.getString("lastName"):""));
+				textPhotosTitle.setText((position+1) + " " + mContext.getString(R.string.of) + " " + jPhotos.length());
 
 	        } catch (Exception e) {e.printStackTrace();}
 

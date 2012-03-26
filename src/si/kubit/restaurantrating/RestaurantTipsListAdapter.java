@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -92,10 +94,12 @@ public class RestaurantTipsListAdapter extends BaseAdapter {
 		      long diff = milliseconds2 - milliseconds1;
 		      //long diffSeconds = diff / 1000;
 		      //long diffMinutes = diff / (60 * 1000);
-		      //long diffHours = diff / (60 * 60 * 1000);
+		      long diffHours = diff / (60 * 60 * 1000);
 		      long diffDays = diff / (24 * 60 * 60 * 1000);
-		      holder.textUserPrefix.setText(diffDays + " " + context.getString(R.string.days_ago).toUpperCase() + " ");
-			
+		      //holder.textUserPrefix.setText(diffDays + " " + context.getString(R.string.days_ago).toUpperCase() + " ");
+		      DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	          holder.textUserPrefix.setText(Util.formatTime(df1.format(dateD), diffHours+"", context) + " ");
+				
 		      //izpis
 		      JSONObject user = (JSONObject)jobject.getJSONObject("user");
 		      holder.textUser.setText(user.getString("firstName").toUpperCase() + (user.has("lastName")?" " + user.getString("lastName").toUpperCase():""));
