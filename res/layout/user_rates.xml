@@ -29,10 +29,13 @@
 	 </FrameLayout>	        
          	   
 
-	<FrameLayout 
-	    android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:orientation="vertical" >
+    <LinearLayout android:layout_width="fill_parent" 
+     	android:gravity="left" 
+     	android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:layout_weight="10"
+		style="@style/LayoutDefaultLight"
+	    	android:background="@drawable/layout_rounded_bottom_white" >
 	    
 	    <ListView android:id="@+id/user_rates_list"
 		       android:layout_width="fill_parent"
@@ -40,80 +43,10 @@
 	          android:layout_weight="1"
 	          android:drawSelectorOnTop="false">
 		 </ListView>	 
-	   
+	  </LinearLayout>	    
 
-	    <FrameLayout 
-	        android:layout_width="fill_parent" 
-	     	  style="@style/AppFooterLayout" 
-	    	android:orientation="horizontal">
-	
-		    <LinearLayout android:layout_width="wrap_content" 
-		     	android:gravity="center" 
-			   	android:paddingTop="10dip"
-				android:paddingLeft="40dip"
-				android:layout_gravity="left|top"
-				android:layout_height="wrap_content"
-				android:orientation="vertical">
-				
-		       <Button android:id="@+id/button_friends"
-		           android:background="@drawable/friends"
-		           android:layout_width="32sp"
-		           android:layout_height="21sp" />
-		       
-			    <si.kubit.restaurantrating.TextViewFont
-			        android:id="@+id/text_user"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        restaurantrating:font_name="@string/font_small_text"
-			        style="@style/TextUser.Small"
-			        android:text="@string/friends" />
-	       </LinearLayout>
-	        
-	       <LinearLayout android:layout_width="wrap_content" 
-		     	android:gravity="center" 
-			   	android:paddingTop="10dip"
-				android:layout_height="wrap_content"
-				android:paddingRight="40dip"
-				android:layout_gravity="right|top"
-				android:orientation="vertical">
-				
-		       <Button android:id="@+id/button_user"
-		           android:background="@drawable/user"
-		           android:layout_width="24sp"
-		           android:layout_height="20sp" />
-		       
-			    <si.kubit.restaurantrating.TextViewFont
-			        android:id="@+id/text_user"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        restaurantrating:font_name="@string/font_small_text"
-			        style="@style/TextUser.Small"
-			        android:text="@string/user" />
-	       </LinearLayout>
-	    </FrameLayout>	        
-
-    	<LinearLayout android:layout_width="wrap_content" 
-	     	style="@style/AppFooterLayout" 
-	    	android:background="@drawable/rate_food_background"
-    	   	android:layout_height="wrap_content"
-			android:orientation="vertical">
-			
-	       <Button android:id="@+id/button_rate"
-           		android:background="@drawable/rate_food"
-    	   		android:layout_width="24sp"
-           		android:layout_height="40sp" />
-	       
-		    <si.kubit.restaurantrating.TextViewFont
-		        android:id="@+id/text_user"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        restaurantrating:font_name="@string/font_small_text"
-		        style="@style/TextUser.Small"
-		        android:text="@string/rate_food" />
-       </LinearLayout>  
-
-	  </FrameLayout>	    
-
+      <include layout="@layout/footer" />
+      <include layout="@layout/rate_food" />
 
 
 </LinearLayout>

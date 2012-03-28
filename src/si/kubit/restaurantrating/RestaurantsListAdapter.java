@@ -103,9 +103,11 @@ public class RestaurantsListAdapter extends BaseAdapter {
 			      holder.textRestaurantCategory.setText("");
 			      holder.textRestaurantDistance.setText("");
 
-				  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.restaurants_layout);
+			      LinearLayout lh = (LinearLayout) vi.findViewById(R.id.restaurants_layout);
 	        	  lh.setBackgroundColor(context.getResources().getColor(R.color.firstListColor));
-		          holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+	        	  //lh.setLayoutParams(lp);
+	        	  holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
 	        	  holder.textReviews.setTextColor(context.getResources().getColor(R.color.secondListColor));
 	        	  holder.textRestaurantName.setTextColor(context.getResources().getColor(R.color.secondListColor));  	  
 	        	  holder.textRestaurantDistance.setTextColor(context.getResources().getColor(R.color.secondListColor));

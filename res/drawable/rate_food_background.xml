@@ -5,8 +5,8 @@
     <corners
         android:radius="10dip" />
     <size
-        android:width="76dip"
-        android:height="76dip" />
+        android:width="70dip"
+        android:height="60dip" />
     <solid
         android:color="@color/secondListColor" />
     <stroke

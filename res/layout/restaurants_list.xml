@@ -31,7 +31,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" 
-        android:paddingTop="5px" >
+        android:paddingTop="5px"
+        android:paddingRight="40px" >
 	
 	    <si.kubit.restaurantrating.TextViewFont
 	        android:id="@+id/text_restaurant_name"

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+	   <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+	        android:layout_width="fill_parent" 
+	     	  style="@style/AppFooterLayout.Top" 
+	    	android:orientation="horizontal">
+	
+		    <LinearLayout android:layout_width="wrap_content" 
+		     	android:gravity="center" 
+			   	android:paddingTop="10dip"
+				android:paddingLeft="40dip"
+				android:layout_gravity="left|top"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				
+		       <Button android:id="@+id/button_friends"
+		           android:background="@drawable/friends"
+		           android:layout_width="32sp"
+		           android:layout_height="21sp" />
+		       
+			    <si.kubit.restaurantrating.TextViewFont
+			        android:id="@+id/text_user"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        restaurantrating:font_name="@string/font_small_text"
+			        style="@style/TextUser.Small"
+			        android:text="@string/friends" />
+	       </LinearLayout>
+	        
+	       <LinearLayout android:layout_width="wrap_content" 
+		     	android:gravity="center" 
+			   	android:paddingTop="10dip"
+				android:layout_height="wrap_content"
+				android:paddingRight="40dip"
+				android:layout_gravity="right|top"
+				android:orientation="vertical">
+				
+		       <Button android:id="@+id/button_user"
+		           android:background="@drawable/user"
+		           android:layout_width="24sp"
+		           android:layout_height="20sp" />
+		       
+			    <si.kubit.restaurantrating.TextViewFont
+			        android:id="@+id/text_user"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        restaurantrating:font_name="@string/font_small_text"
+			        style="@style/TextUser.Small"
+			        android:text="@string/user" />
+	       </LinearLayout>
+	    </FrameLayout>	        

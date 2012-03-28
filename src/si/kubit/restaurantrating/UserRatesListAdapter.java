@@ -34,7 +34,7 @@ public class UserRatesListAdapter extends BaseAdapter {
 	  }
 		
 	  public int getCount() {
-	  	return jdata.length()+1;    	
+	  	return jdata.length();    	
 	  }
 	 
 	  public Object getItem(int position) {
@@ -71,42 +71,26 @@ public class UserRatesListAdapter extends BaseAdapter {
 	      }
 
 	      try {
-	    	  if (position == jdata.length()) {
-	    		  ImageView iv = (ImageView)vi.findViewById(R.id.user_rate_next);
-	    		  iv.setVisibility(View.INVISIBLE);
-			      holder.textRate.setText("");
-				  holder.textUser.setText("");
-				  holder.textRestaurant.setText("");
-				  holder.textHoursAgo.setText("");	    		  
+	    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
+		      holder.textRate.setText(jobject.getString("avgRate"));
+			  holder.textUser.setText((jobject.getString("userName")+" "+jobject.getString("userSurname")).toUpperCase());
+			  holder.textRestaurant.setText(jobject.getString("restaurantName").toUpperCase());
+			  //holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
+			  holder.textHoursAgo.setText(Util.formatTime(jobject.getString("rateDateTime"), jobject.getString("rateHoursAgo"), context));
 
-				  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.user_rate_layout);
+			  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.user_rate_layout);
+        	  if (position%2==0) {
+	        	  //lh.setBackgroundColor(context.getResources().getColor(R.color.secondListColor));
+	        	  lh.setBackgroundResource(R.drawable.app_background);
+		          holder.textRate.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textUser.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	        	  holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.firstListColor));
+	          }	 else {
 	        	  lh.setBackgroundColor(context.getResources().getColor(R.color.firstListColor));
-			      holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
-		          holder.textUser.setTextColor(context.getResources().getColor(R.color.secondListColor));
-		          holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.secondListColor));  	  
-	    	  } else {
-		    	  JSONObject jobject = (JSONObject) jdata.getJSONObject(position);
-			      holder.textRate.setText(jobject.getString("avgRate"));
-				  holder.textUser.setText((jobject.getString("userName")+" "+jobject.getString("userSurname")).toUpperCase());
-				  holder.textRestaurant.setText(jobject.getString("restaurantName").toUpperCase());
-				  //holder.textHoursAgo.setText(jobject.getString("rateHoursAgo")+" "+context.getString(R.string.hours_ago));
-				  holder.textHoursAgo.setText(Util.formatTime(jobject.getString("rateDateTime"), jobject.getString("rateHoursAgo"), context));
-
-				  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.user_rate_layout);
-	        	  if (position%2==0) {
-		        	  //lh.setBackgroundColor(context.getResources().getColor(R.color.secondListColor));
-		        	  lh.setBackgroundResource(R.drawable.app_background);
-			          holder.textRate.setTextColor(context.getResources().getColor(R.color.firstListColor));
-		        	  holder.textUser.setTextColor(context.getResources().getColor(R.color.firstListColor));
-		        	  holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.firstListColor));
-		          }	 else {
-		        	  lh.setBackgroundColor(context.getResources().getColor(R.color.firstListColor));
-			          holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
-		        	  holder.textUser.setTextColor(context.getResources().getColor(R.color.secondListColor));
-		        	  holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.secondListColor));  	  
-		          }
-	    	  }
-	    	  
+		          holder.textRate.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  holder.textUser.setTextColor(context.getResources().getColor(R.color.secondListColor));
+	        	  holder.textHoursAgo.setTextColor(context.getResources().getColor(R.color.secondListColor));  	  
+	          }
 	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return vi;

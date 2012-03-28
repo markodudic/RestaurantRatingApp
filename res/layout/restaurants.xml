@@ -68,7 +68,7 @@
 	     	android:gravity="center" 
 		   android:layout_height="50dip"
 			android:orientation="horizontal"
-	    	android:background="@drawable/layout_rounded_bottom_transparent"
+	    	android:background="@color/translucentBlack"
 	    	android:layout_gravity="center_horizontal|bottom">
 		   
 		    <TextView android:id="@+id/text_places_nearby"
