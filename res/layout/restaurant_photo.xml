@@ -8,8 +8,9 @@
     <FrameLayout android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
 	    android:orientation="horizontal"
-    android:background="@drawable/layout_rounded_top_dark">
+    	android:background="@drawable/layout_rounded_top_dark">
 
+        
        <Button android:id="@+id/button_number_photos"
             android:background="@drawable/cancel"
     			style="@style/TextUser.Small.AppTitleButtonLeft"

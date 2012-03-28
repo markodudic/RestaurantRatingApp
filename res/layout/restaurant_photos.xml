@@ -10,7 +10,7 @@
     <FrameLayout android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
 	    android:orientation="horizontal"
-    android:background="@drawable/layout_rounded_top_dark">
+    android:background="@drawable/layout_rounded_top">
 
        <Button android:id="@+id/button_location"
             android:background="@drawable/cancel"

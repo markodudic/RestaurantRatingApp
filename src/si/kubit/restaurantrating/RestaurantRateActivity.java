@@ -103,7 +103,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			*/
 			JSONArray jdata = new JSONArray();
 			jdata.put(jobject);
-			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext());
+			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext(), false);
 			lv.setAdapter(listAdapter);
 			
 			

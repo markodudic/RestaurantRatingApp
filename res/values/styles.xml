@@ -14,7 +14,7 @@
     
 	<style name="AppFooterLayout">
       <item name="android:layout_height">50dip</item>
-      <item name="android:background">@color/backgroundColor</item>
+      <item name="android:background">@drawable/app_background</item>
       <item name="android:gravity">center</item>
       <item name="android:layout_gravity">center_horizontal|bottom</item>
    	</style>
@@ -85,7 +85,9 @@
    	</style>
 
 	<style name="SearchIcon">
-      <item name="android:layout_marginLeft">20dip</item>
+      <item name="android:layout_width">16sp</item>
+      <item name="android:layout_height">16sp</item>
+	  <item name="android:layout_marginLeft">20dip</item>
       <item name="android:layout_marginTop">8dip</item>
       <item name="android:layout_gravity">left|top</item>
     	</style>
@@ -191,8 +193,8 @@
     </style>
 	
 	<style name="TextUser.Small.AppTitleButtonLeft">
-      <item name="android:layout_width">60sp</item>
-      <item name="android:layout_height">26sp</item>
+      <item name="android:layout_width">66sp</item>
+      <item name="android:layout_height">30sp</item>
       <item name="android:layout_marginLeft">10dip</item>
       <item name="android:layout_marginTop">0dip</item>
       <item name="android:layout_gravity">left|center</item>

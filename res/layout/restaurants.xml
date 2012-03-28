@@ -68,8 +68,8 @@
 	     	android:gravity="center" 
 		   android:layout_height="50dip"
 			android:orientation="horizontal"
-	    	android:layout_gravity="center_horizontal|bottom"
-    		android:background="@drawable/layout_rounded_bottom_transparent">
+	    	android:background="@drawable/layout_rounded_bottom_transparent"
+	    	android:layout_gravity="center_horizontal|bottom">
 		   
 		    <TextView android:id="@+id/text_places_nearby"
 		        android:layout_width="wrap_content"

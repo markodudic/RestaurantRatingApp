@@ -71,7 +71,7 @@ public class UserRatesActivity extends Activity implements OnClickListener {
         	userRates = c.get("userrates");
         	Log.d("RATES", userRates);
         	ListView lv = (ListView) findViewById(R.id.user_rates_list);
-            UserRatesListAdapter listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
+        	UserRatesListAdapter listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
     		lv.setAdapter(listAdapter);
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
