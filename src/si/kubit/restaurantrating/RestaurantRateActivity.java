@@ -48,9 +48,6 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 
 	ListView lv;
 
-	private Drawable rateItem;
-	private Drawable rateItemPress;
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +72,13 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		View photosButtonSubmit = findViewById(R.id.button_photos); 
 		photosButtonSubmit.setOnClickListener(this);
 
+		View friendsButtonSubmit = findViewById(R.id.button_friends); 
+		friendsButtonSubmit.setOnClickListener(this);
+		View rateButtonSubmit = findViewById(R.id.button_rate); 
+		rateButtonSubmit.setOnClickListener(this);
+		View userButtonSubmit = findViewById(R.id.button_user); 
+		userButtonSubmit.setOnClickListener(this);
+
 		lv = (ListView) findViewById(R.id.restaurant_rate_list);
     }
     
@@ -88,18 +92,17 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			Log.d("restaurant=", restaurant);
 			jobject = new JSONObject(restaurant);
 
+			JSONArray jdata = new JSONArray();
+			jdata.put(jobject);
+			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext());
+			lv.setAdapter(listAdapter);
+			
 			restaurantId = (String) jobject.getString("id");
 			rateAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg")));
 			rateFoodAvg = Double.parseDouble(jobject.getString("rateFoodAvg"));
 			rateAmbientAvg = Double.parseDouble(jobject.getString("rateAmbientAvg"));
 			rateServiceAvg = Double.parseDouble(jobject.getString("rateServiceAvg"));
 			rateValueAvg = Double.parseDouble(jobject.getString("rateValueAvg"));
-
-			JSONArray jdata = new JSONArray();
-			jdata.put(jobject);
-			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext());
-			lv.setAdapter(listAdapter);
-			
 			
 			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
 			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
@@ -114,6 +117,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 	        if (userRate) {
 	        	showRatesTask();
 	        }
+	        
 		} catch (Exception e) {e.printStackTrace();}			
 	}
 	
@@ -266,6 +270,14 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			  	extras.putString("restaurant_id", restaurantId);
 			  	intentRestaurantPhotos.putExtra("si.kubit.restaurantrating.RestaurantPhotosActivity", extras);
 			  	RestaurantRateActivity.this.startActivity(intentRestaurantPhotos);
+				break;
+			case R.id.button_friends:
+				break;
+			case R.id.button_rate:
+    			Intent restaurants = new Intent(this, RestaurantsActivity.class); 
+    			startActivity(restaurants); 
+				break;
+			case R.id.button_user:
 				break;
     	}
 	}

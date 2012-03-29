@@ -94,7 +94,8 @@ public class RestaurantsListAdapter extends BaseAdapter {
 			  holder.textReviews.setText(jobject.getString("rateCount")+" "+context.getString(R.string.reviews));
 			  holder.textRestaurantName.setText(jobject.getString("name").toUpperCase());
 			  holder.textRestaurantCategory.setText(jobject.getString("category").toUpperCase());
-			  holder.textRestaurantDistance.setText(jobject.getString("distance")+" "+context.getString(R.string.distance));
+			  if (jobject.has("distance"))
+				  holder.textRestaurantDistance.setText(jobject.getString("distance")+" "+context.getString(R.string.distance));
 			  
 			  LinearLayout lh = (LinearLayout) vi.findViewById(R.id.restaurants_layout);
         	  if (position%2==0) {

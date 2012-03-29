@@ -12,9 +12,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class UserRatesActivity extends Activity implements OnClickListener {
 	private ListView lv;
@@ -33,17 +33,39 @@ public class UserRatesActivity extends Activity implements OnClickListener {
 		    	try {
 		    		JSONObject jobject = (JSONObject) listAdapter.getItem(position);
 		    		
-		    		//za ta rate najdi ocene oz. json objekt
-		    		//{"id":"4ba4e78af964a52040c138e3","distance":102,"category":"Ice Cream Shop","rateServiceAvg":3.4,"rateAmbientAvg":3.2,"rateAvg":3.4,"rateCount":12,"name":"Cacao","photoCount":22,"rateFoodAvg":3.8,"rateValueAvg":3.2,"tipCount":14}
-		    		//brez stevila revievov in razdalje, ce ne bo slo
-		    		
-			    	Intent intentRestaurantRate = new Intent(UserRatesActivity.this, RestaurantRateActivity.class);
+		    		String restaurantId 	= jobject.getString("restaurantId");
+				    String restaurantName 	= jobject.getString("restaurantName");
+		    		String category 		= jobject.getString("category");
+		    		int rateCount 			= jobject.getInt("rateCount");
+		    		String avgRate 			= jobject.getString("avgRate");
+		    		double foodRate 		= jobject.getDouble("foodRate");
+		    		double ambientRate		= jobject.getDouble("ambientRate");
+		    		double serviceRate 		= jobject.getDouble("serviceRate");
+		    		double valueRate 		= jobject.getDouble("valueRate");
+		    		int tipCount 			= jobject.getInt("tipCount");
+		    		int photoCount 			= jobject.getInt("photoCount");
+
+		    		JSONObject jobjectRestaurant = new JSONObject();
+		    		jobjectRestaurant.put("id",restaurantId);
+		    		jobjectRestaurant.put("name",restaurantName);
+		    		jobjectRestaurant.put("category",category);
+		    		jobjectRestaurant.put("rateCount",rateCount);
+		    		jobjectRestaurant.put("rateAvg",avgRate);
+		    		jobjectRestaurant.put("rateFoodAvg",foodRate);
+		    		jobjectRestaurant.put("rateAmbientAvg",ambientRate);
+		    		jobjectRestaurant.put("rateServiceAvg",serviceRate);
+		    		jobjectRestaurant.put("rateValueAvg",valueRate);
+		    		jobjectRestaurant.put("tipCount",tipCount);
+		    		jobjectRestaurant.put("photoCount",photoCount);
+		    		 
+		    		Intent intentRestaurantRate = new Intent(UserRatesActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();
 				  	
-				  	extras.putString("restaurant", "{\"id\":\"4ba4e78af964a52040c138e3\",\"distance\":102,\"category\":\"Ice Cream Shop\",\"rateServiceAvg\":3.4,\"rateAmbientAvg\":3.2,\"rateAvg\":3.4,\"rateCount\":12,\"name\":\"Cacao\",\"photoCount\":22,\"rateFoodAvg\":3.8,\"rateValueAvg\":3.2,\"tipCount\":14}");
+				  	extras.putString("restaurant", jobjectRestaurant.toString());
 				  	extras.putBoolean("user_rate", true);
 				  	intentRestaurantRate.putExtra("si.kubit.restaurantrating.RestaurantRateActivity", extras);
-				  	UserRatesActivity.this.startActivity(intentRestaurantRate);
+				  	intentRestaurantRate.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+	    			UserRatesActivity.this.startActivity(intentRestaurantRate);
 
 		    	} catch (Exception e) {e.printStackTrace();}
 		    }				
