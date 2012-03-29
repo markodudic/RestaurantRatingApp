@@ -2,6 +2,8 @@ package si.kubit.restaurantrating;
 
 import java.net.SocketException;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,17 +11,43 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class UserRatesActivity extends Activity implements OnClickListener {
-    /** Called when the activity is first created. */
+	private ListView lv;
+	private UserRatesListAdapter listAdapter;
+
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
 
+		lv = (ListView) findViewById(R.id.user_rates_list);
+        lv.setOnItemClickListener(new OnItemClickListener() {
+		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
+		    	try {
+		    		JSONObject jobject = (JSONObject) listAdapter.getItem(position);
+		    		
+		    		//za ta rate najdi ocene oz. json objekt
+		    		//{"id":"4ba4e78af964a52040c138e3","distance":102,"category":"Ice Cream Shop","rateServiceAvg":3.4,"rateAmbientAvg":3.2,"rateAvg":3.4,"rateCount":12,"name":"Cacao","photoCount":22,"rateFoodAvg":3.8,"rateValueAvg":3.2,"tipCount":14}
+		    		//brez stevila revievov in razdalje, ce ne bo slo
+		    		
+			    	Intent intentRestaurantRate = new Intent(UserRatesActivity.this, RestaurantRateActivity.class);
+				  	Bundle extras = new Bundle();
+				  	
+				  	extras.putString("restaurant", "{\"id\":\"4ba4e78af964a52040c138e3\",\"distance\":102,\"category\":\"Ice Cream Shop\",\"rateServiceAvg\":3.4,\"rateAmbientAvg\":3.2,\"rateAvg\":3.4,\"rateCount\":12,\"name\":\"Cacao\",\"photoCount\":22,\"rateFoodAvg\":3.8,\"rateValueAvg\":3.2,\"tipCount\":14}");
+				  	extras.putBoolean("user_rate", true);
+				  	intentRestaurantRate.putExtra("si.kubit.restaurantrating.RestaurantRateActivity", extras);
+				  	UserRatesActivity.this.startActivity(intentRestaurantRate);
+
+		    	} catch (Exception e) {e.printStackTrace();}
+		    }				
+		});	      
 		
 		View mapButtonSubmit = findViewById(R.id.button_map); 
 		mapButtonSubmit.setOnClickListener(this);
@@ -71,7 +99,7 @@ public class UserRatesActivity extends Activity implements OnClickListener {
         	userRates = c.get("userrates");
         	Log.d("RATES", userRates);
         	ListView lv = (ListView) findViewById(R.id.user_rates_list);
-        	UserRatesListAdapter listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
+        	listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
     		lv.setAdapter(listAdapter);
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);

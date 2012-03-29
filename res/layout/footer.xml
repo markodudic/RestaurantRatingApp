@@ -23,7 +23,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        restaurantrating:font_name="@string/font_small_text"
-			        style="@style/TextUser.Small"
+			        style="@style/TextUser.Small.Bottom"
 			        android:text="@string/friends" />
 	       </LinearLayout>
 	        
@@ -45,7 +45,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        restaurantrating:font_name="@string/font_small_text"
-			        style="@style/TextUser.Small"
+			        style="@style/TextUser.Small.Bottom"
 			        android:text="@string/user" />
 	       </LinearLayout>
 	    </FrameLayout>	        

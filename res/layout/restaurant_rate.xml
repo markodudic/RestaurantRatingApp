@@ -108,7 +108,7 @@
 		   android:layout_height="wrap_content"
 			android:orientation="horizontal"
 			style="@style/LayoutDefaultLight"
-			android:paddingBottom="20px"
+			android:paddingBottom="40px"
 	    	android:background="@drawable/layout_rounded_bottom_white" >
 	    
 		<si.kubit.restaurantrating.TextViewFont

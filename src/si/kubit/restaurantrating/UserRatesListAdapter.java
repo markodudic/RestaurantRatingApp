@@ -6,15 +6,20 @@ import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class UserRatesListAdapter extends BaseAdapter {
 
@@ -24,13 +29,14 @@ public class UserRatesListAdapter extends BaseAdapter {
 	  private Context context;
 	 
 	  public UserRatesListAdapter(Activity a, String userRates, Context context) {
-	      this.activity = a;  
-	      this.context = context;
-	      try {
-	    	  jdata = (JSONArray)new JSONTokener(userRates).nextValue();
-	      } catch (Exception e) {}
-
-	      UserRatesListAdapter.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);      
+		this.activity = a;  
+		this.context = context;
+		try {
+			jdata = (JSONArray)new JSONTokener(userRates).nextValue();
+		} catch (Exception e) {}
+		
+		UserRatesListAdapter.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
+	      
 	  }
 		
 	  public int getCount() {
@@ -38,9 +44,12 @@ public class UserRatesListAdapter extends BaseAdapter {
 	  }
 	 
 	  public Object getItem(int position) {
-	      return position;
+	      try {
+	    	  return jdata.getJSONObject(position);
+	      } catch (Exception e) {e.printStackTrace();}
+	      return null;
 	  }
-	 
+
 	  public long getItemId(int position) {
 	      return position;
 	  }

@@ -20,10 +20,12 @@
    	</style>
 	
 	
-	<style name="AppFooterLayout.Margin">
-      <item name="android:layout_marginTop">-60dip</item>
-   </style>
-
+	<style name="AppFooterRateLayout">
+      <item name="android:layout_marginTop">-76dip</item>
+      <item name="android:gravity">center</item>
+      <item name="android:layout_gravity">center_horizontal|bottom</item>
+   	</style>
+	
 	<style name="AppFooterLayout.Top">
       <item name="android:layout_gravity">center_horizontal|top</item>
    	</style>
@@ -203,8 +205,14 @@
 	<style name="TextUser.Small">
       <item name="android:textSize">10sp</item>
    	  <item name="android:gravity">center</item>
-    </style>
-	
+   	</style>
+
+	<style name="TextUser.Small.Bottom">
+      <item name="android:textSize">10sp</item>
+   	  <item name="android:gravity">center</item>
+      <item name="android:layout_gravity">center|bottom</item>
+   	</style>
+		
 	<style name="TextUser.Small.AppTitleButtonLeft">
       <item name="android:layout_width">66sp</item>
       <item name="android:layout_height">30sp</item>

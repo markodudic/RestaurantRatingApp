@@ -84,6 +84,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		try {
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
 			String restaurant = extras.getString("restaurant");
+			boolean userRate = extras.getBoolean("user_rate");
 			Log.d("restaurant=", restaurant);
 			jobject = new JSONObject(restaurant);
 
@@ -94,21 +95,9 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			rateServiceAvg = Double.parseDouble(jobject.getString("rateServiceAvg"));
 			rateValueAvg = Double.parseDouble(jobject.getString("rateValueAvg"));
 
-			/*TextView textRate = (TextView)this.findViewById(R.id.text_rate);
-			TextView textReviews=(TextView)this.findViewById(R.id.text_reviews);
-			TextView textRestaurantName = (TextView)this.findViewById(R.id.text_restaurant_name);
-			TextView textRestaurantCategory = (TextView)this.findViewById(R.id.text_restaurant_category);
-			TextView textRestaurantDistance = (TextView)this.findViewById(R.id.text_restaurant_distance);
-			
-			textRate.setText(decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg"))));
-			textReviews.setText(jobject.getString("rateCount")+" "+getString(R.string.reviews));
-			textRestaurantName.setText(jobject.getString("name").toUpperCase());
-			textRestaurantCategory.setText(jobject.getString("category").toUpperCase());
-			textRestaurantDistance.setText(jobject.getString("distance")+" "+getString(R.string.distance));
-			*/
 			JSONArray jdata = new JSONArray();
 			jdata.put(jobject);
-			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext(), false);
+			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext());
 			lv.setAdapter(listAdapter);
 			
 			
@@ -121,6 +110,10 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			
 			mHandler.removeCallbacks(mSetRatesTask);
 	        mHandler.postDelayed(mSetRatesTask, 2000);
+	        
+	        if (userRate) {
+	        	showRatesTask();
+	        }
 		} catch (Exception e) {e.printStackTrace();}			
 	}
 	
@@ -184,25 +177,24 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
  	
     private Runnable mShowRatesTask = new Runnable() {
   	   public void run() {
-  		   //int rateFood = Integer.parseInt(rateFoodValue.getText()+"");
-	       //int rateAmbient = Integer.parseInt(rateAmbientValue.getText()+"");
-	       //int rateService = Integer.parseInt(rateServiceValue.getText()+"");
-	       //int rateValue = Integer.parseInt(rateValueValue.getText()+"");
-
- 	       setRateItem(layoutRateFood, (int) Math.round(rateFoodAvg), R.drawable.rate_item_food_press, R.drawable.rate_item_food);
- 	       setRateItem(layoutRateAmbient, (int) Math.round(rateAmbientAvg), R.drawable.rate_item_ambient_press, R.drawable.rate_item_ambient);
- 	       setRateItem(layoutRateService, (int) Math.round(rateServiceAvg), R.drawable.rate_item_service_press, R.drawable.rate_item_service);
- 	       setRateItem(layoutRateValue, (int) Math.round(rateValueAvg), R.drawable.rate_item_value_press, R.drawable.rate_item_value);
-
- 	 	   showRateItem(layoutRateFood, rateFoodAvg, R.drawable.rate_item_food_press);
-  	       showRateItem(layoutRateAmbient, rateAmbientAvg, R.drawable.rate_item_ambient_press);
-  	       showRateItem(layoutRateService, rateServiceAvg, R.drawable.rate_item_service_press);
-  	       showRateItem(layoutRateValue, rateValueAvg, R.drawable.rate_item_value_press);
-	       
-	       mHandler.removeCallbacks(mShowRatesTask);
+  		 showRatesTask();
    	   }
   	};
-  	
+
+  	private void showRatesTask() {
+	       setRateItem(layoutRateFood, (int) Math.round(rateFoodAvg), R.drawable.rate_item_food_press, R.drawable.rate_item_food);
+	       setRateItem(layoutRateAmbient, (int) Math.round(rateAmbientAvg), R.drawable.rate_item_ambient_press, R.drawable.rate_item_ambient);
+	       setRateItem(layoutRateService, (int) Math.round(rateServiceAvg), R.drawable.rate_item_service_press, R.drawable.rate_item_service);
+	       setRateItem(layoutRateValue, (int) Math.round(rateValueAvg), R.drawable.rate_item_value_press, R.drawable.rate_item_value);
+
+	 	   showRateItem(layoutRateFood, rateFoodAvg, R.drawable.rate_item_food_press);
+	       showRateItem(layoutRateAmbient, rateAmbientAvg, R.drawable.rate_item_ambient_press);
+	       showRateItem(layoutRateService, rateServiceAvg, R.drawable.rate_item_service_press);
+	       showRateItem(layoutRateValue, rateValueAvg, R.drawable.rate_item_value_press);
+	       
+	       mHandler.removeCallbacks(mShowRatesTask);  	
+  	}
+
   	private void setRateItem(View layout, int rate, int item_pressed, int item) {
       TextView rateItem1 = (TextView) layout.findViewById(R.id.rate_item_1);
       TextView rateItem2 = (TextView) layout.findViewById(R.id.rate_item_2);
