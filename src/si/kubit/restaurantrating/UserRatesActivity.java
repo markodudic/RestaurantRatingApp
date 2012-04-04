@@ -102,6 +102,7 @@ public class UserRatesActivity extends Activity implements OnClickListener {
 			case R.id.button_settings:
 				break;
 			case R.id.button_friends:
+				GetUsersRatesList();
 				break;
 			case R.id.button_rate:
     			Intent restaurants = new Intent(this, RestaurantsActivity.class); 

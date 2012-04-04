@@ -199,7 +199,7 @@
      	</style>
 
 	<style name="UserRateList">
-      <item name="android:background">#ffffff</item>
+      <item name="android:background">@drawable/app_background</item>
     </style>
 		
 	<style name="TextUser.Small">

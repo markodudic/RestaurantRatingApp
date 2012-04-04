@@ -188,7 +188,7 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	        	jRestaurants = (JSONArray)new JSONTokener(restaurants).nextValue();
 	        	Log.d("+++++++++++++", jRestaurants.toString());
 			  	
-		        listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext());
+		        listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext(), true);
 		        lv.setAdapter(listAdapter);
 				
 				TextView places = (TextView)findViewById(R.id.text_places_nearby);

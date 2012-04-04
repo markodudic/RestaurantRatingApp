@@ -50,6 +50,8 @@ public class RestaurantTipsActivity extends Activity implements OnClickListener 
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_location:
+    			Intent restaurantRate = new Intent(this, RestaurantRateActivity.class); 
+    			startActivity(restaurantRate); 
 				break;
 			case R.id.button_tip:
 				break;

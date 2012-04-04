@@ -11,15 +11,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +44,9 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 	private TextView textRateTitle;
 	private DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
+	private String restaurant;
+	private boolean userRate = false;
+	
 	ListView lv;
 
     /** Called when the activity is first created. */
@@ -87,14 +88,24 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		super.onResume();
 		try {
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
-			String restaurant = extras.getString("restaurant");
-			boolean userRate = extras.getBoolean("user_rate");
+			if (extras != null) {
+				restaurant = extras.getString("restaurant");
+				userRate = extras.getBoolean("user_rate");
+				SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("restaurant", restaurant);
+				editor.putBoolean("user_rate", userRate);
+				editor.commit();
+			} else {
+				restaurant   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()). getString("restaurant", null);
+				userRate   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean("user_rate", false);				
+			}
 			Log.d("restaurant=", restaurant);
 			jobject = new JSONObject(restaurant);
 
 			JSONArray jdata = new JSONArray();
 			jdata.put(jobject);
-			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext());
+			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext(), false);
 			lv.setAdapter(listAdapter);
 			
 			restaurantId = (String) jobject.getString("id");
@@ -272,6 +283,8 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			  	RestaurantRateActivity.this.startActivity(intentRestaurantPhotos);
 				break;
 			case R.id.button_friends:
+    			Intent userRates = new Intent(this, UserRatesActivity.class); 
+    			startActivity(userRates); 
 				break;
 			case R.id.button_rate:
     			Intent restaurants = new Intent(this, RestaurantsActivity.class); 

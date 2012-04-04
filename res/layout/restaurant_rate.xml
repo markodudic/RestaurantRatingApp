@@ -13,7 +13,7 @@
        <Button android:id="@+id/button_back"
             android:background="@drawable/cancel"
     			style="@style/TextUser.Small.AppTitleButtonLeft"
-		    	android:text="@string/back" />
+		    	android:text="@string/places" />
 
 		<si.kubit.restaurantrating.TextViewFont 
 	        android:id="@+id/text_restaurnt_name"
@@ -40,7 +40,8 @@
 		       android:layout_height="wrap_content"
 	          android:layout_weight="1"
 	          android:drawSelectorOnTop="false"
-	          android:textFilterEnabled="true">
+	          android:textFilterEnabled="true"
+	          android:fadingEdge="none">
 		 </ListView>	 
 	</LinearLayout>    
 
