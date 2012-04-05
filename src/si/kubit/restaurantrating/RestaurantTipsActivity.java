@@ -13,6 +13,7 @@ import org.json.JSONTokener;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,8 +28,6 @@ public class RestaurantTipsActivity extends Activity implements OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_tips);
-        GetRestaurantTipsList();
-
 		
 		View locationButtonSubmit = findViewById(R.id.button_location); 
 		locationButtonSubmit.setOnClickListener(this);
@@ -39,6 +38,7 @@ public class RestaurantTipsActivity extends Activity implements OnClickListener 
 	@Override
 	protected void onResume() { 
 		super.onResume();
+        GetRestaurantTipsList();
 	}
 	
     @Override
@@ -54,6 +54,8 @@ public class RestaurantTipsActivity extends Activity implements OnClickListener 
     			startActivity(restaurantRate); 
 				break;
 			case R.id.button_tip:
+    			Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
+    			startActivity(restaurantTipAdd); 
 				break;
     	}
 	}
@@ -64,9 +66,15 @@ public class RestaurantTipsActivity extends Activity implements OnClickListener 
     	String tips = "";
         Comm c = new Comm(getString(R.string.server_url), null, null);
         try { 
-			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantTipsActivity");
-			String restaurantId = extras.getString("restaurant_id");
-
+        	String restaurantId;
+        	Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantTipsActivity");
+			if (extras != null) {
+				restaurantId = extras.getString("restaurant_id");
+				Util.addPreferencies("restaurant_id", restaurantId, this);
+			} else {
+				restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
+			}
+			
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
 	        

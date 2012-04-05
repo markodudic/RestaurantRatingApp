@@ -21,8 +21,7 @@
 	        android:layout_height="wrap_content"
 	        android:includeFontPadding="false"
 	        restaurantrating:font_name="@string/font_big_text"
-	        style="@style/AppTitle" 
-	    	android:text="restaurnt name" />
+	        style="@style/AppTitle" />
 
 		<Button android:id="@+id/button_map"
             android:background="@drawable/map"

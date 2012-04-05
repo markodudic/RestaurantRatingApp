@@ -91,14 +91,11 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			if (extras != null) {
 				restaurant = extras.getString("restaurant");
 				userRate = extras.getBoolean("user_rate");
-				SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-				SharedPreferences.Editor editor = settings.edit();
-				editor.putString("restaurant", restaurant);
-				editor.putBoolean("user_rate", userRate);
-				editor.commit();
+				Util.addPreferencies("restaurant", restaurant, this);
+				Util.addPreferencies("user_rate", Boolean.toString(userRate), this);
 			} else {
 				restaurant   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()). getString("restaurant", null);
-				userRate   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean("user_rate", false);				
+				userRate   = Boolean.parseBoolean(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user_rate", null));				
 			}
 			Log.d("restaurant=", restaurant);
 			jobject = new JSONObject(restaurant);
@@ -108,12 +105,17 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext(), false);
 			lv.setAdapter(listAdapter);
 			
+			
 			restaurantId = (String) jobject.getString("id");
 			rateAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg")));
 			rateFoodAvg = Double.parseDouble(jobject.getString("rateFoodAvg"));
 			rateAmbientAvg = Double.parseDouble(jobject.getString("rateAmbientAvg"));
 			rateServiceAvg = Double.parseDouble(jobject.getString("rateServiceAvg"));
 			rateValueAvg = Double.parseDouble(jobject.getString("rateValueAvg"));
+			
+			TextView restaurantName = (TextView)this.findViewById(R.id.text_restaurnt_name);
+			restaurantName.setText(Util.cutText(jobject.getString("name"), 15));
+			Util.addPreferencies("restaurant_name", jobject.getString("name"), this);
 			
 			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
 			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
@@ -270,7 +272,7 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 				break;
 			case R.id.button_tips:
 		    	Intent intentRestaurantTips = new Intent(RestaurantRateActivity.this, RestaurantTipsActivity.class);
-			  	Bundle extras = new Bundle();
+				Bundle extras = new Bundle();
 			  	extras.putString("restaurant_id", restaurantId);
 			  	intentRestaurantTips.putExtra("si.kubit.restaurantrating.RestaurantTipsActivity", extras);
 			  	RestaurantRateActivity.this.startActivity(intentRestaurantTips);
@@ -295,5 +297,5 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
     	}
 	}
 
- 
+
 }

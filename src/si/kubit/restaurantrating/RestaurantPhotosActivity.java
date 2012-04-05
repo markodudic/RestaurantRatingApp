@@ -16,8 +16,11 @@ import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +36,9 @@ import android.widget.Toast;
 public class RestaurantPhotosActivity extends Activity implements OnClickListener {
     /** Called when the activity is first created. */
 	private JSONArray jPhotos;
-	
+	private static final int CAMERA_PIC_REQUEST = 1337;
+	public static final int MEDIA_TYPE_IMAGE = 1;
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,9 +87,37 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     			startActivity(restaurantRate); 
 				break;
 			case R.id.button_photo:
+			    if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+				    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				    startActivityForResult(intent, CAMERA_PIC_REQUEST);
+			    } else {
+		        	Toast toast = Toast.makeText(this, getString(R.string.no_camera), Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        	toast.show();
+			    }
 				break;
     	}
 	}
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+         // Image captured and saved to fileUri specified in the Intent
+            Toast.makeText(this, "Image saved to:\n" + data.getData(), Toast.LENGTH_LONG).show();
+            
+            
+            
+            
+        } else if (resultCode == RESULT_CANCELED) {
+            // User cancelled the image capture
+        } else {
+            // Image capture failed, advise user
+        	Toast toast = Toast.makeText(this, getString(R.string.camera_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+        }
+    }
+   
     
     
     private void GetRestaurantPhotosList()

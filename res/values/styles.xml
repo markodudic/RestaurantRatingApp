@@ -37,14 +37,18 @@
       <item name="android:paddingTop">0dip</item>
       <item name="android:paddingBottom">0dip</item>
       <item name="android:gravity">center</item>
-   	<item name="android:layout_gravity">center</item>
+   	  <item name="android:layout_gravity">center</item>
    	</style>
 
 	<style name="AppTitle.White">
       <item name="android:textColor">#ffffff</item>
    	</style>
 
-
+	<style name="AppTitle.Left">
+      <item name="android:gravity">left|center</item>
+   	  <item name="android:layout_gravity">left|center</item>
+   	</style>
+   	
 	<style name="AppTitleButtonSettings">
       <item name="android:layout_width">30sp</item>
       <item name="android:layout_height">32sp</item>

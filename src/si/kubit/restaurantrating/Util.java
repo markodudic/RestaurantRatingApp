@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class Util {
 
@@ -30,5 +32,19 @@ public class Util {
 		return Math.round(ha/672)+" "+context.getString(R.string.months_ago);
 	}
 
+
+	static public void addPreferencies(String name, String value, Context context) {
+    	SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.putString(name, value);
+    	editor.commit();
+    }
+
+	static public String cutText(String text, int end) {
+    	if (end < text.length())
+    		return text.substring(0, end) + "...";
+    	else
+    		return text;
+    }
 
 }
