@@ -142,6 +142,7 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 	  
     private Runnable returnRes = new Runnable() {
     	public void run() {
+    		listAdapter.clear();
             if(tipsList != null && tipsList.size() > 0){
             	listAdapter.notifyDataSetChanged();
                 for(int i=0;i<tipsList.size();i++)

@@ -157,6 +157,7 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
     
     private Runnable returnRes = new Runnable() {
     	public void run() {
+    		listAdapter.clear();
             if(restaurantsList != null && restaurantsList.size() > 0){
             	listAdapter.notifyDataSetChanged();
                 for(int i=0;i<restaurantsList.size();i++)

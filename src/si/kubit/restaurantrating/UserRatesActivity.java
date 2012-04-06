@@ -171,6 +171,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	  
     private Runnable returnRes = new Runnable() {
     	public void run() {
+    		listAdapter.clear();
             if(userRatesList != null && userRatesList.size() > 0){
             	listAdapter.notifyDataSetChanged();
                 for(int i=0;i<userRatesList.size();i++)

@@ -1,5 +1,11 @@
 package si.kubit.restaurantrating;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -58,6 +64,23 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 				if (photoData!=null)
 					Log.d("********Photo data", photoData.toString());
 		    	
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+				nameValuePairs.add(new BasicNameValuePair("tip", tipEditText.getText().toString()));
+		        nameValuePairs.add(new BasicNameValuePair("restoran_id", PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null)));
+		        
+		        Comm c = new Comm(getString(R.string.server_url), null, null);
+		        try { 
+		        	String tip = c.post("add_tip", nameValuePairs);
+		        	
+		        	
+		        	
+		        } catch (Exception e) {
+		        	e.printStackTrace();
+		        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        	toast.show();
+		   		}
+		        	
 				Intent intentRestaurantTips = new Intent(RestaurantTipAddActivity.this, RestaurantTipsActivity.class);
 			  	RestaurantTipAddActivity.this.startActivity(intentRestaurantTips);
 				break;
