@@ -37,7 +37,7 @@
 		style="@style/LayoutDefaultLight"
 	    	android:background="@drawable/layout_rounded_bottom_white" >
 	    
-	    <ListView android:id="@+id/user_rates_list"
+	    <ListView android:id="@+id/android:list"
 		       android:layout_width="fill_parent"
 		       android:layout_height="wrap_content"
 	          android:layout_weight="1"

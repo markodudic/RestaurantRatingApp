@@ -9,7 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -31,19 +32,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RestaurantsActivity extends Activity implements OnClickListener {
+public class RestaurantsActivity extends ListActivity implements OnClickListener {
 	
 	LocationManager locationManager;
 	LocationListener locationListener;
 	String provider;
 	
-	private String restaurants = "";
 	private JSONArray jRestaurants;
     
 	private ListView lv;
 	private EditText filterText;
 	private RestaurantsListAdapter listAdapter;
-	
+	private ArrayList<Restaurant> restaurantsList = null;
+	private Runnable viewRestaurants;
+	private ProgressDialog m_ProgressDialog = null;
 	
     /** Called when the activity is first created. */
     @Override
@@ -54,6 +56,11 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 		
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
+        
+        restaurantsList = new ArrayList<Restaurant>();
+        this.listAdapter = new RestaurantsListAdapter(this, R.layout.restaurants_list, restaurantsList, true);
+        setListAdapter(this.listAdapter);
+                
 		View mapButtonSubmit = findViewById(R.id.button_map); 
 		mapButtonSubmit.setOnClickListener(this);
 		View cancelButtonSubmit = findViewById(R.id.button_cancel); 
@@ -89,13 +96,12 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 
 		registerListener();
 		
-		lv = (ListView) findViewById(R.id.restaurant_list);
+		lv = (ListView) findViewById(android.R.id.list);
         lv.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
 		    	try {
-		    		//JSONObject jobject = (JSONObject) jRestaurants.getJSONObject(position);
-		    		JSONObject jobject = (JSONObject) listAdapter.getItem(position);
-		    		
+		    		JSONObject jobject = (JSONObject) jRestaurants.getJSONObject(position);
+	  	    	  	
 			    	Intent intentRestaurantRate = new Intent(RestaurantsActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();
 				  	
@@ -184,12 +190,18 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	
 	        Comm c = new Comm(getString(R.string.server_url), null, null);
 	        try { 
-	        	restaurants = c.post("venues", nameValuePairs);
+	        	String restaurants = c.post("venues", nameValuePairs);
 	        	jRestaurants = (JSONArray)new JSONTokener(restaurants).nextValue();
 	        	Log.d("+++++++++++++", jRestaurants.toString());
 			  	
-		        listAdapter = new RestaurantsListAdapter(this, jRestaurants, getApplicationContext(), true);
-		        lv.setAdapter(listAdapter);
+	        	viewRestaurants = new Runnable(){
+	                public void run() {
+	                    getRestaurants();
+	                }
+	            };
+	            Thread thread =  new Thread(null, viewRestaurants, "ViewRestaurants");
+	            thread.start();
+	            m_ProgressDialog = ProgressDialog.show(RestaurantsActivity.this, getString(R.string.please_wait), getString(R.string.retriving_data), true);
 				
 				TextView places = (TextView)findViewById(R.id.text_places_nearby);
 		  		places.setText(jRestaurants.length() + " " + getString(R.string.places_nearby));
@@ -199,19 +211,41 @@ public class RestaurantsActivity extends Activity implements OnClickListener {
 	        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
 	        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
 	        	toast.show();
-//				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
 	   		}
 	    	
 		}
     }      
  
+    private void getRestaurants(){
+        try{
+        	restaurantsList = new ArrayList<Restaurant>();
+        	for(int i=0; i<jRestaurants.length(); i++) {
+        		JSONObject jobject = (JSONObject) jRestaurants.getJSONObject(i);
+  	    	  	Restaurant r = new Restaurant();
+        		r.setRateAvg(Double.parseDouble(jobject.getString("rateAvg")));
+        		r.setRateCount(Integer.parseInt(jobject.getString("rateCount")));
+        		r.setName(jobject.getString("name"));
+        		r.setCategory(jobject.getString("category"));
+        		r.setDistance(Long.parseLong(jobject.getString("distance")));
+        		restaurantsList.add(r);
+        	}
+            Thread.sleep(1000);
+          } catch (Exception e) { 
+            Log.e("BACKGROUND_PROC", e.getMessage());
+          }
+          runOnUiThread(returnRes);
+      }
+
     
-	private void showMessageBox(String closeTime, String redirect, String msg, String title) {
-		Intent messageBox = new Intent(this, MessageBox.class);
-    	messageBox.putExtra("redirect", redirect);
-    	messageBox.putExtra("closeTime", closeTime);
-		messageBox.putExtra("msg", msg);
-		messageBox.putExtra("title", title);
-		startActivityForResult(messageBox, 1);
-	}    
+    private Runnable returnRes = new Runnable() {
+    	public void run() {
+            if(restaurantsList != null && restaurantsList.size() > 0){
+            	listAdapter.notifyDataSetChanged();
+                for(int i=0;i<restaurantsList.size();i++)
+                	listAdapter.add(restaurantsList.get(i));
+            }
+            m_ProgressDialog.dismiss();
+            listAdapter.notifyDataSetChanged();
+        }
+      };
 }

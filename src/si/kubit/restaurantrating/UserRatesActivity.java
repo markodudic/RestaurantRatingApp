@@ -1,10 +1,14 @@
 package si.kubit.restaurantrating;
 
 import java.net.SocketException;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +20,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class UserRatesActivity extends Activity implements OnClickListener {
+public class UserRatesActivity extends ListActivity implements OnClickListener {
+	private JSONArray jUserRates;
+
 	private ListView lv;
 	private UserRatesListAdapter listAdapter;
+	private ArrayList<UserRate> userRatesList = null;
+	private Runnable viewUserRates;
+	private ProgressDialog m_ProgressDialog = null;
 
 	/** Called when the activity is first created. */
     @Override
@@ -27,12 +36,16 @@ public class UserRatesActivity extends Activity implements OnClickListener {
         setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
 
-		lv = (ListView) findViewById(R.id.user_rates_list);
+        userRatesList = new ArrayList<UserRate>();
+        this.listAdapter = new UserRatesListAdapter(this, R.layout.user_rates_list, userRatesList);
+        setListAdapter(this.listAdapter);
+
+        lv = (ListView) findViewById(android.R.id.list);
         lv.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
 		    	try {
-		    		JSONObject jobject = (JSONObject) listAdapter.getItem(position);
-		    		
+		    		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(position);
+	  	    	  	
 		    		String restaurantId 	= jobject.getString("restaurantId");
 				    String restaurantName 	= jobject.getString("restaurantName");
 		    		String category 		= jobject.getString("category");
@@ -120,10 +133,9 @@ public class UserRatesActivity extends Activity implements OnClickListener {
         Comm c = new Comm(getString(R.string.server_url), null, null);
         try { 
         	userRates = c.get("userrates");
-        	Log.d("RATES", userRates);
-        	ListView lv = (ListView) findViewById(R.id.user_rates_list);
-        	listAdapter = new UserRatesListAdapter(this, userRates, getApplicationContext());
-    		lv.setAdapter(listAdapter);
+        	jUserRates = (JSONArray)new JSONTokener(userRates).nextValue();
+        	
+        	getUserRates();
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -137,13 +149,36 @@ public class UserRatesActivity extends Activity implements OnClickListener {
    		}
     }      
  
-    
-	private void showMessageBox(String closeTime, String redirect, String msg, String title) {
-		Intent messageBox = new Intent(this, MessageBox.class);
-    	messageBox.putExtra("redirect", redirect);
-    	messageBox.putExtra("closeTime", closeTime);
-		messageBox.putExtra("msg", msg);
-		messageBox.putExtra("title", title);
-		startActivityForResult(messageBox, 1);
-	}    
+    private void getUserRates(){
+        try{
+        	userRatesList = new ArrayList<UserRate>();
+        	for(int i=0; i<jUserRates.length(); i++) {
+        		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(i);
+        		UserRate ur = new UserRate();
+        		ur.setAvgRate(jobject.getString("avgRate"));
+        		ur.setUserName(jobject.getString("userName"));
+        		ur.setUserSurname(jobject.getString("userSurname"));
+        		ur.setRestaurantName(jobject.getString("restaurantName"));
+        		ur.setRateHoursAgo(jobject.getString("rateHoursAgo"));
+        		ur.setRateDateTime(jobject.getString("rateDateTime"));
+        		userRatesList.add(ur);
+        	}
+          } catch (Exception e) { 
+            Log.e("BACKGROUND_PROC", e.getMessage());
+          }
+          runOnUiThread(returnRes);
+      }
+	  
+    private Runnable returnRes = new Runnable() {
+    	public void run() {
+            if(userRatesList != null && userRatesList.size() > 0){
+            	listAdapter.notifyDataSetChanged();
+                for(int i=0;i<userRatesList.size();i++)
+                	listAdapter.add(userRatesList.get(i));
+            }
+            m_ProgressDialog.dismiss();
+            listAdapter.notifyDataSetChanged();
+        }
+      };
+
 }

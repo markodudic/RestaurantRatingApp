@@ -32,7 +32,7 @@
 	 </FrameLayout>        
 	        
          	   
-    <ListView android:id="@+id/restuarant_tips_list"
+    <ListView android:id="@+id/android:list"
 	       android:layout_width="fill_parent"
 	       android:layout_height="wrap_content"
           android:layout_weight="1"

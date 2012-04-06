@@ -44,7 +44,9 @@
 	<string name="conn_title">Internetna povezava</string> 
 	<string name="no_camera">Ni kamere</string> 
 	<string name="camera_error">Napaka na kameri</string> 
-		
+	<string name="please_wait">Please wait</string> 
+	<string name="retriving_data">Retriving data</string> 
+				
     <string name="msg_text">Tekst sporočila</string>
     <string name="msg_body">Sporočilo</string>
     

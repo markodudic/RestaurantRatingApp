@@ -34,7 +34,7 @@
      	android:layout_height="wrap_content"
 		android:orientation="horizontal">
     
-	    <ListView android:id="@+id/restaurant_rate_list"
+	    <ListView android:id="@+id/android:list"
 		       android:layout_width="fill_parent"
 		       android:layout_height="wrap_content"
 	          android:layout_weight="1"

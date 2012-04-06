@@ -151,15 +151,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
    		}
     }          
 
-    
-	private void showMessageBox(String closeTime, String redirect, String msg, String title) {
-		Intent messageBox = new Intent(this, MessageBox.class);
-    	messageBox.putExtra("redirect", redirect);
-    	messageBox.putExtra("closeTime", closeTime);
-		messageBox.putExtra("msg", msg);
-		messageBox.putExtra("title", title);
-		startActivityForResult(messageBox, 1);
-	}
+
 	
 	public class restaurantPhotoAdapter extends BaseAdapter {
 

@@ -9,9 +9,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -21,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RestaurantRateActivity extends Activity implements OnClickListener {
+public class RestaurantRateActivity extends ListActivity implements OnClickListener {
 	
 	JSONObject jobject;
 	
@@ -48,6 +47,9 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 	private boolean userRate = false;
 	
 	ListView lv;
+	private RestaurantsListAdapter listAdapter;
+	private ArrayList<Restaurant> restaurantsList = null;
+	private Runnable viewRestaurants;
 
     /** Called when the activity is first created. */
     @Override
@@ -80,7 +82,12 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		View userButtonSubmit = findViewById(R.id.button_user); 
 		userButtonSubmit.setOnClickListener(this);
 
-		lv = (ListView) findViewById(R.id.restaurant_rate_list);
+		lv = (ListView) findViewById(android.R.id.list);
+		
+        restaurantsList = new ArrayList<Restaurant>();
+        this.listAdapter = new RestaurantsListAdapter(this, R.layout.restaurants_list, restaurantsList, false);
+        setListAdapter(this.listAdapter);
+		
     }
     
 	@Override
@@ -100,12 +107,8 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 			Log.d("restaurant=", restaurant);
 			jobject = new JSONObject(restaurant);
 
-			JSONArray jdata = new JSONArray();
-			jdata.put(jobject);
-			RestaurantsListAdapter listAdapter = new RestaurantsListAdapter(this, jdata, getApplicationContext(), false);
-			lv.setAdapter(listAdapter);
-			
-			
+            getRestaurant();
+ 			
 			restaurantId = (String) jobject.getString("id");
 			rateAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg")));
 			rateFoodAvg = Double.parseDouble(jobject.getString("rateFoodAvg"));
@@ -134,6 +137,36 @@ public class RestaurantRateActivity extends Activity implements OnClickListener 
 		} catch (Exception e) {e.printStackTrace();}			
 	}
 	
+    private void getRestaurant(){
+        try{
+        	restaurantsList = new ArrayList<Restaurant>();
+    		Restaurant r = new Restaurant();
+    		r.setRateAvg(Double.parseDouble(jobject.getString("rateAvg")));
+    		r.setRateCount(Integer.parseInt(jobject.getString("rateCount")));
+    		r.setName(jobject.getString("name"));
+    		r.setCategory(jobject.getString("category"));
+    		if (jobject.has("distance"))
+    			r.setDistance(Long.parseLong(jobject.getString("distance")));
+    		restaurantsList.add(r);
+          } catch (Exception e) { 
+            Log.e("BACKGROUND_PROC", e.getMessage());
+          }
+          runOnUiThread(returnRes);
+      }
+
+    
+    private Runnable returnRes = new Runnable() {
+    	public void run() {
+            if(restaurantsList != null && restaurantsList.size() > 0){
+            	listAdapter.notifyDataSetChanged();
+                for(int i=0;i<restaurantsList.size();i++)
+                	listAdapter.add(restaurantsList.get(i));
+            }
+            listAdapter.notifyDataSetChanged();
+        }
+      };
+
+      
     private Runnable mSetRatesTask = new Runnable() {
  	   public void run() {
  	       int rateFood = Integer.parseInt(rateFoodValue.getText()+"");
