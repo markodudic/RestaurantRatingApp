@@ -61,19 +61,17 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 				//dodam tip v bazo
 				EditText tipEditText = (EditText) findViewById(R.id.tip_text); 
 				Log.d("********TIP", tipEditText.getText().toString());
+				//ALI DODAMO SE FOTKE
 				if (photoData!=null)
 					Log.d("********Photo data", photoData.toString());
 		    	
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("tip", tipEditText.getText().toString()));
-		        nameValuePairs.add(new BasicNameValuePair("restoran_id", PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null)));
+		        nameValuePairs.add(new BasicNameValuePair("venue_id", PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null)));
+				nameValuePairs.add(new BasicNameValuePair("text", tipEditText.getText().toString()));
 		        
 		        Comm c = new Comm(getString(R.string.server_url), null, null);
 		        try { 
 		        	String tip = c.post("add_tip", nameValuePairs);
-		        	
-		        	
-		        	
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
