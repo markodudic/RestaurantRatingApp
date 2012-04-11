@@ -1,4 +1,4 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.objects;
 
 import android.widget.ImageView;
 import android.widget.TextView;

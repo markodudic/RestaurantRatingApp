@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.objects.UserRate;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.objects;
 
 
 public class Restaurant {

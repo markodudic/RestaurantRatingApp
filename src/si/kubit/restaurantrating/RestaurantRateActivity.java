@@ -9,6 +9,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import si.kubit.restaurantrating.objects.Restaurant;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;

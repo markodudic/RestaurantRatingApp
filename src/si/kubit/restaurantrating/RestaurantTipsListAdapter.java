@@ -14,6 +14,8 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import si.kubit.restaurantrating.objects.Tip;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;

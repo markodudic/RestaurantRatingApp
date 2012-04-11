@@ -3,6 +3,8 @@ package si.kubit.restaurantrating;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import si.kubit.restaurantrating.objects.Restaurant;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;

@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.objects.Restaurant;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
