@@ -2,13 +2,15 @@ package si.kubit.restaurantrating;
 
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.objects.UserRate;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -96,6 +98,49 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 		rateButtonSubmit.setOnClickListener(this);
 		View userButtonSubmit = findViewById(R.id.button_user); 
 		userButtonSubmit.setOnClickListener(this);
+	
+		getUser("marko", "okram");
+		getServerSettings();
+    } 
+    
+    private void getServerSettings() {
+		//pridobim serverske nastavitev za komunikacijo z 4SQ
+        Comm c = new Comm(getString(R.string.server_url), null, null);
+        try {
+			String settings = c.get("settings");
+	        Util.addPreferencies("settings", settings, this);
+        } catch (SocketException e) {
+        	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		} catch (Exception ne) {
+   			ne.printStackTrace();
+        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		}
+    }
+    
+    private void getUser(String username, String password) {
+		//preverim kateri uporabnik je prijavljen in ga vpišem v shared preferncies
+        Comm c = new Comm(getString(R.string.server_url), null, null);
+        try {
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        nameValuePairs.add(new BasicNameValuePair("username", username));
+	        nameValuePairs.add(new BasicNameValuePair("password", password));
+	        
+	        String user = c.post("login",nameValuePairs);
+	        Util.addPreferencies("user", user, this);
+        } catch (SocketException e) {
+        	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		} catch (Exception ne) {
+   			ne.printStackTrace();
+        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		}
     }
 
 	@Override

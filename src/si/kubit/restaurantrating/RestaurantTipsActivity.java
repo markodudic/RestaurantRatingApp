@@ -7,11 +7,11 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.objects.Tip;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,11 +21,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RestaurantTipsActivity extends ListActivity implements OnClickListener {
+	private static final int AUTHORIZATION_REQUEST = 1338;
+	
 	private JSONArray jTips;
 	private RestaurantTipsListAdapter listAdapter;
 	private ArrayList<Tip> tipsList = null;
@@ -67,13 +68,39 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     			startActivity(restaurantRate); 
 				break;
 			case R.id.button_tip:
-    			Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
-    			startActivity(restaurantTipAdd); 
+				//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
+				try {
+					String user = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user", null);				
+					JSONObject jUser = ((JSONArray)new JSONTokener(user).nextValue()).getJSONObject(0);
+					Log.d("OAUTH=", jUser.getString("oauthToken"));
+					if (jUser.getString("oauthToken")==null || jUser.getString("oauthToken").equals("null")) {
+						//uporabnik nima autorizacije. Zahtevam
+		    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
+		    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
+						
+					} 
+					
+	    			//Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
+	    			//startActivity(restaurantTipAdd); 
+		   		} catch (JSONException ne) {
+		   			ne.printStackTrace();
+		        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        	toast.show();
+		   		}
 				break;
     	}
 	}
     
-    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+
+        } else if (resultCode == RESULT_CANCELED) {
+            
+        } else {
+        }
+    }    
     private void GetRestaurantTipsList()
     {
     	String tips = "";

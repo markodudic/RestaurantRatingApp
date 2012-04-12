@@ -1,8 +1,5 @@
 package si.kubit.restaurantrating.objects;
 
-import android.widget.ImageView;
-import android.widget.TextView;
-
 
 public class Tip {
 
