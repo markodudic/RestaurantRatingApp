@@ -89,10 +89,7 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
-    			User user = Util.getUserFromPreferencies(getBaseContext());	
-    			user.setOauthToken(accessToken);
-		        Util.addPreferencies("user", user.user2json(), this);
-				SetUserOAuth(user.getUsername(), accessToken);
+    			Util.SetUserOAuth(this, accessToken);
     			
         		Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
     			startActivity(restaurantTipAdd); 
@@ -106,26 +103,6 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     	}
     }
     	
-    private void SetUserOAuth(String username, String oauth)
-    {
-        Comm c = new Comm(getString(R.string.server_url), null, null);
-        try {
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        nameValuePairs.add(new BasicNameValuePair("username", username));
-	        nameValuePairs.add(new BasicNameValuePair("oauth", oauth));
-	        
-	        String result = c.post("set_oauth",nameValuePairs);
-        } catch (SocketException e) {
-        	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
-        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-        	toast.show();
-   		} catch (Exception ne) {
-   			ne.printStackTrace();
-        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
-        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-        	toast.show();
-   		}
-    }
 
     private void GetRestaurantTipsList()
     {

@@ -1,11 +1,15 @@
 package si.kubit.restaurantrating;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URL;
@@ -26,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.objects.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,6 +38,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -48,7 +54,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RestaurantPhotosActivity extends Activity implements OnClickListener {
-    /** Called when the activity is first created. */
+	private static final int AUTHORIZATION_REQUEST = 1338;
+
+	/** Called when the activity is first created. */
 	private JSONArray jPhotos;
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	public static final int MEDIA_TYPE_IMAGE = 1;
@@ -103,13 +111,15 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 				break;
 			case R.id.button_photo:
 			    if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
-				    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				    
-				    fileUri = getOutputMediaFile(MEDIA_TYPE_IMAGE); // create a file to save the image
-				    Log.d("URI", Uri.fromFile(fileUri).toString());
-				    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileUri)); // set the image file name
-
-				    startActivityForResult(intent, CAMERA_PIC_REQUEST);
+					//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
+	    			User user = Util.getUserFromPreferencies(this);	
+					if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
+						//uporabnik nima autorizacije. Zahtevam
+		    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
+		    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
+					} else {
+						startCamera();
+					}
 			    } else {
 		        	Toast toast = Toast.makeText(this, getString(R.string.no_camera), Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -147,71 +157,102 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("PHOTO RESULT=",requestCode+":"+resultCode);
-    	if (resultCode == RESULT_OK) {
-         // Image captured and saved to fileUri specified in the Intent
-            Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
-            
-            try {
-            	uploadImage(null, null, fileUri);
-            } catch (Exception e) {
-            	e.printStackTrace();
-            }
-            
-            
-        } else if (resultCode == RESULT_CANCELED) {
-            // User cancelled the image capture
-        } else {
-            // Image capture failed, advise user
-        	Toast toast = Toast.makeText(this, getString(R.string.camera_error), Toast.LENGTH_LONG);
-        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-        	toast.show(); 
-        }
+    	if (requestCode == AUTHORIZATION_REQUEST) {
+    		if (resultCode == RESULT_OK) {
+    			String accessToken = data.getStringExtra("accessToken");
+    			//shrani oatuh za userja
+    			Util.SetUserOAuth(this, accessToken);
+    			
+    			startCamera(); 
+        	} else if (resultCode == RESULT_CANCELED) {
+        		if (data != null) {
+		        	Toast toast = Toast.makeText(this, getString(R.string.oauth_requered), Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        	toast.show();
+        		}
+	        }
+    	} else if (requestCode == CAMERA_PIC_REQUEST) {
+    		if (resultCode == RESULT_OK) {
+	         // Image captured and saved to fileUri specified in the Intent
+	            Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
+	            try {
+	            	User user = Util.getUserFromPreferencies(this);	
+	            	String venueId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
+	            	String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
+	    	        JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
+	    			
+					String uri = jSettings.getString("foursquarePhotosAddUrl")+"?venueId="+venueId+"&oauth_token="+user.getOauthToken();
+					Log.d("URI=", uri);
+	            	uploadPhoto(uri, fileUri);
+	            } catch (Exception e) {
+	            	e.printStackTrace();
+	            }
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // User cancelled the image capture
+	        } else {
+	            // Image capture failed, advise user
+	        	Toast toast = Toast.makeText(this, getString(R.string.camera_error), Toast.LENGTH_LONG);
+	        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+	        	toast.show(); 
+	        }
+	    }
     }
    
-    
-	public String uploadImage(String url, List<NameValuePair> nameValuePairs, File file) throws Exception {
-		url = "https://api.foursquare.com/v2/photos/add";
-		BufferedReader br = new BufferedReader(new FileReader(file), 8192);
-	    String s = "";
-	    String line;
+	public void startCamera() {
+	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    
-	    /*while ((line = br.readLine()) != null) {
-	    	s = s + line;
-		    Log.d("READ=", s);
-	    }
-	    Log.d("READ all=", s);
-	    */
-	    int imageLen = (int)file.length();
-	    byte [] imgData = new byte[imageLen];
-	    FileInputStream fis = new FileInputStream(file);
-	    fis.read(imgData);
-	    Log.d("READ all=", imgData.length+":"+imgData.toString());
-	    
-		String response = null;
-		
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost(url);
-	    
-	    //httppost.setTimeout(20000);
-	    httppost.setHeader("enctype", "multipart/form-data");
-	    //httppost.setHeader("Content-Type", "image/jpeg");
-	    
-	    
-		nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("venueId", "4b2a765ff964a520a4a924e3"));
-        nameValuePairs.add(new BasicNameValuePair("oauth_token", "PFXLQWFU3RZBWGVOZMZXNI41O44VJWZRK1AN2M13NKHDWFJR"));
-        nameValuePairs.add(new BasicNameValuePair("photo", imgData));
-
-        if (nameValuePairs != null)
-    		httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        ResponseHandler<String> responseHandler=new BasicResponseHandler();
-        response = httpclient.execute(httppost, responseHandler);
-        Log.d("comm", "http-response "+response.toString());
-
-        return response;
+	    fileUri = getOutputMediaFile(MEDIA_TYPE_IMAGE); // create a file to save the image
+	    Log.d("URI", Uri.fromFile(fileUri).toString());
+	    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileUri)); // set the image file name
+	
+	    startActivityForResult(intent, CAMERA_PIC_REQUEST);
 	}
+	
+   
+	public String uploadPhoto(String uri, File file) throws Exception
+   {
+       HttpURLConnection httpurlconnection = (HttpURLConnection)(new URL(uri)).openConnection();
+       httpurlconnection.setDoInput(true);
+       httpurlconnection.setRequestMethod("POST");
+       httpurlconnection.setRequestProperty("Accept", "application/json");
 
-    
+       String s3 = Long.toString(System.currentTimeMillis(), 36);
+       httpurlconnection.setRequestProperty("Content-Type", (new StringBuilder()).append("multipart/form-data; boundary=----").append(s3).toString());
+       httpurlconnection.setDoOutput(true);
+       DataOutputStream dataoutputstream = new DataOutputStream(httpurlconnection.getOutputStream());
+       int i = 0;
+
+       dataoutputstream.writeBytes((new StringBuilder()).append("------").append(s3).append("\r\n").toString());
+       dataoutputstream.writeBytes((new StringBuilder()).append("Content-Disposition: form-data; name=\"").append(Uri.fromFile(fileUri).toString()).append("\"; filename=\"").append(Uri.fromFile(fileUri).toString()).append("\"\r\n").toString());
+       dataoutputstream.writeBytes("Content-Type: application/octet-stream\r\n\r\n");
+       BufferedInputStream bufferedinputstream = new BufferedInputStream(new FileInputStream(file));
+       for(int k = 0; (k = bufferedinputstream.read()) != -1;)
+           dataoutputstream.write(k);
+
+       bufferedinputstream.close();
+       dataoutputstream.writeBytes("\r\n");
+
+       dataoutputstream.writeBytes((new StringBuilder()).append("------").append(s3).append("--\r\n\r\n").toString());
+       dataoutputstream.flush();
+       dataoutputstream.close();
+       
+
+       if(httpurlconnection.getResponseCode() != 200)
+           throw new IllegalArgumentException((new StringBuilder()).append(httpurlconnection.getResponseCode()).append(" ").append(httpurlconnection.getResponseMessage()).append(" ").append(read(httpurlconnection.getErrorStream())).toString());
+       else
+           return read(httpurlconnection.getInputStream());
+   }
+
+    private static String read(InputStream inputstream)  throws Exception
+	{
+	    StringBuffer stringbuffer = new StringBuffer();
+	    InputStreamReader inputstreamreader = new InputStreamReader(new BufferedInputStream(inputstream), "UTF-8");
+	    for(int i = inputstreamreader.read(); i != -1; i = inputstreamreader.read())
+	        stringbuffer.append((char)i);
+	
+	    inputstreamreader.close();
+	    return stringbuffer.toString();
+	}
     
     private void GetRestaurantPhotosList()
     {

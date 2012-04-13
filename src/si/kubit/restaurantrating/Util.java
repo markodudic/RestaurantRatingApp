@@ -1,11 +1,16 @@
 package si.kubit.restaurantrating;
 
+import java.net.SocketException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +21,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 public class Util {
 
@@ -62,4 +69,28 @@ public class Util {
 		return user;
     }
 
+    static public void SetUserOAuth(Context context, String oauth)
+    {
+    	User user = Util.getUserFromPreferencies(context);	
+		user.setOauthToken(oauth);
+        addPreferencies("user", user.user2json(), context);
+		
+        Comm c = new Comm(context.getString(R.string.server_url), null, null);
+        try {
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        nameValuePairs.add(new BasicNameValuePair("username", user.getUsername()));
+	        nameValuePairs.add(new BasicNameValuePair("oauth", oauth));
+	        
+	        String result = c.post("set_oauth",nameValuePairs);
+        } catch (SocketException e) {
+        	Toast toast = Toast.makeText(context, context.getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		} catch (Exception ne) {
+   			ne.printStackTrace();
+        	Toast toast = Toast.makeText(context, context.getString(R.string.json_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		}
+    }
 }
