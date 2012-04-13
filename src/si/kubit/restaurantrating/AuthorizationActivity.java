@@ -6,14 +6,13 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 /**
  * https://developer.foursquare.com/docs/oauth.html
@@ -30,12 +29,7 @@ public class AuthorizationActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authorization);
-    }
-        
-    @Override
-	protected void onResume() { 
-		super.onResume();
-        setContentView(R.layout.authorization);
+
         String url = "";
         
 		try {
@@ -46,29 +40,56 @@ public class AuthorizationActivity extends Activity
 	                "?client_id=" + jSettings.getString("clientId") + 
 	                "&response_type=token" + 
 	                "&redirect_uri=" + jSettings.getString("redirectURI");
-   		} catch (JSONException ne) {
-   			ne.printStackTrace();
-   		}
         
-        WebView webview = (WebView)findViewById(R.id.webview);
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.setWebViewClient(new WebViewClient() {
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                String fragment = "#access_token=";
-                int start = url.indexOf(fragment);
-                if (start > -1) {
-                    // You can use the accessToken for api calls now.
-                    String accessToken = url.substring(start + fragment.length(), url.length());
-        			
-                    Log.d(TAG, "OAuth complete, token: [" + accessToken + "].");
-                	
-                    view.destroy();
-                }
-            }
-        });
-        Log.d("URL=",url);
-        webview.loadUrl(url);
+	        WebView webview = (WebView)findViewById(R.id.webview);
+	        webview.getSettings().setJavaScriptEnabled(true);
+	        webview.setWebViewClient(new WebViewClient() {
+	            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+	                String fragmentOk = "#access_token=";
+	                String fragmentCancel = "#error=";
+	                int startOk = url.indexOf(fragmentOk);
+	                int startCancel = url.indexOf(fragmentCancel);
+	                if (startOk > -1) {
+	                    // You can use the accessToken for api calls now.
+	                    String accessToken = url.substring(startOk + fragmentOk.length(), url.length());
+	        			
+	                    Intent intent= getIntent();
+	                    intent.putExtra("accessToken", accessToken);
+	
+	                    setResult(RESULT_OK, intent);
+	                    Log.d(TAG, "FINISH");
+	                    
+	                    finish();
+	                } else if (startCancel > -1) {
+	                	String error = url.substring(startCancel + fragmentCancel.length(), url.length());
+	        			
+	                	Intent intent= getIntent();
+	                    intent.putExtra("error", error);
+	
+	                	setResult(RESULT_CANCELED, intent);
+	                    Log.d(TAG, "CANCELED");	
+	                    
+	                    finish();
+	                }
+	            }
+	        });
+	        
+	        Log.d("URL=",url);
+	        webview.loadUrl(url);
+   		} catch (Exception e) {
+   			e.printStackTrace();
+   		}
     }
 
-    
+	@Override
+	protected void onResume() { 
+		super.onResume();
+		Log.d("RESUME", "****************************");
+	}
+	
+    @Override
+    protected void onPause() {
+    	super.onPause();
+		Log.d("PAUSE", "****************************");
+    }   
 }

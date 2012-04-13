@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import si.kubit.restaurantrating.objects.User;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -54,7 +56,7 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
     	super.onPause();
 		//finish(); 
     } 
-
+  
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_tip_add:
@@ -68,6 +70,8 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 		        nameValuePairs.add(new BasicNameValuePair("venue_id", PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null)));
 				nameValuePairs.add(new BasicNameValuePair("text", tipEditText.getText().toString()));
+    			User user = Util.getUserFromPreferencies(this);	
+				nameValuePairs.add(new BasicNameValuePair("oauth", user.getOauthToken()));
 		        
 		        Comm c = new Comm(getString(R.string.server_url), null, null);
 		        try { 

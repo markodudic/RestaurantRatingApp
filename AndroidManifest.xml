@@ -28,37 +28,33 @@
       	</activity>
       	<activity android:name=".RestaurantsActivity" 
       	  	android:launchMode="singleInstance"
-	  			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-  			</activity>	
+	  		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+  		</activity>	
       	<activity android:name=".RestaurantRateActivity" 
       		android:launchMode="singleInstance"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-			</activity>	
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
       	<activity android:name=".RestaurantTipsActivity" 
-      		android:launchMode="singleInstance"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-			</activity>	
+      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
       	<activity android:name=".RestaurantTipAddActivity" 
       		android:launchMode="singleInstance"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-			</activity>	
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
       	<activity android:name=".RestaurantPhotosActivity" 
-      		android:launchMode="singleInstance"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-			</activity>	
+      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
      	<activity android:name=".RestaurantPhotoActivity" 
       		android:launchMode="singleInstance"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-			</activity>	
-     	<activity android:name=".AuthorizationActivity" 
-      		android:launchMode="singleInstance"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
-			</activity>
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
+     	<activity android:name=".AuthorizationActivity"
+     	    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>
     </application>
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
 </manifest>

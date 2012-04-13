@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -187,12 +188,10 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
-			//showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.conn_error), getString(R.string.conn_title));
    		} catch (Exception ne) {
-        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+   			Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
-   			//showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
    		}
     }      
  
@@ -224,7 +223,6 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
                 for(int i=0;i<userRatesList.size();i++)
                 	listAdapter.add(userRatesList.get(i));
             }
-            m_ProgressDialog.dismiss();
             listAdapter.notifyDataSetChanged();
         }
       };

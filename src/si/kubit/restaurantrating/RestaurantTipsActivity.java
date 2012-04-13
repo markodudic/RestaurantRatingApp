@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.objects.Tip;
+import si.kubit.restaurantrating.objects.User;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -69,38 +70,63 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 				break;
 			case R.id.button_tip:
 				//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-				try {
-					String user = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user", null);				
-					JSONObject jUser = ((JSONArray)new JSONTokener(user).nextValue()).getJSONObject(0);
-					Log.d("OAUTH=", jUser.getString("oauthToken"));
-					if (jUser.getString("oauthToken")==null || jUser.getString("oauthToken").equals("null")) {
-						//uporabnik nima autorizacije. Zahtevam
-		    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
-		    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
-						
-					} 
-					
-	    			//Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
-	    			//startActivity(restaurantTipAdd); 
-		   		} catch (JSONException ne) {
-		   			ne.printStackTrace();
-		        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
-		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-		        	toast.show();
-		   		}
+    			User user = Util.getUserFromPreferencies(this);	
+				if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
+					//uporabnik nima autorizacije. Zahtevam
+	    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
+	    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
+				} else {
+	    			Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
+	    			startActivity(restaurantTipAdd); 
+				}
 				break;
     	}
 	}
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
+    	if (requestCode == AUTHORIZATION_REQUEST) {
+    		if (resultCode == RESULT_OK) {
+    			String accessToken = data.getStringExtra("accessToken");
+    			//shrani oatuh za userja
+    			User user = Util.getUserFromPreferencies(getBaseContext());	
+    			user.setOauthToken(accessToken);
+		        Util.addPreferencies("user", user.user2json(), this);
+				SetUserOAuth(user.getUsername(), accessToken);
+    			
+        		Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
+    			startActivity(restaurantTipAdd); 
+        	} else if (resultCode == RESULT_CANCELED) {
+        		if (data != null) {
+		        	Toast toast = Toast.makeText(this, getString(R.string.oauth_requered), Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        	toast.show();
+        		}
+	        }
+    	}
+    }
+    	
+    private void SetUserOAuth(String username, String oauth)
+    {
+        Comm c = new Comm(getString(R.string.server_url), null, null);
+        try {
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        nameValuePairs.add(new BasicNameValuePair("username", username));
+	        nameValuePairs.add(new BasicNameValuePair("oauth", oauth));
+	        
+	        String result = c.post("set_oauth",nameValuePairs);
+        } catch (SocketException e) {
+        	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		} catch (Exception ne) {
+   			ne.printStackTrace();
+        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		}
+    }
 
-        } else if (resultCode == RESULT_CANCELED) {
-            
-        } else {
-        }
-    }    
     private void GetRestaurantTipsList()
     {
     	String tips = "";

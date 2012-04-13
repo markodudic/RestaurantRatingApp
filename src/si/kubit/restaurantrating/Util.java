@@ -6,9 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import si.kubit.restaurantrating.objects.User;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Util {
 
@@ -33,10 +40,11 @@ public class Util {
 	}
 
 
-	static public void addPreferencies(String name, String value, Context context) {
+	static public void addPreferencies(String key, String value, Context context) {
     	SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
     	SharedPreferences.Editor editor = settings.edit();
-    	editor.putString(name, value);
+    	editor.remove(key);
+    	editor.putString(key, value);
     	editor.commit();
     }
 
@@ -45,6 +53,13 @@ public class Util {
     		return text.substring(0, end) + "...";
     	else
     		return text;
+    }
+
+	static public User getUserFromPreferencies(Context context) {
+		String userText = PreferenceManager.getDefaultSharedPreferences(context).getString("user", null);				
+		User user = new User();
+		user.json2user(userText);
+		return user;
     }
 
 }
