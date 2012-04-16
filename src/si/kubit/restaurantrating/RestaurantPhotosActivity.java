@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -171,6 +172,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 	            	String venueId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
 	            	//String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
 	    	        //JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
+	    			Log.d("venueId====",venueId);
 	    			
 					m_ProgressDialog = ProgressDialog.show(RestaurantPhotosActivity.this, getString(R.string.please_wait), getString(R.string.uploading_photo), true);
 		            ((RestaurantRating)getApplicationContext()).getFoursquare().uploadPhoto(venueId, user.getOauthToken(), fileUri);
@@ -207,9 +209,10 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     {
     	String photos = "";
         try { 
-			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantPhotosActivity");
-			String restaurantId = extras.getString("restaurant_id");
-
+			//Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantPhotosActivity");
+			//String restaurantId = extras.getString("restaurant_id");
+			String restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
+        	
 			/*List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
 	        
@@ -244,7 +247,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 
 	        try { 
 		        JSONArray photos = (JSONArray)((JSONObject)((JSONObject)jPhotos.get(position)).get("sizes")).get("items");
-		        String imageUri = ((JSONObject)photos.get(1)).getString("url");
+		        String imageUri = ((JSONObject)photos.get(2)).getString("url");
 		        
 		        Drawable image = ImageOperations(imageUri);
 				i.setImageDrawable(image);

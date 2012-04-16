@@ -48,7 +48,7 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 		super.onResume();
 		String restaurantName   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_name", null);
 		TextView tipAddTitle = (TextView)findViewById(R.id.text_tips_title);
-		tipAddTitle.setText(Util.cutText(restaurantName, 30));
+		tipAddTitle.setText(Util.cutText(restaurantName, 30).toUpperCase());
 		EditText tipEditText = (EditText) findViewById(R.id.tip_text); 
 		tipEditText.setText("");
 	}

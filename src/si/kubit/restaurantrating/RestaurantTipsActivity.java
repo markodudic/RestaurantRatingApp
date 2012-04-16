@@ -105,13 +105,14 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     	String tips = "";
         try { 
         	String restaurantId;
-        	Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantTipsActivity");
+        	/*Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantTipsActivity");
 			if (extras != null) {
 				restaurantId = extras.getString("restaurant_id");
 				Util.addPreferencies("restaurant_id", restaurantId, this);
 			} else {
 				restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
-			}
+			}*/
+			restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
 			
 			//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        //nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));

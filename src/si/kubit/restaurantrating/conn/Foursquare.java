@@ -161,7 +161,7 @@ public class Foursquare {
 
 	       dataoutputstream.writeBytes((new StringBuilder()).append("------").append(s3).append("\r\n").toString());
 	       dataoutputstream.writeBytes((new StringBuilder()).append("Content-Disposition: form-data; name=\"").append(Uri.fromFile(file).toString()).append("\"; filename=\"").append(Uri.fromFile(file).toString()).append("\"\r\n").toString());
-	       dataoutputstream.writeBytes("Content-Type: application/octet-stream\r\n\r\n");
+	       dataoutputstream.writeBytes("Content-Type:image/jpeg\r\n\r\n");
 	       BufferedInputStream bufferedinputstream = new BufferedInputStream(new FileInputStream(file));
 	       for(int k = 0; (k = bufferedinputstream.read()) != -1;)
 	           dataoutputstream.write(k);
@@ -205,6 +205,110 @@ public class Foursquare {
 					"&client_secret=" + this.clientSecret +
 					"&oauth_token=" + oauth +
 					"&v=" + dfYear.format(new Date()); 
+		}
+
+		public String getClientId() {
+			return clientId;
+		}
+
+		public void setClientId(String clientId) {
+			this.clientId = clientId;
+		}
+
+		public String getClientSecret() {
+			return clientSecret;
+		}
+
+		public void setClientSecret(String clientSecret) {
+			this.clientSecret = clientSecret;
+		}
+
+		public String getRedirectURI() {
+			return redirectURI;
+		}
+
+		public void setRedirectURI(String redirectURI) {
+			this.redirectURI = redirectURI;
+		}
+
+		public String getFoursquareVenusUrl() {
+			return foursquareVenusUrl;
+		}
+
+		public void setFoursquareVenusUrl(String foursquareVenusUrl) {
+			this.foursquareVenusUrl = foursquareVenusUrl;
+		}
+
+		public String getFoursquareVenusSearchUrl() {
+			return foursquareVenusSearchUrl;
+		}
+
+		public void setFoursquareVenusSearchUrl(String foursquareVenusSearchUrl) {
+			this.foursquareVenusSearchUrl = foursquareVenusSearchUrl;
+		}
+
+		public String getFoursquareVenusTipsUrl() {
+			return foursquareVenusTipsUrl;
+		}
+
+		public void setFoursquareVenusTipsUrl(String foursquareVenusTipsUrl) {
+			this.foursquareVenusTipsUrl = foursquareVenusTipsUrl;
+		}
+
+		public String getFoursquareVenusPhotosUrl() {
+			return foursquareVenusPhotosUrl;
+		}
+
+		public void setFoursquareVenusPhotosUrl(String foursquareVenusPhotosUrl) {
+			this.foursquareVenusPhotosUrl = foursquareVenusPhotosUrl;
+		}
+
+		public String getFoursquareUrl() {
+			return foursquareUrl;
+		}
+
+		public void setFoursquareUrl(String foursquareUrl) {
+			this.foursquareUrl = foursquareUrl;
+		}
+
+		public String getFoursquareTipsAddUrl() {
+			return foursquareTipsAddUrl;
+		}
+
+		public void setFoursquareTipsAddUrl(String foursquareTipsAddUrl) {
+			this.foursquareTipsAddUrl = foursquareTipsAddUrl;
+		}
+
+		public String getFoursquarePhotosAddUrl() {
+			return foursquarePhotosAddUrl;
+		}
+
+		public void setFoursquarePhotosAddUrl(String foursquarePhotosAddUrl) {
+			this.foursquarePhotosAddUrl = foursquarePhotosAddUrl;
+		}
+
+		public String getFoursquareAuthenticateUrl() {
+			return foursquareAuthenticateUrl;
+		}
+
+		public void setFoursquareAuthenticateUrl(String foursquareAuthenticateUrl) {
+			this.foursquareAuthenticateUrl = foursquareAuthenticateUrl;
+		}
+
+		public String getFoursquareAccessTokenUrl() {
+			return foursquareAccessTokenUrl;
+		}
+
+		public void setFoursquareAccessTokenUrl(String foursquareAccessTokenUrl) {
+			this.foursquareAccessTokenUrl = foursquareAccessTokenUrl;
+		}
+
+		public String getVenuesCategory() {
+			return venuesCategory;
+		}
+
+		public void setVenuesCategory(String venuesCategory) {
+			this.venuesCategory = venuesCategory;
 		}	
 
 	    

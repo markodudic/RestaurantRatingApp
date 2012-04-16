@@ -14,14 +14,17 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.util.Util;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -111,14 +114,22 @@ public class RestaurantPhotoActivity extends Activity implements OnClickListener
 	        try { 
 	        	JSONObject jData = (JSONObject)jPhotos.get(position);
 	        	JSONArray photos = (JSONArray)((JSONObject)jData.get("sizes")).get("items");
-		        String imageUri = ((JSONObject)photos.get(0)).getString("url");
+		        String imageUri = ((JSONObject)photos.get(1)).getString("url");
 		        JSONObject user = (JSONObject)jData.get("user");
 
+		        
 		        Drawable image = ImageOperations(imageUri);
 		        imageView.setImageDrawable(image);
-		        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+		        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		        imageView.setLayoutParams(new Gallery.LayoutParams(Gallery.LayoutParams.FILL_PARENT, Gallery.LayoutParams.FILL_PARENT));
 
+		        /*Display display = getWindowManager().getDefaultDisplay();
+		        int screenWidth = display.getWidth();
+		        Log.d("WIDTH=", screenWidth+":"+imageView.getHeight()+":"+imageView.getWidth());
+		        int width = screenWidth;
+		        int height = width * 10 / 10; 
+		        imageView.setLayoutParams(new Gallery.LayoutParams(width, height));
+*/
 		        //dolocim cas
 		        String date = jData.getString("createdAt");
 		        Date dateD = new Date(Long.parseLong(date) * 1000);

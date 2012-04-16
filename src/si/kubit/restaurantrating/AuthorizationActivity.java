@@ -1,15 +1,10 @@
 package si.kubit.restaurantrating;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
+import si.kubit.restaurantrating.conn.Foursquare;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -33,13 +28,14 @@ public class AuthorizationActivity extends Activity
         String url = "";
         
 		try {
-	        String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
-	        JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
-			Log.d("SETTINGS=",jSettings.toString());
-	        url = "https://foursquare.com/oauth2/authenticate" + 
-	                "?client_id=" + jSettings.getString("clientId") + 
+	        //String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
+	        //JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
+			//Log.d("SETTINGS=",jSettings.toString());
+			Foursquare fsq = ((RestaurantRating)getApplicationContext()).getFoursquare();
+			url = fsq.getFoursquareAuthenticateUrl() + 
+	                "?client_id=" + fsq.getClientId() + 
 	                "&response_type=token" + 
-	                "&redirect_uri=" + jSettings.getString("redirectURI");
+	                "&redirect_uri=" + fsq.getRedirectURI();
         
 	        WebView webview = (WebView)findViewById(R.id.webview);
 	        webview.getSettings().setJavaScriptEnabled(true);
