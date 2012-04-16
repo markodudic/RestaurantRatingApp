@@ -1,0 +1,29 @@
+NAPAKE
+-------------------------------------
++ pri listi restoranov se ne odpre
++ pri uploadu dodaj "pocakaj..."
+- uploadane fotke se ne pikazejo
+
+NADGRADNJE
+---------------------------------------
+- settingsi
+- mape
+- user profil
+
+
+
+
+
+IZBOLJSAVE
+-------------------------------------
+- boljse delovanje pri dolocanju lokacije
++ pridobitev komentarjev in slik, dodajenje komentarjev naj gre direktno s telefona
++ metode za povezavo na streznik in 4sq dodelaj
+- uporabi https://code.google.com/p/foursquare-api-java/
+
+
+VPRAsANJA
+---------------------------------------
+- zakaj so prikazane ocene samo od frendov
+- slike oseb in restoranov
+- barve bolj apetitli 

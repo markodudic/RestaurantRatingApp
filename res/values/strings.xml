@@ -46,6 +46,7 @@
 	<string name="camera_error">Napaka na kameri</string> 
 	<string name="please_wait">Please wait</string> 
 	<string name="retriving_data">Retriving data</string> 
+	<string name="uploading_photo">Uploading photo</string> 
 	<string name="oauth_requered">Brez autorizacije ni mozno dodajanje tipov</string> 
 					
 	

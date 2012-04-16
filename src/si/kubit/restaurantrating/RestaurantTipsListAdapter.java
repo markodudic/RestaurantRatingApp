@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import si.kubit.restaurantrating.objects.Tip;
+import si.kubit.restaurantrating.util.Util;
 
 import android.app.Activity;
 import android.content.Context;

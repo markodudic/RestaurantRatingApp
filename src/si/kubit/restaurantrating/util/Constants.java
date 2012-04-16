@@ -1,4 +1,4 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.util;
 
 public class Constants {
 	

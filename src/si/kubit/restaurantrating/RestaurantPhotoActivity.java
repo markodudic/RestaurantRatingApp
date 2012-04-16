@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.util.Util;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -1,6 +1,9 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.util;
 
 
+import si.kubit.restaurantrating.R;
+import si.kubit.restaurantrating.R.id;
+import si.kubit.restaurantrating.R.layout;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.util;
 
 import java.net.SocketException;
 import java.text.DateFormat;
@@ -16,6 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.R;
+import si.kubit.restaurantrating.R.string;
+import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.User;
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.Restaurant;
 
 import android.app.ListActivity;
@@ -177,7 +178,11 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     
     private void GetRestaurantsList(Location location)
     {
-
+    	//ce trenutno prikazujem podatke, prekinem
+    	if ((m_ProgressDialog != null) && ( m_ProgressDialog.isShowing())) {
+    		m_ProgressDialog.dismiss();
+    	}
+    	
 		if (location == null) {
         	Toast toast = Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -185,14 +190,15 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 //			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
 		} else {
 			Log.d("GetRestaurantsList=",location.getLatitude() + " " + location.getLongitude());
+            
+			m_ProgressDialog = ProgressDialog.show(RestaurantsActivity.this, getString(R.string.please_wait), getString(R.string.retriving_data), true);
 	
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("lat", location.getLatitude()+""));
 	        nameValuePairs.add(new BasicNameValuePair("lng", location.getLongitude()+""));
 	
-	        Comm c = new Comm(getString(R.string.server_url), null, null);
 	        try { 
-	        	String restaurants = c.post("venues", nameValuePairs);
+	        	String restaurants = ((RestaurantRating)getApplicationContext()).getComm().post("venues", nameValuePairs);
 	        	jRestaurants = (JSONArray)new JSONTokener(restaurants).nextValue();
 	        	Log.d("+++++++++++++", jRestaurants.toString());
 			  	
@@ -201,11 +207,11 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 	                    getRestaurants();
 	                }
 	            };
+				
 	            Thread thread =  new Thread(null, viewRestaurants, "ViewRestaurants");
 	            thread.start();
-	            m_ProgressDialog = ProgressDialog.show(RestaurantsActivity.this, getString(R.string.please_wait), getString(R.string.retriving_data), true);
-				
-				TextView places = (TextView)findViewById(R.id.text_places_nearby);
+
+	            TextView places = (TextView)findViewById(R.id.text_places_nearby);
 		  		places.setText(jRestaurants.length() + " " + getString(R.string.places_nearby));
 		  		
 	        } catch (Exception e) {
@@ -246,6 +252,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
                 for(int i=0;i<restaurantsList.size();i++)
                 	listAdapter.add(restaurantsList.get(i));
             }
+            Log.d("DISMIDS", "********************");
             m_ProgressDialog.dismiss();
             listAdapter.notifyDataSetChanged();
         }

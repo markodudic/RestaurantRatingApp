@@ -1,15 +1,8 @@
 package si.kubit.restaurantrating;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URL;
@@ -19,19 +12,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.objects.User;
+import si.kubit.restaurantrating.util.Util;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -55,6 +44,8 @@ import android.widget.Toast;
 
 public class RestaurantPhotosActivity extends Activity implements OnClickListener {
 	private static final int AUTHORIZATION_REQUEST = 1338;
+
+	private ProgressDialog m_ProgressDialog = null;
 
 	/** Called when the activity is first created. */
 	private JSONArray jPhotos;
@@ -174,16 +165,18 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     	} else if (requestCode == CAMERA_PIC_REQUEST) {
     		if (resultCode == RESULT_OK) {
 	         // Image captured and saved to fileUri specified in the Intent
-	            Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
+	            //Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
 	            try {
 	            	User user = Util.getUserFromPreferencies(this);	
 	            	String venueId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
-	            	String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
-	    	        JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
+	            	//String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
+	    	        //JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
 	    			
-					String uri = jSettings.getString("foursquarePhotosAddUrl")+"?venueId="+venueId+"&oauth_token="+user.getOauthToken();
-					Log.d("URI=", uri);
-	            	uploadPhoto(uri, fileUri);
+					m_ProgressDialog = ProgressDialog.show(RestaurantPhotosActivity.this, getString(R.string.please_wait), getString(R.string.uploading_photo), true);
+		            ((RestaurantRating)getApplicationContext()).getFoursquare().uploadPhoto(venueId, user.getOauthToken(), fileUri);
+		            //String uri = jSettings.getString("foursquarePhotosAddUrl")+"?venueId="+venueId+"&oauth_token="+user.getOauthToken();
+					//Foursquare.uploadPhoto(uri, fileUri);
+					m_ProgressDialog.dismiss();
 	            } catch (Exception e) {
 	            	e.printStackTrace();
 	            }
@@ -209,66 +202,23 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 	}
 	
    
-	public String uploadPhoto(String uri, File file) throws Exception
-   {
-       HttpURLConnection httpurlconnection = (HttpURLConnection)(new URL(uri)).openConnection();
-       httpurlconnection.setDoInput(true);
-       httpurlconnection.setRequestMethod("POST");
-       httpurlconnection.setRequestProperty("Accept", "application/json");
-
-       String s3 = Long.toString(System.currentTimeMillis(), 36);
-       httpurlconnection.setRequestProperty("Content-Type", (new StringBuilder()).append("multipart/form-data; boundary=----").append(s3).toString());
-       httpurlconnection.setDoOutput(true);
-       DataOutputStream dataoutputstream = new DataOutputStream(httpurlconnection.getOutputStream());
-       int i = 0;
-
-       dataoutputstream.writeBytes((new StringBuilder()).append("------").append(s3).append("\r\n").toString());
-       dataoutputstream.writeBytes((new StringBuilder()).append("Content-Disposition: form-data; name=\"").append(Uri.fromFile(fileUri).toString()).append("\"; filename=\"").append(Uri.fromFile(fileUri).toString()).append("\"\r\n").toString());
-       dataoutputstream.writeBytes("Content-Type: application/octet-stream\r\n\r\n");
-       BufferedInputStream bufferedinputstream = new BufferedInputStream(new FileInputStream(file));
-       for(int k = 0; (k = bufferedinputstream.read()) != -1;)
-           dataoutputstream.write(k);
-
-       bufferedinputstream.close();
-       dataoutputstream.writeBytes("\r\n");
-
-       dataoutputstream.writeBytes((new StringBuilder()).append("------").append(s3).append("--\r\n\r\n").toString());
-       dataoutputstream.flush();
-       dataoutputstream.close();
-       
-
-       if(httpurlconnection.getResponseCode() != 200)
-           throw new IllegalArgumentException((new StringBuilder()).append(httpurlconnection.getResponseCode()).append(" ").append(httpurlconnection.getResponseMessage()).append(" ").append(read(httpurlconnection.getErrorStream())).toString());
-       else
-           return read(httpurlconnection.getInputStream());
-   }
-
-    private static String read(InputStream inputstream)  throws Exception
-	{
-	    StringBuffer stringbuffer = new StringBuffer();
-	    InputStreamReader inputstreamreader = new InputStreamReader(new BufferedInputStream(inputstream), "UTF-8");
-	    for(int i = inputstreamreader.read(); i != -1; i = inputstreamreader.read())
-	        stringbuffer.append((char)i);
-	
-	    inputstreamreader.close();
-	    return stringbuffer.toString();
-	}
     
     private void GetRestaurantPhotosList()
     {
     	String photos = "";
-        Comm c = new Comm(getString(R.string.server_url), null, null);
         try { 
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantPhotosActivity");
 			String restaurantId = extras.getString("restaurant_id");
 
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+			/*List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
 	        
-	        photos = c.post("photos",nameValuePairs);
+	        photos = ((RestaurantRating)getApplicationContext()).getComm().post("photos",nameValuePairs);
 
 	        jPhotos = (JSONArray)new JSONTokener(photos).nextValue();
-        	
+	        */
+	        jPhotos = ((RestaurantRating)getApplicationContext()).getFoursquare().getPhotos(restaurantId);
+
 	    	TextView title = (TextView)findViewById(R.id.text_photos_title);
 			title.setText(jPhotos.length() + " " + getString(R.string.photos_title));
     		

@@ -9,7 +9,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.Restaurant;
+import si.kubit.restaurantrating.util.Util;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -213,9 +215,8 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	 	       nameValuePairs.add(new BasicNameValuePair("rate_value", rateValue+""));
 		 	
 	 	      
-	 	       Comm c = new Comm(getString(R.string.server_url), null, null);
 	 	       try { 
-	 	       		String result = c.post("rates", nameValuePairs);
+	 	       		String result = ((RestaurantRating)getApplicationContext()).getComm().post("rates", nameValuePairs);
 	 	       } catch (Exception e) {}	
 
 			   mHandler.removeCallbacks(mShowRatesTask);

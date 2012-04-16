@@ -7,11 +7,13 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import si.kubit.restaurantrating.conn.Comm;
+import si.kubit.restaurantrating.conn.Foursquare;
 import si.kubit.restaurantrating.objects.UserRate;
+import si.kubit.restaurantrating.util.Util;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -41,6 +43,18 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
 
+        //povezem na streznik
+        Comm comm = new Comm(getString(R.string.server_url), null, null);
+        ((RestaurantRating)getApplicationContext()).setComm(comm);
+        
+		//nastavim userja
+        getUser("marko", "okram");
+        
+		//nastavim podatke za fsq dostop
+        setFoursquare();
+
+        
+        
         userRatesList = new ArrayList<UserRate>();
         this.listAdapter = new UserRatesListAdapter(this, R.layout.user_rates_list, userRatesList);
         setListAdapter(this.listAdapter);
@@ -100,16 +114,15 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 		View userButtonSubmit = findViewById(R.id.button_user); 
 		userButtonSubmit.setOnClickListener(this);
 	
-		getUser("marko", "okram");
-		getServerSettings();
     } 
     
-    private void getServerSettings() {
+    private void setFoursquare() {
 		//pridobim serverske nastavitev za komunikacijo z 4SQ
-        Comm c = new Comm(getString(R.string.server_url), null, null);
-        try {
-			String settings = c.get("settings");
-	        Util.addPreferencies("settings", settings, this);
+    	try {
+    		String settings = ((RestaurantRating)getApplicationContext()).getComm().get("settings");
+    		Foursquare fsq = new Foursquare(settings);
+    		
+            ((RestaurantRating)getApplicationContext()).setFoursquare(fsq);
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -124,13 +137,12 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     
     private void getUser(String username, String password) {
 		//preverim kateri uporabnik je prijavljen in ga vpišem v shared preferncies
-        Comm c = new Comm(getString(R.string.server_url), null, null);
         try {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("username", username));
 	        nameValuePairs.add(new BasicNameValuePair("password", password));
 	        
-	        String user = c.post("login",nameValuePairs);
+	        String user = ((RestaurantRating)getApplicationContext()).getComm().post("login",nameValuePairs);
 	        Util.addPreferencies("user", user, this);
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
@@ -178,9 +190,8 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     private void GetUsersRatesList()
     {
     	String userRates = "";
-        Comm c = new Comm(getString(R.string.server_url), null, null);
         try { 
-        	userRates = c.get("userrates");
+        	userRates = ((RestaurantRating)getApplicationContext()).getComm().get("userrates");
         	jUserRates = (JSONArray)new JSONTokener(userRates).nextValue();
         	
         	getUserRates();

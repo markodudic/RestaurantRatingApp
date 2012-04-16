@@ -1,4 +1,4 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.conn;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import si.kubit.restaurantrating.util.Base64;
 
 import android.util.Log;
 

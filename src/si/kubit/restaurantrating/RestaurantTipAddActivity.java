@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.User;
+import si.kubit.restaurantrating.util.Util;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -67,15 +69,15 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 				if (photoData!=null)
 					Log.d("********Photo data", photoData.toString());
 		    	
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+				/*List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 		        nameValuePairs.add(new BasicNameValuePair("venue_id", PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null)));
 				nameValuePairs.add(new BasicNameValuePair("text", tipEditText.getText().toString()));
     			User user = Util.getUserFromPreferencies(this);	
-				nameValuePairs.add(new BasicNameValuePair("oauth", user.getOauthToken()));
+				/*nameValuePairs.add(new BasicNameValuePair("oauth", user.getOauthToken()));*/
 		        
-		        Comm c = new Comm(getString(R.string.server_url), null, null);
 		        try { 
-		        	String tip = c.post("add_tip", nameValuePairs);
+		        	//String tip = ((RestaurantRating)getApplicationContext()).getComm().post("add_tip", nameValuePairs);
+					String tip = ((RestaurantRating)getApplicationContext()).getFoursquare().addTip(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null), tipEditText.getText().toString(), Util.getUserFromPreferencies(this).getOauthToken());
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);

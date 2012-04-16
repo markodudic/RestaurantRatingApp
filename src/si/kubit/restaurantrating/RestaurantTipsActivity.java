@@ -2,17 +2,13 @@ package si.kubit.restaurantrating;
 
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.objects.Tip;
 import si.kubit.restaurantrating.objects.User;
+import si.kubit.restaurantrating.util.Util;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -53,7 +49,7 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 	@Override
 	protected void onResume() { 
 		super.onResume();
-        GetRestaurantTipsList();
+        getRestaurantTipsList();
 	}
 	
     @Override
@@ -104,10 +100,9 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     }
     	
 
-    private void GetRestaurantTipsList()
+    private void getRestaurantTipsList()
     {
     	String tips = "";
-        Comm c = new Comm(getString(R.string.server_url), null, null);
         try { 
         	String restaurantId;
         	Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantTipsActivity");
@@ -118,13 +113,13 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 				restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
 			}
 			
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
+			//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        //nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
 	        
-	        tips = c.post("tips",nameValuePairs);
-
-	        jTips = (JSONArray)new JSONTokener(tips).nextValue();
-        	
+	        //tips = ((RestaurantRating)getApplicationContext()).getComm().post("tips",nameValuePairs);
+	        //jTips = (JSONArray)new JSONTokener(tips).nextValue();
+			jTips = ((RestaurantRating)getApplicationContext()).getFoursquare().getTips(restaurantId);
+	        		
 	        viewTips = new Runnable(){
                 public void run() {
                 	getTips();
@@ -149,8 +144,9 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
         	toast.show();
    		}
     }      
- 
-    private void getTips(){
+
+
+	private void getTips(){
         try{
         	tipsList = new ArrayList<Tip>();
         	for(int i=0; i<jTips.length(); i++) {
