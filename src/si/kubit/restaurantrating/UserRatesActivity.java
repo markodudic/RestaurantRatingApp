@@ -171,6 +171,8 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_map:
+    			Intent mapUsers = new Intent(this, MapFriendsActivity.class); 
+    			startActivity(mapUsers); 
 				break;
 			case R.id.button_settings:
 				break;

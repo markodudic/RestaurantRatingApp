@@ -2,7 +2,8 @@ NAPAKE
 -------------------------------------
 + pri listi restoranov se ne odpre
 + pri uploadu dodaj "pocakaj..."
-- uploadane fotke se ne pikazejo
++ uploadane fotke se ne pikazejo
+- pri listi restoranov se zadnji v listi ne vidi cel
 
 NADGRADNJE
 ---------------------------------------

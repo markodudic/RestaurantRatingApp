@@ -17,7 +17,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:debuggable="true">
-      	<activity
+      	<uses-library android:name="com.google.android.maps" />
+        <activity
           	android:label="@string/app_name"
           	android:name=".UserRatesActivity" 
  	      	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -52,7 +53,10 @@
      	<activity android:name=".AuthorizationActivity"
      	    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>
-    </application>
+     	<activity android:name=".MapFriendsActivity" 
+      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
+     </application>
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

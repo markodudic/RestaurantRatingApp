@@ -1,6 +1,10 @@
 package si.kubit.restaurantrating.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.SocketException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +26,7 @@ import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.User;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -96,4 +101,20 @@ public class Util {
         	toast.show();
    		}
     }
+    
+	static public Drawable ImageOperations(String urlString) {
+		try {
+			URL url = new URL(urlString);
+			InputStream is = (InputStream) url.getContent();
+			Drawable d = Drawable.createFromStream(is, "src");
+			return d;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
+    
 }

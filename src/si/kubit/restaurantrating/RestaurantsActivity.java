@@ -248,6 +248,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     private Runnable returnRes = new Runnable() {
     	public void run() {
             if(restaurantsList != null && restaurantsList.size() > 0){
+            	listAdapter.clear();
             	listAdapter.notifyDataSetChanged();
                 for(int i=0;i<restaurantsList.size();i++)
                 	listAdapter.add(restaurantsList.get(i));

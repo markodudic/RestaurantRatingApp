@@ -249,7 +249,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 		        JSONArray photos = (JSONArray)((JSONObject)((JSONObject)jPhotos.get(position)).get("sizes")).get("items");
 		        String imageUri = ((JSONObject)photos.get(2)).getString("url");
 		        
-		        Drawable image = ImageOperations(imageUri);
+		        Drawable image = Util.ImageOperations(imageUri);
 				i.setImageDrawable(image);
 		        i.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		        final int w = (int) (36 * getResources().getDisplayMetrics().density + 0.5f);
@@ -271,20 +271,6 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 			return position;
 		}	
 
-		private Drawable ImageOperations(String urlString) {
-			try {
-				URL url = new URL(urlString);
-				InputStream is = (InputStream) url.getContent();
-				Drawable d = Drawable.createFromStream(is, "src");
-				return d;
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-	    }
 	}
 
 
