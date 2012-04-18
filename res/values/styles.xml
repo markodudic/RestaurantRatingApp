@@ -211,6 +211,16 @@
    	  <item name="android:gravity">center</item>
    	</style>
 
+	<style name="TextUser.Left">
+      <item name="android:textSize">20sp</item>
+   	  <item name="android:layout_marginLeft">10dip</item>
+      <item name="android:layout_gravity">left</item>
+   	</style>
+   	
+	<style name="TextUser.Left.Small">
+      <item name="android:textSize">14sp</item>
+   	</style>
+	
 	<style name="TextUser.Small.Bottom">
       <item name="android:textSize">10sp</item>
    	  <item name="android:gravity">center</item>

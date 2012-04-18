@@ -9,14 +9,16 @@ import si.kubit.restaurantrating.objects.User;
 import si.kubit.restaurantrating.util.Util;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -29,7 +31,7 @@ import com.google.android.maps.OverlayItem;
 
 public class MapFriendsActivity extends MapActivity {
 	
-	private static int ZOOM_LEVEL = 14;
+	private static int ZOOM_LEVEL = 15;
 	private static final int AUTHORIZATION_REQUEST = 1338;
 	
 	MapView mapView;
@@ -38,6 +40,8 @@ public class MapFriendsActivity extends MapActivity {
 	protected LocationManager locationUpdateRequester;
 	protected LocationListener locationListener;
 	private MyLocationOverlay myLocationOverlay;
+	
+	private FriendsItemizedOverlay friendsItemizedOverlay;
 
 	private JSONArray jLocations;
 
@@ -56,14 +60,25 @@ public class MapFriendsActivity extends MapActivity {
 		
 		mapOverlays = mapView.getOverlays();
         mapOverlays.add(myLocationOverlay);
+
+		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		int screenWidth = display.getWidth();
+		int screenHeight = display.getHeight();
+		
+		LinearLayout ll = (LinearLayout) findViewById(R.id.layout_friends_location);
+		TextView venue = (TextView) findViewById(R.id.text_venue);
+		TextView userName = (TextView) findViewById(R.id.text_username);
+		friendsItemizedOverlay = new FriendsItemizedOverlay(this.getResources().getDrawable(R.drawable.friends), this, screenWidth, screenHeight, ll, venue, userName);
+        mapOverlays.add(friendsItemizedOverlay);
+        
         mapView.postInvalidate();
     }
 
     private void getFriendsLocations()
     {
     	try { 
-			User user = Util.getUserFromPreferencies(this);	
-			if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
+			User user = Util.getUserFromPreferencies();	
+	    	if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
 				//uporabnik nima autorizacije. Zahtevam
     			Intent authorization = new Intent(this, AuthorizationActivity.class); 
     			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
@@ -84,7 +99,7 @@ public class MapFriendsActivity extends MapActivity {
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
-    			Util.SetUserOAuth(this, accessToken);
+    			Util.SetUserOAuth(accessToken);
     			getLocations();
         	} else if (resultCode == RESULT_CANCELED) {
         		if (data != null) {
@@ -98,28 +113,31 @@ public class MapFriendsActivity extends MapActivity {
 
     private void getLocations(){
         try{
-			jLocations = ((RestaurantRating)getApplicationContext()).getFoursquare().getFriendsLocations(Util.getUserFromPreferencies(this).getOauthToken());
-			
+			jLocations = ((RestaurantRating)getApplicationContext()).getFoursquare().getFriendsLocations(Util.getUserFromPreferencies().getOauthToken());
+			LinearLayout ll = (LinearLayout) findViewById(R.id.layout_friends_location);
+	        
 			for(int i=0; i<jLocations.length(); i++) {
         		JSONObject jobject = (JSONObject) jLocations.getJSONObject(i);
         		JSONObject jUser = (JSONObject) jobject.get("user");
+        		if(jUser.getString("relationship").equals("self")) continue;
         		JSONObject jVenue = (JSONObject) jobject.get("venue");
         		JSONObject jVenueLocation = (JSONObject) jVenue.get("location");
-    	        Log.d("jUser=", (String)jUser.getString("photo"));
     	        
-    	        //Drawable d = Util.ImageOperations((String)jUser.getString("photo"));
-				
-    	        //FriendsItemizedOverlay friendsOverlay = new FriendsItemizedOverlay(d, this);  
-
     	        int lat = (int) (Double.parseDouble(jVenueLocation.getString("lat")) * 1E6);
     			int lng = (int) (Double.parseDouble(jVenueLocation.getString("lng")) * 1E6);
     			GeoPoint point = new GeoPoint(lat, lng);
-    	        OverlayItem friendsLocation = new OverlayItem(point, "", "");
-    	        //friendsOverlay.addOverlay(friendsLocation, point, jVenue.getString("name"), jUser.getString("firstName") + " " + (jUser.has("lastName")?jUser.getString("lastName"):""));
-        		
-    	        //mapOverlays.add(friendsOverlay);
-    	        
-    	        mapOverlays.add(new FriendsItemizedOverlay(this, point, (String)jUser.getString("photo")));
+
+    			// Read the image
+    			BitmapDrawable d = (BitmapDrawable)Util.ImageOperations((String)jUser.getString("photo"));
+    			Bitmap markerImage = d.getBitmap();
+
+    			OverlayItem overlayitem = new OverlayItem(point, null, null);
+
+    			//Drawable d = Util.ImageOperations((String)jUser.getString("photo"));
+    			//d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+    			//overlayitem.setMarker(d);
+    	        friendsItemizedOverlay.addOverlay(overlayitem, point, jVenue.getString("name"), (String)jUser.getString("firstName") + " " + (jUser.has("lastName")?(String)jUser.getString("lastName"):""), (String)jUser.getString("photo"), markerImage);
+
         	}
 	        mapView.invalidate();
 
@@ -132,8 +150,8 @@ public class MapFriendsActivity extends MapActivity {
     }
 
 	
-	@Override
-	protected void onResume() { 
+    @Override
+    protected void onResume() { 
 		super.onResume();
 		myLocationOverlay.enableMyLocation();
 		myLocationOverlay.enableCompass();

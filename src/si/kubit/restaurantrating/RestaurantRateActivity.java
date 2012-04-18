@@ -102,8 +102,8 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 			if (extras != null) {
 				restaurant = extras.getString("restaurant");
 				userRate = extras.getBoolean("user_rate");
-				Util.addPreferencies("restaurant", restaurant, this);
-				Util.addPreferencies("user_rate", Boolean.toString(userRate), this);
+				Util.addPreferencies("restaurant", restaurant);
+				Util.addPreferencies("user_rate", Boolean.toString(userRate));
 			} else {
 				restaurant   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()). getString("restaurant", null);
 				userRate   = Boolean.parseBoolean(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user_rate", null));				
@@ -122,8 +122,8 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 			
 			TextView restaurantName = (TextView)this.findViewById(R.id.text_restaurnt_name);
 			restaurantName.setText(Util.cutText(jobject.getString("name"), 15).toUpperCase());
-			Util.addPreferencies("restaurant_name", jobject.getString("name"), this);
-			Util.addPreferencies("restaurant_id", restaurantId, this);
+			Util.addPreferencies("restaurant_name", jobject.getString("name"));
+			Util.addPreferencies("restaurant_id", restaurantId);
 			
 			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
 			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);

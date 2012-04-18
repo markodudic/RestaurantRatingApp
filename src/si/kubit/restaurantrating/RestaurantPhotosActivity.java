@@ -104,7 +104,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 			case R.id.button_photo:
 			    if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
 					//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-	    			User user = Util.getUserFromPreferencies(this);	
+	    			User user = Util.getUserFromPreferencies();	
 					if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
 						//uporabnik nima autorizacije. Zahtevam
 		    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
@@ -153,7 +153,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
-    			Util.SetUserOAuth(this, accessToken);
+    			Util.SetUserOAuth(accessToken);
     			
     			startCamera(); 
         	} else if (resultCode == RESULT_CANCELED) {
@@ -168,7 +168,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 	         // Image captured and saved to fileUri specified in the Intent
 	            //Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
 	            try {
-	            	User user = Util.getUserFromPreferencies(this);	
+	            	User user = Util.getUserFromPreferencies();	
 	            	String venueId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
 	            	//String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
 	    	        //JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);

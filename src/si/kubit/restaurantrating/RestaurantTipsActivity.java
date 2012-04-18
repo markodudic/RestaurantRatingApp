@@ -66,7 +66,7 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 				break;
 			case R.id.button_tip:
 				//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-    			User user = Util.getUserFromPreferencies(this);	
+    			User user = Util.getUserFromPreferencies();	
 				if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
 					//uporabnik nima autorizacije. Zahtevam
 	    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
@@ -85,7 +85,7 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
-    			Util.SetUserOAuth(this, accessToken);
+    			Util.SetUserOAuth(accessToken);
     			
         		Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
     			startActivity(restaurantTipAdd); 

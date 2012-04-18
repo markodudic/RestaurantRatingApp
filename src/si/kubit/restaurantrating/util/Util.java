@@ -22,6 +22,7 @@ import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.R;
 import si.kubit.restaurantrating.R.string;
+import si.kubit.restaurantrating.RestaurantRating;
 import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.User;
 import android.content.Context;
@@ -55,8 +56,8 @@ public class Util {
 	}
 
 
-	static public void addPreferencies(String key, String value, Context context) {
-    	SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+	static public void addPreferencies(String key, String value) {
+    	SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(RestaurantRating.getContext());
     	SharedPreferences.Editor editor = settings.edit();
     	editor.remove(key);
     	editor.putString(key, value);
@@ -70,20 +71,20 @@ public class Util {
     		return text;
     }
 
-	static public User getUserFromPreferencies(Context context) {
-		String userText = PreferenceManager.getDefaultSharedPreferences(context).getString("user", null);				
+	static public User getUserFromPreferencies() {
+		String userText = PreferenceManager.getDefaultSharedPreferences(RestaurantRating.getContext()).getString("user", null);				
 		User user = new User();
 		user.json2user(userText);
 		return user;
     }
 
-    static public void SetUserOAuth(Context context, String oauth)
+    static public void SetUserOAuth(String oauth)
     {
-    	User user = Util.getUserFromPreferencies(context);	
+    	User user = Util.getUserFromPreferencies();	
 		user.setOauthToken(oauth);
-        addPreferencies("user", user.user2json(), context);
+        addPreferencies("user", user.user2json());
 		
-        Comm c = new Comm(context.getString(R.string.server_url), null, null);
+        Comm c = new Comm(RestaurantRating.getContext().getString(R.string.server_url), null, null);
         try {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("username", user.getUsername()));
@@ -91,12 +92,12 @@ public class Util {
 	        
 	        String result = c.post("set_oauth",nameValuePairs);
         } catch (SocketException e) {
-        	Toast toast = Toast.makeText(context, context.getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	Toast toast = Toast.makeText(RestaurantRating.getContext(), RestaurantRating.getContext().getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
    		} catch (Exception ne) {
    			ne.printStackTrace();
-        	Toast toast = Toast.makeText(context, context.getString(R.string.json_error), Toast.LENGTH_LONG);
+        	Toast toast = Toast.makeText(RestaurantRating.getContext(), RestaurantRating.getContext().getString(R.string.json_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
    		}

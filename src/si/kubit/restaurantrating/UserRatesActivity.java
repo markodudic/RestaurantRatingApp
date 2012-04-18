@@ -143,7 +143,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	        nameValuePairs.add(new BasicNameValuePair("password", password));
 	        
 	        String user = ((RestaurantRating)getApplicationContext()).getComm().post("login",nameValuePairs);
-	        Util.addPreferencies("user", user, this);
+	        Util.addPreferencies("user", user);
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);

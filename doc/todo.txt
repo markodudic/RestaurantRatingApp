@@ -4,12 +4,15 @@ NAPAKE
 + pri uploadu dodaj "pocakaj..."
 + uploadane fotke se ne pikazejo
 - pri listi restoranov se zadnji v listi ne vidi cel
+- onactivityresult izboljsaj tako da vrne result samo enkrat
 
 NADGRADNJE
 ---------------------------------------
 - settingsi
 - mape
 - user profil
+- texti pri rejtanju
+- nazivi v naslovni vrstici
 
 
 
