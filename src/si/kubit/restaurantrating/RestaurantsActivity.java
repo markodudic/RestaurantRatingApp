@@ -108,7 +108,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 			    	Intent intentRestaurantRate = new Intent(RestaurantsActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();
 				  	
-				  	extras.putString("restaurant", jobject.toString());
+				  	extras.putString("restaurant_id", jobject.getString("id"));
 				  	extras.putBoolean("user_rate", false);
 				  	intentRestaurantRate.putExtra("si.kubit.restaurantrating.RestaurantRateActivity", extras);
 				  	intentRestaurantRate.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

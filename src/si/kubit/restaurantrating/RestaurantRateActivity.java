@@ -47,7 +47,6 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	private TextView textRateTitle;
 	private DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
-	private String restaurant;
 	private boolean userRate = false;
 	
 	ListView lv;
@@ -98,18 +97,24 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	protected void onResume() { 
 		super.onResume();
 		try {
+			String restaurantId;
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
 			if (extras != null) {
-				restaurant = extras.getString("restaurant");
+				restaurantId = extras.getString("restaurant_id");
 				userRate = extras.getBoolean("user_rate");
-				Util.addPreferencies("restaurant", restaurant);
+				Util.addPreferencies("restaurant_id", restaurantId);
 				Util.addPreferencies("user_rate", Boolean.toString(userRate));
 			} else {
-				restaurant   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()). getString("restaurant", null);
+				restaurantId   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()). getString("restaurant_id", null);
 				userRate   = Boolean.parseBoolean(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user_rate", null));				
 			}
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
+			
+			String restaurant = ((RestaurantRating)getApplicationContext()).getComm().post("getrestaurant", nameValuePairs);
 			Log.d("restaurant=", restaurant);
-			jobject = new JSONObject(restaurant);
+			
+			jobject = new JSONArray(restaurant).getJSONObject(0);
 
             getRestaurant();
  			

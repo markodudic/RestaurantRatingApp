@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,17 +33,14 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	private LinearLayout layout;
 	private TextView venueName;
 	private TextView userName;
-
+	private ImageView showLocation;
+	
 	private final int SCALE_SIZE = 10;
 
 	private ArrayList<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
-	private ArrayList<GeoPoint> overlaysPoints = new ArrayList<GeoPoint>();
-	private ArrayList<String> overlayImageUri = new ArrayList<String>();
-	private ArrayList<Bitmap> overlayMarkerImages = new ArrayList<Bitmap>();
-	private ArrayList<String> overlayVenueNames = new ArrayList<String>();
-	private ArrayList<String> overlayUserNames = new ArrayList<String>();
+	private ArrayList<Boolean> overlayIsRestaurants = new ArrayList<Boolean>();
 	
-	public FriendsItemizedOverlay(Drawable defaultMarker, Context context, int screenWidth, int screenHeight, LinearLayout layout, TextView venueName, TextView userName) {
+	public FriendsItemizedOverlay(Drawable defaultMarker, Context context, int screenWidth, int screenHeight, LinearLayout layout, TextView venueName, TextView userName, ImageView showLocation) {
 		super(boundCenterBottom(defaultMarker));
 		this.context = context;
 	    this.screenWidth = screenWidth;
@@ -50,16 +48,13 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	    this.layout = layout;
 	    this.venueName = venueName;
 	    this.userName = userName;
+	    this.showLocation = showLocation;
 		layout.setVisibility(View.INVISIBLE);
 	}
 
-	public void addOverlay(OverlayItem overlay, GeoPoint geoPoint, String venue, String userName, String imageUri, Bitmap markerImage) {
+	public void addOverlay(OverlayItem overlay, boolean isRestaurant) {
 		overlayItems.add(overlay);
-		overlaysPoints.add(geoPoint);
-		overlayImageUri.add(imageUri);
-		overlayMarkerImages.add(markerImage);
-		overlayVenueNames.add(venue);
-		overlayUserNames.add(userName);
+		overlayIsRestaurants.add(isRestaurant);
 	    populate();
 	}
 	
@@ -68,21 +63,21 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	    super.draw(canvas, mapView, false);
 	    
 	    for (int i=0; i<size(); i++) {
-	    	//Log.d("********************", i+"");
-		    // Convert geo coordinates to screen pixels
+	    	OverlayItem overlayItem = ((OverlayItem)overlayItems.get(i));
+	    	Drawable marker = overlayItem.getMarker(0);
+	    	Bitmap bitmap = ((BitmapDrawable)marker).getBitmap();
+	    	
+	    	// Convert geo coordinates to screen pixels
 			Point screenPoint = new Point();
-			mapView.getProjection().toPixels(overlaysPoints.get(i), screenPoint);
+			mapView.getProjection().toPixels(overlayItem.getPoint(), screenPoint);
 			
-			// Read the image
-			//BitmapDrawable d = (BitmapDrawable)Util.ImageOperations(overlayImageUri.get(i));
-			//Bitmap markerImage = d.getBitmap();
-			overlayItems.get(i).setMarker(new BitmapDrawable(overlayMarkerImages.get(i)));
+			//overlayItems.get(i).setMarker(new BitmapDrawable(overlayMarkerImages.get(i)));
 			
 			float newWidth = screenWidth / SCALE_SIZE;
 			float newHeight = screenWidth / SCALE_SIZE;
 			
-			float ratioX = newWidth / (float) overlayMarkerImages.get(i).getWidth();
-			float ratioY = newHeight / (float) overlayMarkerImages.get(i).getHeight();
+			float ratioX = newWidth / (float) bitmap.getWidth();
+			float ratioY = newHeight / (float) bitmap.getHeight();
 			float middleX = newWidth / 2.0f;
 			float middleY = newHeight / 2.0f;
 	
@@ -91,19 +86,24 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 			matrix.postTranslate(screenPoint.x - newWidth / 2, screenPoint.y - newHeight);
 			Paint paint = new Paint();
 			paint.setFilterBitmap(true);
-			canvas.drawBitmap(overlayMarkerImages.get(i), matrix, paint);
+			canvas.drawBitmap(bitmap, matrix, paint);
 	    }
 		return true;
 	}
 	
 	@Override
 	protected boolean onTap(int index) {
-	  layout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_in_top));
-	  layout.setVisibility(View.VISIBLE);
-	  venueName.setText(overlayVenueNames.get(index));
-	  userName.setText(overlayUserNames.get(index));
+		if (overlayIsRestaurants.get(index)) {
+			showLocation.setVisibility(View.VISIBLE);
+		} else {
+			showLocation.setVisibility(View.INVISIBLE);			
+		}
+	    layout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_in_top));
+	    layout.setVisibility(View.VISIBLE);
+	    venueName.setText(((OverlayItem)overlayItems.get(index)).getTitle());
+	    userName.setText(((OverlayItem)overlayItems.get(index)).getSnippet());
 	  
-	  return true;
+	    return true;
 	}
 
 	
@@ -116,4 +116,15 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	public int size() {
 		return overlayItems.size();
 	}
+	
+    public void removeOverlay(OverlayItem overlay) {
+    	overlayItems.remove(overlay);
+        populate();
+    }
+
+
+    public void clear() {
+    	overlayItems.clear();
+        populate();
+    }	
 }

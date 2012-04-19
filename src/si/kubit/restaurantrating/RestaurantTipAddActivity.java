@@ -77,7 +77,7 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 		        
 		        try { 
 		        	//String tip = ((RestaurantRating)getApplicationContext()).getComm().post("add_tip", nameValuePairs);
-					String tip = ((RestaurantRating)getApplicationContext()).getFoursquare().addTip(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null), tipEditText.getText().toString(), Util.getUserFromPreferencies().getOauthToken());
+					String tip = ((RestaurantRating)getApplicationContext()).getFoursquare().addTip(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null), tipEditText.getText().toString());
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);

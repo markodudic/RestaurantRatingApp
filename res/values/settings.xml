@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
-	<!-- string name="server_url">http://10.0.2.2:8080/RestaurantRating/</string -->
-	<string name="server_url">http://93.103.12.155:8080/RestaurantRating/</string>
+	<string name="server_url">http://10.0.2.2:8080/RestaurantRating/</string>
+	<!-- string name="server_url">http://93.103.12.155:8080/RestaurantRating/</string -->
 	<!-- string name="server_url">http://192.168.1.107:8080/RestaurantRating/</string -->
 	<!-- String name="server_url">http://192.168.1.103:8080/RestaurantRating/</string -->
 	<!-- string name="server_url">http://192.168.1.76:8080/RestaurantRating/</string -->
@@ -31,5 +31,7 @@
 	<color name="smallTextDarkColor">#69646c</color>
 	<color name="translucentBlack">#DD000000</color>
 	
-					
+	<string name="zoom_level">15</string>
+	<string name="hour_interval">-24</string>
+						
 </resources>

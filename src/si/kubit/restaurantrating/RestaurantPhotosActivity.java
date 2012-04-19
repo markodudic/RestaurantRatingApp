@@ -168,17 +168,12 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 	         // Image captured and saved to fileUri specified in the Intent
 	            //Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
 	            try {
-	            	User user = Util.getUserFromPreferencies();	
 	            	String venueId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
-	            	//String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
-	    	        //JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
-	    			Log.d("venueId====",venueId);
+	            	Log.d("venueId====",venueId);
 	    			
 					m_ProgressDialog = ProgressDialog.show(RestaurantPhotosActivity.this, getString(R.string.please_wait), getString(R.string.uploading_photo), true);
-		            ((RestaurantRating)getApplicationContext()).getFoursquare().uploadPhoto(venueId, user.getOauthToken(), fileUri);
-		            //String uri = jSettings.getString("foursquarePhotosAddUrl")+"?venueId="+venueId+"&oauth_token="+user.getOauthToken();
-					//Foursquare.uploadPhoto(uri, fileUri);
-					m_ProgressDialog.dismiss();
+		            ((RestaurantRating)getApplicationContext()).getFoursquare().uploadPhoto(venueId, fileUri);
+		            m_ProgressDialog.dismiss();
 	            } catch (Exception e) {
 	            	e.printStackTrace();
 	            }

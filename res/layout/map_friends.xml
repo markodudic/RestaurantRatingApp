@@ -15,25 +15,40 @@
  				 android:apiKey="0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw"
                  />
     
-    <LinearLayout android:id="@+id/layout_friends_location"
+    <LinearLayout android:id="@+id/layout_friends"
         android:layout_width="fill_parent" 
      	android:gravity="center" 
 	    android:layout_height="50dip"
-		android:orientation="vertical"
+		android:orientation="horizontal"
     	android:background="@color/translucentBlack"
     	android:layout_gravity="center_horizontal|top">
-	   
-	    <TextView android:id="@+id/text_venue"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        restaurantrating:font_name="@string/font_list_small"
-	        style="@style/TextUser.Left" />	
+    
+	    <LinearLayout android:id="@+id/layout_friends_location"
+	        android:layout_width="fill_parent" 
+	     	android:layout_height="wrap_content"
+			android:orientation="vertical"
+	    	android:clickable="true">
+		   
+		    <TextView android:id="@+id/text_venue"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        restaurantrating:font_name="@string/font_list_small"
+		        style="@style/TextUser.Left" />	
+	
+		   <TextView android:id="@+id/text_username"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        restaurantrating:font_name="@string/font_list_small"
+		        style="@style/TextUser.Left.Small" />	
+		</LinearLayout>
+	
+	    <ImageView android:id="@+id/friends_location_next"
+	    		android:background="@drawable/next"
+	    		android:layout_height="wrap_content" 
+	        	android:layout_width="wrap_content"
+	        	style="@style/NextIcon"
+	        	android:visibility="invisible" />
 
-	   <TextView android:id="@+id/text_username"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        restaurantrating:font_name="@string/font_list_small"
-	        style="@style/TextUser.Left.Small" />	
-	</LinearLayout>
+    </LinearLayout>
     
 </FrameLayout>

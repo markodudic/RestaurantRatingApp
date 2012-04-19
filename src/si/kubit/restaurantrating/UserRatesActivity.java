@@ -12,6 +12,7 @@ import org.json.JSONTokener;
 
 import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.conn.Foursquare;
+import si.kubit.restaurantrating.objects.User;
 import si.kubit.restaurantrating.objects.UserRate;
 import si.kubit.restaurantrating.util.Util;
 import android.app.ListActivity;
@@ -35,6 +36,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	private ArrayList<UserRate> userRatesList = null;
 	private Runnable viewUserRates;
 	private ProgressDialog m_ProgressDialog = null;
+	private static final int AUTHORIZATION_REQUEST = 1338;
 
 	/** Called when the activity is first created. */
     @Override
@@ -51,8 +53,15 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         getUser("marko", "okram");
         
 		//nastavim podatke za fsq dostop
-        setFoursquare();
+        Foursquare fsq = setFoursquare();
+        ((RestaurantRating)getApplicationContext()).setFoursquare(fsq);
 
+        checkUserOAuth();
+		try  {
+			fsq.setCategories();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         
         
         userRatesList = new ArrayList<UserRate>();
@@ -65,7 +74,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 		    	try {
 		    		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(position);
 	  	    	  	
-		    		String restaurantId 	= jobject.getString("restaurantId");
+		    		/*String restaurantId 	= jobject.getString("restaurantId");
 				    String restaurantName 	= jobject.getString("restaurantName");
 		    		String category 		= jobject.getString("category");
 		    		int rateCount 			= jobject.getInt("rateCount");
@@ -89,11 +98,11 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 		    		jobjectRestaurant.put("rateValueAvg",valueRate);
 		    		jobjectRestaurant.put("tipCount",tipCount);
 		    		jobjectRestaurant.put("photoCount",photoCount);
-		    		 
+		    		 */
 		    		Intent intentRestaurantRate = new Intent(UserRatesActivity.this, RestaurantRateActivity.class);
-				  	Bundle extras = new Bundle();
-				  	
-				  	extras.putString("restaurant", jobjectRestaurant.toString());
+				  	Bundle extras = new Bundle();	
+				  	extras.putString("restaurant_id", jobject.getString("restaurantId"));
+				  	//extras.putString("restaurant", jobjectRestaurant.toString());
 				  	extras.putBoolean("user_rate", true);
 				  	intentRestaurantRate.putExtra("si.kubit.restaurantrating.RestaurantRateActivity", extras);
 				  	intentRestaurantRate.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -116,13 +125,49 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	
     } 
     
-    private void setFoursquare() {
+    private void checkUserOAuth()
+    {
+    	try { 
+			User user = Util.getUserFromPreferencies();	
+	    	if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
+				//uporabnik nima autorizacije. Zahtevam
+    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
+    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
+		    } else {
+    			((RestaurantRating)getApplicationContext()).getFoursquare().setUserOAuth(user.getOauthToken());
+		    }
+   		} catch (Exception ne) {
+   			ne.printStackTrace();
+        	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();
+   		}
+    }      
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if (requestCode == AUTHORIZATION_REQUEST) {
+    		if (resultCode == RESULT_OK) {
+    			String accessToken = data.getStringExtra("accessToken");
+    			//shrani oatuh za userja
+    			Util.SetUserOAuth(accessToken);
+    			((RestaurantRating)getApplicationContext()).getFoursquare().setUserOAuth(accessToken);
+        	} else if (resultCode == RESULT_CANCELED) {
+        		if (data != null) {
+		        	Toast toast = Toast.makeText(this, getString(R.string.oauth_requered), Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        	toast.show();
+        		}
+	        }
+    	}
+    }
+
+    private Foursquare setFoursquare() {
 		//pridobim serverske nastavitev za komunikacijo z 4SQ
+    	Foursquare fsq = null;
     	try {
     		String settings = ((RestaurantRating)getApplicationContext()).getComm().get("settings");
-    		Foursquare fsq = new Foursquare(settings);
-    		
-            ((RestaurantRating)getApplicationContext()).setFoursquare(fsq);
+    		fsq = new Foursquare(settings);
         } catch (SocketException e) {
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -133,6 +178,8 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
    		}
+    	
+    	return fsq;
     }
     
     private void getUser(String username, String password) {

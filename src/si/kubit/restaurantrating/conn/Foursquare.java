@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -26,12 +27,14 @@ public class Foursquare {
 
 	private String clientId;
 	private String clientSecret;
+	private String userOAuth;
 	private String redirectURI;
 
 	private String foursquareVenusUrl;
 	private String foursquareVenusSearchUrl;
 	private String foursquareVenusTipsUrl;
 	private String foursquareVenusPhotosUrl;
+	private String foursquareVenusCategoriesUrl;
 	private String foursquareUrl;
 	private String foursquareTipsAddUrl;
 	private String foursquarePhotosAddUrl;
@@ -41,6 +44,8 @@ public class Foursquare {
 	private String foursquareAccessTokenUrl;
 
 	private String venuesCategory;
+	
+	private JSONArray categories;
 
 	public Foursquare() {
 	}
@@ -56,6 +61,7 @@ public class Foursquare {
 			this.foursquareVenusSearchUrl = jSettings.getString("foursquareVenusSearchUrl");
 			this.foursquareVenusTipsUrl = jSettings.getString("foursquareVenusTipsUrl");
 			this.foursquareVenusPhotosUrl = jSettings.getString("foursquareVenusPhotosUrl");
+			this.foursquareVenusCategoriesUrl = jSettings.getString("foursquareVenusCategoriesUrl");
 			this.foursquareUrl = jSettings.getString("foursquareUrl");
 			this.foursquareTipsAddUrl = jSettings.getString("foursquareTipsAddUrl");
 			this.foursquarePhotosAddUrl = jSettings.getString("foursquarePhotosAddUrl");
@@ -115,8 +121,32 @@ public class Foursquare {
        
 	}
 
-	public JSONArray getFriendsLocations(String oauth) throws Exception {
-		String loc = send(this.foursquareCheckinsRecentUrl, getFoursquareOAuthParams(oauth), "", null, "GET");
+	public void setCategories() throws Exception {
+		String jcategories = send(this.foursquareVenusCategoriesUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
+		JSONObject jdata = (JSONObject)new JSONTokener(jcategories).nextValue();
+		categories = (JSONArray)((JSONObject)jdata.get("response")).get("categories");
+		Log.d("CATEGORIES", categories.toString());
+	}
+
+	public JSONArray getCategories() {
+		return categories;
+	}
+
+	public JSONObject getCategory(String categoryId) {
+		try {
+			for (int i=0; i<categories.length(); i++) {
+				JSONObject category = (JSONObject) categories.getJSONObject(i);
+				if (category.getString("id").equals(categoryId))
+					return category;
+			}
+		} catch (JSONException e) {
+			
+		}
+		return null;
+	}
+	
+	public JSONArray getFriendsLocations() throws Exception {
+		String loc = send(this.foursquareCheckinsRecentUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
 		JSONObject jdata = (JSONObject)new JSONTokener(loc).nextValue();
 		return (JSONArray)((JSONObject)jdata.get("response")).get("recent");
 	}
@@ -129,10 +159,10 @@ public class Foursquare {
 		return (JSONArray)(responseTips.get("items"));
 	}
 
-	public String addTip(String venue_id, String text, String oauth) throws Exception {
+	public String addTip(String venue_id, String text) throws Exception {
 
 		String tip = send(this.foursquareTipsAddUrl, 
-								getFoursquareOAuthParams(oauth), 
+								getFoursquareOAuthParams(userOAuth), 
 								"venueId="+venue_id+"&text="+URLEncoder.encode(text,"UTF-8"),
 								null, 
 								"POST");
@@ -151,8 +181,8 @@ public class Foursquare {
 	}
 
 	
-	public String uploadPhoto(String venueId, String oauthToken, File file) throws Exception {
-		String uri = this.foursquarePhotosAddUrl+"?venueId="+venueId+"&oauth_token="+oauthToken;
+	public String uploadPhoto(String venueId, File file) throws Exception {
+		String uri = this.foursquarePhotosAddUrl+"?venueId="+venueId+"&oauth_token="+userOAuth;
 		return upload(uri, file);
 	}
 	
@@ -203,7 +233,7 @@ public class Foursquare {
 		private String getFoursquareVenuesParams () {
 			SimpleDateFormat dfYear=new SimpleDateFormat("yyyyMMdd");
 			return "?client_id=" + this.clientId + 
-					//"&client_secret=" + this.clientSecret +
+					"&client_secret=" + this.clientSecret +
 					"&v=" + dfYear.format(new Date()); 
 		}
 
@@ -211,7 +241,7 @@ public class Foursquare {
 		private String getFoursquareOAuthParams (String oauth) {
 			SimpleDateFormat dfYear=new SimpleDateFormat("yyyyMMdd");
 			return "?client_id=" + this.clientId + 
-					//"&client_secret=" + this.clientSecret +
+					"&client_secret=" + this.clientSecret +
 					"&oauth_token=" + oauth +
 					"&v=" + dfYear.format(new Date()); 
 		}
@@ -318,6 +348,22 @@ public class Foursquare {
 
 		public void setVenuesCategory(String venuesCategory) {
 			this.venuesCategory = venuesCategory;
+		}
+
+		public String getFoursquareVenusCategoriesUrl() {
+			return foursquareVenusCategoriesUrl;
+		}
+
+		public String getFoursquareCheckinsRecentUrl() {
+			return foursquareCheckinsRecentUrl;
+		}
+
+		public String getUserOAuth() {
+			return userOAuth;
+		}
+
+		public void setUserOAuth(String userOAuth) {
+			this.userOAuth = userOAuth;
 		}	
 
 	    
