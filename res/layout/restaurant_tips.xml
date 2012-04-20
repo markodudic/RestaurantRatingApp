@@ -4,8 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    style="@style/LayoutDefaultLight"
-    android:background="@drawable/layout_rounded" >
+    android:background="@drawable/layout_rounded"
+    style="@style/LayoutDefaultLight" >
 
     <FrameLayout android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 

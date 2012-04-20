@@ -33,6 +33,8 @@
     <string name="days_ago_by">days ago by</string>
     <string name="places">Places</string>
     <string name="leave_tip">Leave tip</string>
+    <string name="rate_count">REVIEWS</string>
+    <string name="avg_rate">AVERIGE RATE</string>
     
 	<string name="location_error">Lokacijo ni možno določiti. Preverite če imate prižgan GPS.</string> 
 	<string name="location_title">Določanje lokacije</string> 

@@ -34,13 +34,30 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	private TextView venueName;
 	private TextView userName;
 	private ImageView showLocation;
+	private float newWidth;
+	private float newHeight;
+	private int extraWidth;
+	private int extraHeight;
+	private int correctionX;
+	private int correctionY;
 	
 	private final int SCALE_SIZE = 10;
 
 	private ArrayList<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
 	private ArrayList<Boolean> overlayIsRestaurants = new ArrayList<Boolean>();
 	
-	public FriendsItemizedOverlay(Drawable defaultMarker, Context context, int screenWidth, int screenHeight, LinearLayout layout, TextView venueName, TextView userName, ImageView showLocation) {
+	public FriendsItemizedOverlay(Drawable defaultMarker, 
+								Context context, 
+								int screenWidth, 
+								int screenHeight, 
+								LinearLayout layout, 
+								TextView venueName, 
+								TextView userName, 
+								ImageView showLocation,
+								int extraWidth,
+								int extraHeight,
+								int correctionX,
+								int correctionY) {
 		super(boundCenterBottom(defaultMarker));
 		this.context = context;
 	    this.screenWidth = screenWidth;
@@ -49,7 +66,14 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	    this.venueName = venueName;
 	    this.userName = userName;
 	    this.showLocation = showLocation;
+	    this.extraWidth = extraWidth;
+	    this.extraHeight = extraHeight;
+	    this.correctionX = correctionX;
+	    this.correctionY = correctionY;
 		layout.setVisibility(View.INVISIBLE);
+		
+		newWidth = screenWidth / SCALE_SIZE;
+		newHeight = screenWidth / SCALE_SIZE;		
 	}
 
 	public void addOverlay(OverlayItem overlay, boolean isRestaurant) {
@@ -71,19 +95,12 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 			Point screenPoint = new Point();
 			mapView.getProjection().toPixels(overlayItem.getPoint(), screenPoint);
 			
-			//overlayItems.get(i).setMarker(new BitmapDrawable(overlayMarkerImages.get(i)));
-			
-			float newWidth = screenWidth / SCALE_SIZE;
-			float newHeight = screenWidth / SCALE_SIZE;
-			
-			float ratioX = newWidth / (float) bitmap.getWidth();
-			float ratioY = newHeight / (float) bitmap.getHeight();
-			float middleX = newWidth / 2.0f;
-			float middleY = newHeight / 2.0f;
-	
+			float ratioX = (newWidth + extraWidth) / ((float) bitmap.getWidth());
+			float ratioY = (newHeight + extraHeight) / ((float) bitmap.getHeight());
+				
 			Matrix matrix = new Matrix();
-			matrix.setScale(ratioX, ratioY, middleX, middleY);
-			matrix.postTranslate(screenPoint.x - newWidth / 2, screenPoint.y - newHeight);
+			matrix.setScale(ratioX, ratioY);
+			matrix.postTranslate(screenPoint.x - (newWidth + extraWidth)/2 - correctionX, screenPoint.y - newHeight - correctionY - (extraWidth/2));
 			Paint paint = new Paint();
 			paint.setFilterBitmap(true);
 			canvas.drawBitmap(bitmap, matrix, paint);

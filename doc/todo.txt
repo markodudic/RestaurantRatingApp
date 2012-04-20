@@ -5,9 +5,11 @@ NAPAKE
 + uploadane fotke se ne pikazejo
 - pri listi restoranov se zadnji v listi ne vidi cel
 - onactivityresult izboljsaj tako da vrne result samo enkrat
+- drawable/layout_rounded naredi kot class
 
 NADGRADNJE
 ---------------------------------------
+- prijava
 - settingsi
 - mape
 - user profil
@@ -30,4 +32,6 @@ VPRAsANJA
 ---------------------------------------
 - zakaj so prikazane ocene samo od frendov
 - slike oseb in restoranov
+https://play.google.com/store/apps/details?id=com.lafourchette.lafourchette
+https://play.google.com/store/apps/details?id=com.foodspotting
 - barve bolj apetitli 

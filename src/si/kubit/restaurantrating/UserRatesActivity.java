@@ -73,32 +73,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
 		    	try {
 		    		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(position);
-	  	    	  	
-		    		/*String restaurantId 	= jobject.getString("restaurantId");
-				    String restaurantName 	= jobject.getString("restaurantName");
-		    		String category 		= jobject.getString("category");
-		    		int rateCount 			= jobject.getInt("rateCount");
-		    		String avgRate 			= jobject.getString("avgRate");
-		    		double foodRate 		= jobject.getDouble("foodRate");
-		    		double ambientRate		= jobject.getDouble("ambientRate");
-		    		double serviceRate 		= jobject.getDouble("serviceRate");
-		    		double valueRate 		= jobject.getDouble("valueRate");
-		    		int tipCount 			= jobject.getInt("tipCount");
-		    		int photoCount 			= jobject.getInt("photoCount");
 
-		    		JSONObject jobjectRestaurant = new JSONObject();
-		    		jobjectRestaurant.put("id",restaurantId);
-		    		jobjectRestaurant.put("name",restaurantName);
-		    		jobjectRestaurant.put("category",category);
-		    		jobjectRestaurant.put("rateCount",rateCount);
-		    		jobjectRestaurant.put("rateAvg",avgRate);
-		    		jobjectRestaurant.put("rateFoodAvg",foodRate);
-		    		jobjectRestaurant.put("rateAmbientAvg",ambientRate);
-		    		jobjectRestaurant.put("rateServiceAvg",serviceRate);
-		    		jobjectRestaurant.put("rateValueAvg",valueRate);
-		    		jobjectRestaurant.put("tipCount",tipCount);
-		    		jobjectRestaurant.put("photoCount",photoCount);
-		    		 */
 		    		Intent intentRestaurantRate = new Intent(UserRatesActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();	
 				  	extras.putString("restaurant_id", jobject.getString("restaurantId"));

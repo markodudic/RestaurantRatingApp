@@ -56,6 +56,9 @@
      	<activity android:name=".MapFriendsActivity" 
       		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
+     	<activity android:name=".MapRestaurantActivity" 
+      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
      </application>
     
     <uses-permission android:name="android.permission.INTERNET" />

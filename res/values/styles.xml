@@ -86,7 +86,11 @@
 	<style name="LayoutDefaultLight">
       <item name="android:background">#ffffff</item>
    	</style>
-	
+
+	<style name="LayoutDefaultGray">
+      <item name="android:background">#e8e8e8</item>
+   	</style>
+		
 	<style name="Search">
       <item name="android:textColor">#000000</item>
       <item name="android:textSize">20sp</item>
@@ -111,8 +115,13 @@
 	<style name="NextIcon"> 
       <item name="android:layout_marginLeft">-20dip</item>
       <item name="android:layout_gravity">center</item>
-    	</style>
+    </style>
 
+	<style name="MapIcon"> 
+      <item name="android:layout_marginLeft">10dip</item>
+      <item name="android:layout_gravity">left|top</item>
+    </style>
+	
 	<style name="TextRate">
       <item name="android:layout_width">80dip</item>
       <item name="android:textSize">64sp</item>
@@ -243,6 +252,30 @@
       <item name="android:textColor">#ffffff</item>
     </style>	
 
+	<style name="TextRestaurantMap">
+      <item name="android:textSize">20sp</item>
+      <item name="android:paddingLeft">10dip</item>
+      <item name="android:paddingTop">0dip</item>
+      <item name="android:gravity">left|top</item>
+      <item name="android:textColor">#000000</item>
+      <item name="android:layout_gravity">left|top</item>
+    </style>	
+    
+	<style name="TextRestaurantMap.Small">
+      <item name="android:textSize">14sp</item>
+    </style>	
+	
+	<style name="TextRestaurantMapData">
+      <item name="android:textSize">40sp</item>
+      <item name="android:textColor">#000000</item>
+      <item name="android:gravity">center</item>
+      <item name="android:layout_gravity">center</item>
+    </style>	
+	
+	<style name="TextRestaurantMapData.Small">
+      <item name="android:textSize">20sp</item>
+    </style>	
+		
 	<style name="TextRateItem">
       <item name="android:textSize">40sp</item>
       <item name="android:paddingTop">0dip</item>
@@ -263,6 +296,13 @@
       <item name="android:gravity">center_vertical|left</item>
       <item name="android:textColor">@color/smallTextDarkColor</item>
   	</style>
-  			
-	
+
+	<style name="MapRestaurant">
+      <item name="android:layout_height">200dip</item>
+  	</style>
+				
+	<style name="MapRestaurantTitle">
+	  <item name="android:gravity">center</item>
+  	</style>
+		
 </resources>

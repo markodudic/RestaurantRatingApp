@@ -58,8 +58,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
         Log.d("**********************************", "RestaurantsActivity");
 		
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        
-        
+            
         restaurantsList = new ArrayList<Restaurant>();
         this.listAdapter = new RestaurantsListAdapter(this, R.layout.restaurants_list, restaurantsList, true);
         setListAdapter(this.listAdapter);
@@ -93,12 +92,9 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 	        	Toast toast = Toast.makeText(RestaurantsActivity.this, getString(R.string.location_error), Toast.LENGTH_LONG);
 	        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
 	        	toast.show();
-//				showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
 		    }
 		  };
 
-		registerListener();
-		
 		lv = (ListView) findViewById(android.R.id.list);
         lv.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
@@ -132,6 +128,21 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 			}
         });
 
+    }
+
+	private void registerListener() { 
+		locationManager.requestLocationUpdates(provider, 0, 0, locationListener);
+	}
+
+	private void unRegisterListener() { 
+		locationManager.removeUpdates(locationListener);
+	}
+
+	
+	@Override
+	protected void onResume() { 
+		super.onResume();
+		registerListener();
 		Location lastKnownLocation = locationManager.getLastKnownLocation(provider);
 		if(lastKnownLocation != null) { 
 			Log.d("lastKnownLocation", lastKnownLocation.getLatitude() + "-" + lastKnownLocation.getLongitude());
@@ -143,24 +154,12 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 		loc.setLatitude(46.05d);
 		GetRestaurantsList(loc);
 		//
-    }
-
-	private void registerListener() { 
-		locationManager.requestLocationUpdates(provider, 0, 0, locationListener);
-		//zaradi emulatorja
-		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-	}
-
-	
-	@Override
-	protected void onResume() { 
-		super.onResume();
-		//registerListener();
 	}
 	
     @Override
     protected void onPause() {
     	super.onPause();
+    	unRegisterListener();
     }
 
     public void onClick(View v) {
@@ -187,7 +186,6 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
         	Toast toast = Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
-//			showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.location_error), getString(R.string.location_title));
 		} else {
 			Log.d("GetRestaurantsList=",location.getLatitude() + " " + location.getLongitude());
             

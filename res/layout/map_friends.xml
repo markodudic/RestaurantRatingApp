@@ -7,18 +7,17 @@
 
 	        
     <com.google.android.maps.MapView
-                 android:id="@+id/friends_map_view"
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
-                 android:enabled="true"
- 				 android:clickable="true"
- 				 android:apiKey="0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw"
-                 />
+        android:id="@+id/friends_map_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:enabled="true"
+		android:clickable="true"
+		android:apiKey="0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw"  />
     
     <LinearLayout android:id="@+id/layout_friends"
         android:layout_width="fill_parent" 
      	android:gravity="center" 
-	    android:layout_height="50dip"
+	    android:layout_height="60dip"
 		android:orientation="horizontal"
     	android:background="@color/translucentBlack"
     	android:layout_gravity="center_horizontal|top">

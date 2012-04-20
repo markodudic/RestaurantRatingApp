@@ -121,11 +121,24 @@ public class Foursquare {
        
 	}
 
+	public JSONObject getRestaurant(String venueId) throws Exception {
+		String jrestaurant = send(this.foursquareVenusUrl+"/"+venueId, getFoursquareOAuthParams(userOAuth), "", null, "GET");
+		JSONTokener jTokener = new JSONTokener(jrestaurant);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			return (JSONObject)((JSONObject)jdata.get("response")).get("venue");
+		} else {
+			return null;
+		}
+	}
+
 	public void setCategories() throws Exception {
 		String jcategories = send(this.foursquareVenusCategoriesUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
-		JSONObject jdata = (JSONObject)new JSONTokener(jcategories).nextValue();
-		categories = (JSONArray)((JSONObject)jdata.get("response")).get("categories");
-		Log.d("CATEGORIES", categories.toString());
+		JSONTokener jTokener = new JSONTokener(jcategories);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			categories = (JSONArray)((JSONObject)jdata.get("response")).get("categories");
+		}
 	}
 
 	public JSONArray getCategories() {
@@ -147,16 +160,26 @@ public class Foursquare {
 	
 	public JSONArray getFriendsLocations() throws Exception {
 		String loc = send(this.foursquareCheckinsRecentUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
-		JSONObject jdata = (JSONObject)new JSONTokener(loc).nextValue();
-		return (JSONArray)((JSONObject)jdata.get("response")).get("recent");
+		JSONTokener jTokener = new JSONTokener(loc);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			return (JSONArray)((JSONObject)jdata.get("response")).get("recent");
+		} else {
+			return null;
+		}
 	}
 
 
 	public JSONArray getTips(String venueId) throws Exception {
 		String tips = send(this.foursquareVenusTipsUrl.replace("VENUE_ID", venueId), getFoursquareVenuesParams(), "", null, "GET");
-		JSONObject jdata = (JSONObject)new JSONTokener(tips).nextValue();
-		JSONObject responseTips = (JSONObject)((JSONObject)jdata.get("response")).get("tips");
-		return (JSONArray)(responseTips.get("items"));
+		JSONTokener jTokener = new JSONTokener(tips);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			JSONObject responseTips = (JSONObject)((JSONObject)jdata.get("response")).get("tips");
+			return (JSONArray)(responseTips.get("items"));
+		} else {
+			return null;
+		}
 	}
 
 	public String addTip(String venue_id, String text) throws Exception {
@@ -167,17 +190,25 @@ public class Foursquare {
 								null, 
 								"POST");
 		
-		JSONObject jdata = (JSONObject)new JSONTokener(tip).nextValue();
-		
-		return ((JSONObject)((JSONObject)jdata.get("response")).get("tip")).toString();
-		
+		JSONTokener jTokener = new JSONTokener(tip);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			return ((JSONObject)((JSONObject)jdata.get("response")).get("tip")).toString();
+		} else {
+			return null;
+		}
 	}
 	
 	public JSONArray getPhotos(String venueId) throws Exception {
 		String tips = send(this.foursquareVenusPhotosUrl.replace("VENUE_ID", venueId), getFoursquareVenuesParams(), "", null, "GET");
-		JSONObject jdata = (JSONObject)new JSONTokener(tips).nextValue();
-		JSONObject responsePhotos = (JSONObject)((JSONObject)jdata.get("response")).get("photos");
-		return (JSONArray)((JSONObject)((JSONArray)(responsePhotos.get("groups"))).get(1)).get("items");
+		JSONTokener jTokener = new JSONTokener(tips);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			JSONObject responsePhotos = (JSONObject)((JSONObject)jdata.get("response")).get("photos");
+			return (JSONArray)((JSONObject)((JSONArray)(responsePhotos.get("groups"))).get(1)).get("items");
+		} else {
+			return null;
+		}
 	}
 
 	

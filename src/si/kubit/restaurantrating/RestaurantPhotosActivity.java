@@ -224,12 +224,10 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
-			//showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME_LONG+"", "false", getString(R.string.conn_error), getString(R.string.conn_title));
    		} catch (Exception ne) {
         	Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
-   			//showMessageBox(Constants.MESSAGE_BOX_CLOSE_TIME+"", "false", getString(R.string.json_error), getString(R.string.json_title));
    		}
     }          
 

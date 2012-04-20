@@ -30,6 +30,7 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	
 	private String restaurantId;
 	private String rateAvg;
+	private String rateCount;
 	private double rateFoodAvg;
 	private double rateAmbientAvg;
 	private double rateServiceAvg;
@@ -133,7 +134,8 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
 			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
 			textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
-			buttonTips.setText(getString(R.string.tips) + "\n (" + jobject.getString("tipCount") + ")");
+			rateCount = jobject.getString("tipCount");
+			buttonTips.setText(getString(R.string.tips) + "\n (" + rateCount + ")");
 			buttonPhotos.setText(getString(R.string.photos) + "\n (" + jobject.getString("photoCount") + ")");
 			textRateTitle.setText(getString(R.string.rate_title));
 			
@@ -308,6 +310,12 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_map:
+		    	Intent mapRestaurantIntent = new Intent(RestaurantRateActivity.this, MapRestaurantActivity.class);
+				Bundle extras = new Bundle();
+			  	extras.putString("rate_count", rateCount);
+			  	extras.putString("rate_avg", rateAvg);
+			  	mapRestaurantIntent.putExtra("si.kubit.restaurantrating.MapRestaurantActivity", extras);
+			  	RestaurantRateActivity.this.startActivity(mapRestaurantIntent);
 				break;
 			case R.id.button_back:
 		    	Intent intentRestaurants = new Intent(RestaurantRateActivity.this, RestaurantsActivity.class);
