@@ -46,8 +46,8 @@ public class MapFriendsActivity extends MapActivity {
 	protected LocationListener locationListener;
 	private MyLocationOverlay myLocationOverlay;
 	
-	private FriendsItemizedOverlay friendsItemizedOverlay;
-	private FriendsItemizedOverlay friendsBackgroundItemizedOverlay;
+	private MapItemizedOverlay friendsItemizedOverlay;
+	//private MapItemizedOverlay friendsBackgroundItemizedOverlay;
 	private ArrayList<String> overlayVenueIds = new ArrayList<String>();
 	private ArrayList<Boolean> overlayIsRestaurants = new ArrayList<Boolean>();
 
@@ -94,9 +94,9 @@ public class MapFriendsActivity extends MapActivity {
 		TextView venue = (TextView) findViewById(R.id.text_venue);
 		TextView userName = (TextView) findViewById(R.id.text_username);
         
-        friendsBackgroundItemizedOverlay = new FriendsItemizedOverlay(this.getResources().getDrawable(R.drawable.friends), this, screenWidth, screenHeight, lf, venue, userName, showLocation, 10, 20, 0, 15);
-        mapOverlays.add(friendsBackgroundItemizedOverlay); 
-		friendsItemizedOverlay = new FriendsItemizedOverlay(this.getResources().getDrawable(R.drawable.friends), this, screenWidth, screenHeight, lf, venue, userName, showLocation, 0, 0, 0, 15);
+        //friendsBackgroundItemizedOverlay = new MapItemizedOverlay(this.getResources().getDrawable(R.drawable.poi), this, screenWidth, screenHeight, lf, venue, userName, showLocation, 10, 20, 0, 15);
+        //mapOverlays.add(friendsBackgroundItemizedOverlay); 
+		friendsItemizedOverlay = new MapItemizedOverlay(this.getResources().getDrawable(R.drawable.poi), this, screenWidth, screenHeight, lf, venue, userName, showLocation, 10, 20, 0, 15);
         mapOverlays.add(friendsItemizedOverlay);
 
         mapView.postInvalidate();
@@ -110,7 +110,7 @@ public class MapFriendsActivity extends MapActivity {
 			overlayVenueIds.clear();
 			overlayIsRestaurants.clear();
 			friendsItemizedOverlay.clear();
-			friendsBackgroundItemizedOverlay.clear();
+			//friendsBackgroundItemizedOverlay.clear();
 			
 			if (jLocations == null) return;
 				
@@ -137,12 +137,12 @@ public class MapFriendsActivity extends MapActivity {
     			GeoPoint point = new GeoPoint(lat, lng);
  
     	        //narisem ozadje slike
-    			Drawable d1 = this.getResources().getDrawable(R.drawable.image_bck);
+    			/*Drawable d1 = this.getResources().getDrawable(R.drawable.image_bck);
     	        OverlayItem overlayBackgroundItem = new OverlayItem(point, null, null);
     	        overlayBackgroundItem.setMarker(d1);
     			OverlayItem.setState(d1, 0);
     	        friendsBackgroundItemizedOverlay.addOverlay(overlayBackgroundItem, isRestaurant);    	        
-
+*/
     	        //slika frienda
     			BitmapDrawable d = (BitmapDrawable)Util.ImageOperations((String)jUser.getString("photo"));
     			OverlayItem overlayItem = new OverlayItem(point, jVenue.getString("name"), (String)jUser.getString("firstName") + " " + (jUser.has("lastName")?(String)jUser.getString("lastName"):""));

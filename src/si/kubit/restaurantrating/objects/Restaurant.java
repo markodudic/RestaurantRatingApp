@@ -16,8 +16,6 @@ public class Restaurant {
 	private double rateAmbientAvg;
 	private double rateServiceAvg;
 	private double rateValueAvg;
-	private int tipCount;
-	private int photoCount;
 	private long distance;
 
 	public String getId() {
@@ -91,22 +89,6 @@ public class Restaurant {
 
 	public void setRateValueAvg(double rateValueAvg) {
 		this.rateValueAvg = rateValueAvg;
-	}
-
-	public int getTipCount() {
-		return tipCount;
-	}
-
-	public void setTipCount(int tipCount) {
-		this.tipCount = tipCount;
-	}
-
-	public int getPhotoCount() {
-		return photoCount;
-	}
-
-	public void setPhotoCount(int photoCount) {
-		this.photoCount = photoCount;
 	}
 
 	public long getDistance() {

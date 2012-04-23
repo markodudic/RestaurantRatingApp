@@ -53,8 +53,7 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	ListView lv;
 	private RestaurantsListAdapter listAdapter;
 	private ArrayList<Restaurant> restaurantsList = null;
-	private Runnable viewRestaurants;
-
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,9 +111,12 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
 			
-			String restaurant = ((RestaurantRating)getApplicationContext()).getComm().post("getrestaurant", nameValuePairs);
+			String restaurant = ((RestaurantRating)getApplicationContext()).getComm().post("restaurant", nameValuePairs);
 			Log.d("restaurant=", restaurant);
 			
+			JSONObject restaurantData = ((RestaurantRating)getApplicationContext()).getFoursquare().getRestaurant(restaurantId);
+			Log.d("restaurantData=", restaurantData.toString());
+
 			jobject = new JSONArray(restaurant).getJSONObject(0);
 
             getRestaurant();
@@ -134,9 +136,9 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 			TextView buttonTips = (TextView)this.findViewById(R.id.button_tips);
 			TextView buttonPhotos = (TextView)this.findViewById(R.id.button_photos);
 			textRateTitle = (TextView)this.findViewById(R.id.text_restaurant_rate_title);
-			rateCount = jobject.getString("tipCount");
-			buttonTips.setText(getString(R.string.tips) + "\n (" + rateCount + ")");
-			buttonPhotos.setText(getString(R.string.photos) + "\n (" + jobject.getString("photoCount") + ")");
+			JSONObject restaurantStats = restaurantData.getJSONObject("stats");
+			buttonTips.setText(getString(R.string.tips) + "\n (" + (restaurantStats.has("tipCount")?restaurantStats.getString("tipCount"):"0") + ")");
+			buttonPhotos.setText(getString(R.string.photos) + "\n (" + (restaurantStats.has("photoCount")?restaurantStats.getString("photoCount"):"0") + ")");
 			textRateTitle.setText(getString(R.string.rate_title));
 			
 			mHandler.removeCallbacks(mSetRatesTask);

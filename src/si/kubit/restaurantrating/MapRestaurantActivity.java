@@ -92,7 +92,7 @@ public class MapRestaurantActivity extends MapActivity {
 			JSONArray jCategories = (JSONArray) jRestaurant.get("categories");
 			JSONObject jCategoryIcon = null;
 			for(int i=0; i<jCategories.length(); i++) {
-				JSONObject jCategory = jCategories.getJSONObject(0);
+				JSONObject jCategory = jCategories.getJSONObject(i);
 				if (jCategory.has("primary") && Boolean.parseBoolean(jCategory.getString("primary"))) {
 					jCategoryIcon = (JSONObject) jCategory.get("icon");
 					break;

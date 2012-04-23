@@ -59,7 +59,10 @@
      	<activity android:name=".MapRestaurantActivity" 
       		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
-     </application>
+     	<activity android:name=".MapRestaurantsActivity" 
+      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+		</activity>	
+    </application>
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

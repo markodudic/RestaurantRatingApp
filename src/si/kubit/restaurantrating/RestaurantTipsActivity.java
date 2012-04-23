@@ -66,19 +66,19 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 				break;
 			case R.id.button_tip:
 				//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-    			User user = Util.getUserFromPreferencies();	
+    			/*User user = Util.getUserFromPreferencies();	
 				if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
 					//uporabnik nima autorizacije. Zahtevam
 	    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
 	    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
-				} else {
+				} else {*/
 	    			Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
 	    			startActivity(restaurantTipAdd); 
-				}
+				//}
 				break;
     	}
 	}
-    
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	if (requestCode == AUTHORIZATION_REQUEST) {
@@ -98,27 +98,14 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 	        }
     	}
     }
-    	
+    	*/
 
     private void getRestaurantTipsList()
     {
-    	String tips = "";
         try { 
         	String restaurantId;
-        	/*Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantTipsActivity");
-			if (extras != null) {
-				restaurantId = extras.getString("restaurant_id");
-				Util.addPreferencies("restaurant_id", restaurantId, this);
-			} else {
-				restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
-			}*/
 			restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
 			
-			//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        //nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
-	        
-	        //tips = ((RestaurantRating)getApplicationContext()).getComm().post("tips",nameValuePairs);
-	        //jTips = (JSONArray)new JSONTokener(tips).nextValue();
 			jTips = ((RestaurantRating)getApplicationContext()).getFoursquare().getTips(restaurantId);
 	        		
 	        viewTips = new Runnable(){

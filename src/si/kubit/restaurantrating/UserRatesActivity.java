@@ -34,8 +34,8 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	private ListView lv;
 	private UserRatesListAdapter listAdapter;
 	private ArrayList<UserRate> userRatesList = null;
-	private Runnable viewUserRates;
-	private ProgressDialog m_ProgressDialog = null;
+	//private Runnable viewUserRates;
+	//private ProgressDialog m_ProgressDialog = null;
 	private static final int AUTHORIZATION_REQUEST = 1338;
 
 	/** Called when the activity is first created. */

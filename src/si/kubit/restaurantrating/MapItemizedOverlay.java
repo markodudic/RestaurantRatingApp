@@ -24,29 +24,26 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class FriendsItemizedOverlay extends ItemizedOverlay {
-//public class FriendsItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class MapItemizedOverlay extends ItemizedOverlay {
 
-	private Context context;
-	private int screenWidth;
-	private int screenHeight;
-	private LinearLayout layout;
-	private TextView venueName;
-	private TextView userName;
-	private ImageView showLocation;
-	private float newWidth;
-	private float newHeight;
-	private int extraWidth;
-	private int extraHeight;
-	private int correctionX;
-	private int correctionY;
+	protected Context context;
+	protected LinearLayout layout;
+	protected TextView venueName;
+	protected TextView userName;
+	protected ImageView showLocation;
+	protected float newWidth;
+	protected float newHeight;
+	protected int extraWidth;
+	protected int extraHeight;
+	protected int correctionX;
+	protected int correctionY;
 	
-	private final int SCALE_SIZE = 10;
+	protected final int SCALE_SIZE = 10;
 
-	private ArrayList<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
-	private ArrayList<Boolean> overlayIsRestaurants = new ArrayList<Boolean>();
+	protected ArrayList<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
+	protected ArrayList<Boolean> overlayIsRestaurants = new ArrayList<Boolean>();
 	
-	public FriendsItemizedOverlay(Drawable defaultMarker, 
+	public MapItemizedOverlay(Drawable defaultMarker, 
 								Context context, 
 								int screenWidth, 
 								int screenHeight, 
@@ -60,8 +57,6 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 								int correctionY) {
 		super(boundCenterBottom(defaultMarker));
 		this.context = context;
-	    this.screenWidth = screenWidth;
-	    this.screenHeight = screenHeight;
 	    this.layout = layout;
 	    this.venueName = venueName;
 	    this.userName = userName;
@@ -88,22 +83,39 @@ public class FriendsItemizedOverlay extends ItemizedOverlay {
 	    
 	    for (int i=0; i<size(); i++) {
 	    	OverlayItem overlayItem = ((OverlayItem)overlayItems.get(i));
-	    	Drawable marker = overlayItem.getMarker(0);
-	    	Bitmap bitmap = ((BitmapDrawable)marker).getBitmap();
 	    	
 	    	// Convert geo coordinates to screen pixels
 			Point screenPoint = new Point();
 			mapView.getProjection().toPixels(overlayItem.getPoint(), screenPoint);
 			
-			float ratioX = (newWidth + extraWidth) / ((float) bitmap.getWidth());
-			float ratioY = (newHeight + extraHeight) / ((float) bitmap.getHeight());
+			Paint paint = new Paint();
+			paint.setFilterBitmap(true);
+
+			//zrisem back
+			Drawable markerBack = context.getResources().getDrawable(R.drawable.image_bck);	
+			Bitmap bitmapBack = ((BitmapDrawable)markerBack).getBitmap();
+			
+			float ratioX = (newWidth + extraWidth) / ((float) bitmapBack.getWidth());
+			float ratioY = (newHeight + extraHeight) / ((float) bitmapBack.getHeight());
 				
 			Matrix matrix = new Matrix();
 			matrix.setScale(ratioX, ratioY);
 			matrix.postTranslate(screenPoint.x - (newWidth + extraWidth)/2 - correctionX, screenPoint.y - newHeight - correctionY - (extraWidth/2));
-			Paint paint = new Paint();
-			paint.setFilterBitmap(true);
+
+			canvas.drawBitmap(bitmapBack, matrix, paint);
+
+			//zrisem front
+			Drawable marker = overlayItem.getMarker(0);
+	    	Bitmap bitmap = ((BitmapDrawable)marker).getBitmap();
+	    	
+			ratioX = (newWidth) / ((float) bitmap.getWidth());
+			ratioY = (newHeight) / ((float) bitmap.getHeight());
+			
+			matrix.setScale(ratioX, ratioY);
+			matrix.postTranslate(screenPoint.x - newWidth/2, screenPoint.y - newHeight - correctionY);
 			canvas.drawBitmap(bitmap, matrix, paint);
+			
+			
 	    }
 		return true;
 	}

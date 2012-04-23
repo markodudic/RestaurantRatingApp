@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+	        
+    <com.google.android.maps.MapView
+        android:id="@+id/restaurants_map_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:enabled="true"
+		android:clickable="true"
+		android:apiKey="0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw"  />
+    
+    <LinearLayout android:id="@+id/layout_restaurants"
+        android:layout_width="fill_parent" 
+     	android:gravity="center" 
+	    android:layout_height="95dip"
+		android:orientation="horizontal"
+    	android:background="@color/translucentBlack"
+    	android:layout_gravity="center_horizontal|top">
+    
+	    <ImageView android:id="@+id/restaurant_icon"
+	    		android:background="@drawable/poi"
+	    		android:layout_height="wrap_content" 
+	        	android:layout_width="wrap_content"
+	        	style="@style/MapIcon.Top"/>
+        
+	    <LinearLayout android:id="@+id/layout_restaurants_location"
+	        android:layout_width="fill_parent" 
+	     	android:layout_height="wrap_content"
+			android:orientation="vertical"
+	    	android:clickable="true"
+	    	android:layout_gravity="center_horizontal|top">
+		   
+		    <TextView android:id="@+id/text_venue"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        restaurantrating:font_name="@string/font_list_small"
+		        style="@style/TextUser.Left" />	
+	
+		   <TextView android:id="@+id/text_address"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        restaurantrating:font_name="@string/font_list_small"
+		        style="@style/TextUser.Left.Small" />	
+
+		   <TextView android:id="@+id/text_category"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        restaurantrating:font_name="@string/font_list_small"
+		        style="@style/TextUser.Left" />	
+		   
+		</LinearLayout>
+    </LinearLayout>
+    
+</FrameLayout>

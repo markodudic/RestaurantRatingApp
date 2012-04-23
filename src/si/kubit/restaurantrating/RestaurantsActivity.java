@@ -37,9 +37,10 @@ import android.widget.Toast;
 
 public class RestaurantsActivity extends ListActivity implements OnClickListener {
 	
-	LocationManager locationManager;
-	LocationListener locationListener;
-	String provider;
+	private LocationManager locationManager;
+	private LocationListener locationListener;
+	private Location location;
+	private String provider;
 	
 	private JSONArray jRestaurants;
     
@@ -165,7 +166,12 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_map:
-				registerListener();
+		    	Intent mapRestaurantsActivity = new Intent(RestaurantsActivity.this, MapRestaurantsActivity.class);
+			  	/*Bundle extras = new Bundle();
+			  	extras.putString("lat", location.getLatitude()+"");
+			  	extras.putString("lng", location.getLongitude()+"");
+			  	mapRestaurantsActivity.putExtra("si.kubit.restaurantrating.MapRestaurantsActivity", extras);*/
+			  	RestaurantsActivity.this.startActivity(mapRestaurantsActivity);
 				break;
 			case R.id.button_cancel:
 		    	Intent intentUserRates = new Intent(RestaurantsActivity.this, UserRatesActivity.class);
@@ -177,6 +183,8 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     
     private void GetRestaurantsList(Location location)
     {
+    	this.location = location;
+    	
     	//ce trenutno prikazujem podatke, prekinem
     	if ((m_ProgressDialog != null) && ( m_ProgressDialog.isShowing())) {
     		m_ProgressDialog.dismiss();
@@ -196,7 +204,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 	        nameValuePairs.add(new BasicNameValuePair("lng", location.getLongitude()+""));
 	
 	        try { 
-	        	String restaurants = ((RestaurantRating)getApplicationContext()).getComm().post("venues", nameValuePairs);
+	        	String restaurants = ((RestaurantRating)getApplicationContext()).getComm().post("restaurants", nameValuePairs);
 	        	jRestaurants = (JSONArray)new JSONTokener(restaurants).nextValue();
 	        	Log.d("+++++++++++++", jRestaurants.toString());
 			  	
@@ -235,7 +243,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
         		r.setDistance(Long.parseLong(jobject.getString("distance")));
         		restaurantsList.add(r);
         	}
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
           } catch (Exception e) { 
             Log.e("BACKGROUND_PROC", e.getMessage());
           }
@@ -247,7 +255,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     	public void run() {
             if(restaurantsList != null && restaurantsList.size() > 0){
             	listAdapter.clear();
-            	listAdapter.notifyDataSetChanged();
+            	//listAdapter.notifyDataSetChanged();
                 for(int i=0;i<restaurantsList.size();i++)
                 	listAdapter.add(restaurantsList.get(i));
             }

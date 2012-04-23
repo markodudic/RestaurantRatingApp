@@ -44,6 +44,8 @@ public class Foursquare {
 	private String foursquareAccessTokenUrl;
 
 	private String venuesCategory;
+	private String venuesLimit;
+	private String venuesRadius;
 	
 	private JSONArray categories;
 
@@ -70,7 +72,10 @@ public class Foursquare {
 			this.foursquareAuthenticateUrl = jSettings.getString("foursquareAuthenticateUrl");
 			this.foursquareAccessTokenUrl = jSettings.getString("foursquareAccessTokenUrl");
 			this.venuesCategory = jSettings.getString("venuesCategory");
-        } catch (Exception e) {
+
+			this.venuesLimit = jSettings.getString("venuesLimit");
+			this.venuesRadius = jSettings.getString("venuesRadius");
+		} catch (Exception e) {
         	e.printStackTrace();
         }
 	}
@@ -132,6 +137,23 @@ public class Foursquare {
 		}
 	}
 
+	public JSONArray getRestaurants(double lat, double lng) throws Exception {
+		String jrestaurants = send(this.foursquareVenusSearchUrl, 
+									getFoursquareVenuesParams(),
+									"categoryId="+this.venuesCategory+
+									"&ll="+lat+","+lng+"&limit="+
+									this.venuesLimit+"&radius="+this.venuesRadius,
+									null, "GET");
+		
+		JSONTokener jTokener = new JSONTokener(jrestaurants);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			return (JSONArray)((JSONObject)jdata.get("response")).get("venues");
+		} else {
+			return null;
+		}
+	}
+		
 	public void setCategories() throws Exception {
 		String jcategories = send(this.foursquareVenusCategoriesUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
 		JSONTokener jTokener = new JSONTokener(jcategories);

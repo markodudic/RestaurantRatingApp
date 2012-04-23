@@ -104,14 +104,14 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 			case R.id.button_photo:
 			    if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
 					//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-	    			User user = Util.getUserFromPreferencies();	
+	    			/*User user = Util.getUserFromPreferencies();	
 					if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
 						//uporabnik nima autorizacije. Zahtevam
 		    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
 		    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
-					} else {
+					} else {*/
 						startCamera();
-					}
+					//}
 			    } else {
 		        	Toast toast = Toast.makeText(this, getString(R.string.no_camera), Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -149,7 +149,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("PHOTO RESULT=",requestCode+":"+resultCode);
-    	if (requestCode == AUTHORIZATION_REQUEST) {
+    	/*if (requestCode == AUTHORIZATION_REQUEST) {
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
@@ -163,7 +163,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 		        	toast.show();
         		}
 	        }
-    	} else if (requestCode == CAMERA_PIC_REQUEST) {
+    	} else */if (requestCode == CAMERA_PIC_REQUEST) {
     		if (resultCode == RESULT_OK) {
 	         // Image captured and saved to fileUri specified in the Intent
 	            //Toast.makeText(this, "Image saved to:\n" + fileUri.toURI(), Toast.LENGTH_LONG).show();
