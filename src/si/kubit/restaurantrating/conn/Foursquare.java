@@ -39,6 +39,7 @@ public class Foursquare {
 	private String foursquareTipsAddUrl;
 	private String foursquarePhotosAddUrl;
 	private String foursquareCheckinsRecentUrl;
+	private String foursquareUserFriendsUrl;
 
 	private String foursquareAuthenticateUrl;
 	private String foursquareAccessTokenUrl;
@@ -68,7 +69,8 @@ public class Foursquare {
 			this.foursquareTipsAddUrl = jSettings.getString("foursquareTipsAddUrl");
 			this.foursquarePhotosAddUrl = jSettings.getString("foursquarePhotosAddUrl");
 			this.foursquareCheckinsRecentUrl = jSettings.getString("foursquareCheckinsRecentUrl");
-			
+			this.foursquareUserFriendsUrl = jSettings.getString("foursquareUserFriendsUrl");
+					
 			this.foursquareAuthenticateUrl = jSettings.getString("foursquareAuthenticateUrl");
 			this.foursquareAccessTokenUrl = jSettings.getString("foursquareAccessTokenUrl");
 			this.venuesCategory = jSettings.getString("venuesCategory");
@@ -180,6 +182,18 @@ public class Foursquare {
 		return null;
 	}
 	
+	public JSONArray getFriends() throws Exception {
+		String loc = send(this.foursquareUserFriendsUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
+		JSONTokener jTokener = new JSONTokener(loc);
+		if (jTokener.more()) {
+			JSONObject jdata = (JSONObject)jTokener.nextValue();
+			JSONObject responseFriends = (JSONObject)((JSONObject)jdata.get("response")).get("friends");
+			return (JSONArray)(responseFriends.get("items"));
+		} else {
+			return null;
+		}
+	}
+
 	public JSONArray getFriendsLocations() throws Exception {
 		String loc = send(this.foursquareCheckinsRecentUrl, getFoursquareOAuthParams(userOAuth), "", null, "GET");
 		JSONTokener jTokener = new JSONTokener(loc);
@@ -294,7 +308,7 @@ public class Foursquare {
 		private String getFoursquareOAuthParams (String oauth) {
 			SimpleDateFormat dfYear=new SimpleDateFormat("yyyyMMdd");
 			return "?client_id=" + this.clientId + 
-					"&client_secret=" + this.clientSecret +
+					//"&client_secret=" + this.clientSecret +
 					"&oauth_token=" + oauth +
 					"&v=" + dfYear.format(new Date()); 
 		}

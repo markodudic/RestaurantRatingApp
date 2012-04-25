@@ -12,6 +12,7 @@ public class User {
 		
 	}	
 	
+	private int id;
 	private String username;
 	private String password;
 	private String name;
@@ -20,6 +21,12 @@ public class User {
 	
 	
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -55,6 +62,7 @@ public class User {
 		JSONArray jUserArray = new JSONArray();
 		try {
 			JSONObject jUser = new JSONObject();
+			jUser.put("id", this.id);
 			jUser.put("name", this.name);
 			jUser.put("surname", this.surname);
 			jUser.put("password", this.password);
@@ -72,6 +80,7 @@ public class User {
 		try {
 			JSONObject jUser = ((JSONArray)new JSONTokener(userText).nextValue()).getJSONObject(0);
 			
+			this.setId(jUser.getInt("id"));
 			this.setName(jUser.getString("name"));
 			this.setSurname(jUser.getString("surname"));
 			this.setPassword(jUser.getString("password"));

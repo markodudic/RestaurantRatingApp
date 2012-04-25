@@ -105,7 +105,7 @@
     
     <FrameLayout android:layout_width="fill_parent" 
 	     	android:gravity="center" 
-		   android:layout_height="wrap_content"
+		   	android:layout_height="wrap_content"
 			android:orientation="horizontal"
 			style="@style/LayoutDefaultLight"
 			android:paddingBottom="40px"
@@ -118,15 +118,14 @@
 	        android:id="@+id/button_tips"/>
 
 		<si.kubit.restaurantrating.TextViewFont
-	        	android:background="@drawable/user_photos"
-    			android:id="@+id/button_photos"
+	        android:background="@drawable/user_photos"
+    		android:id="@+id/button_photos"
             restaurantrating:font_name="@string/font_list_small"
-	        	style="@style/TextUserUnder.Blue.Left.Right"/>
-
-	    
+	        style="@style/TextUserUnder.Blue.Left.Right"/>
+			    
     </FrameLayout>	        
  
-      <include layout="@layout/footer" />
-      <include layout="@layout/rate_food" />
+   	<include android:id="@+id/layout_menu_footer" layout="@layout/footer" />
+   	<include android:id="@+id/layout_menu_rate_food" layout="@layout/rate_food" />
 
 </LinearLayout>

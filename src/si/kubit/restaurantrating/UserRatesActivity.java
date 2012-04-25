@@ -232,10 +232,20 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
  
     private void getUserRates(){
         try{
+        	JSONArray jFriends = ((RestaurantRating)getApplicationContext()).getFoursquare().getFriends();
+        	List friendsList = new ArrayList();
+        	for(int i=0; i<jFriends.length(); i++) {
+            		friendsList.add(jFriends.getJSONObject(i).getInt("id"));
+        	}
+        	User user = Util.getUserFromPreferencies();
+        	
         	userRatesList = new ArrayList<UserRate>();
         	for(int i=0; i<jUserRates.length(); i++) {
         		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(i);
         		UserRate ur = new UserRate();
+        		if (!friendsList.contains(jobject.getInt("userId")) &&
+        			jobject.getInt("userId") != user.getId()) 
+        			continue;
         		ur.setAvgRate(jobject.getString("avgRate"));
         		ur.setUserName(jobject.getString("userName"));
         		ur.setUserSurname(jobject.getString("userSurname"));

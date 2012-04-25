@@ -61,13 +61,11 @@ public class MapRestaurantsActivity extends MapActivity {
         mapView.setBuiltInZoomControls(true);
         MapController mc = mapView.getController();
         mc.setZoom(Integer.parseInt(getString(R.string.map_restaurants_zoom_level)));
+		mapOverlays = mapView.getOverlays();
         
         myLocationOverlay = new MyLocationOverlay(this, mapView);
-		
-		mapOverlays = mapView.getOverlays();
-        mapOverlays.add(myLocationOverlay);
 
-		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		int screenWidth = display.getWidth();
 		int screenHeight = display.getHeight();
 		
@@ -96,6 +94,8 @@ public class MapRestaurantsActivity extends MapActivity {
         restaurantsItemizedOverlay = new RestaurantsItemizedOverlay(this.getResources().getDrawable(R.drawable.poi), this, screenWidth, screenHeight, lf, venue, address, null, 10, 20, 0, 15, category, icon);
         mapOverlays.add(restaurantsItemizedOverlay);
 
+        mapOverlays.add(myLocationOverlay);
+
         mapView.postInvalidate();
     }
 
@@ -109,7 +109,6 @@ public class MapRestaurantsActivity extends MapActivity {
 			//restaurantsBackgroundItemizedOverlay.clear();
 			
 			if (jLocations == null) return;
-			Log.d("jLocations", jLocations.toString());
 			
 			Drawable d1 = this.getResources().getDrawable(R.drawable.image_bck);	
 			for(int i=0; i<jLocations.length(); i++) {

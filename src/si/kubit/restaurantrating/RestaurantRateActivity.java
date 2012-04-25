@@ -98,16 +98,31 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 		super.onResume();
 		try {
 			String restaurantId;
+			boolean showMenu = false;
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
 			if (extras != null) {
 				restaurantId = extras.getString("restaurant_id");
 				userRate = extras.getBoolean("user_rate");
+				showMenu = extras.getBoolean("show_menu");
 				Util.addPreferencies("restaurant_id", restaurantId);
 				Util.addPreferencies("user_rate", Boolean.toString(userRate));
+				Util.addPreferencies("show_menu", Boolean.toString(showMenu));
 			} else {
 				restaurantId   = PreferenceManager.getDefaultSharedPreferences(getBaseContext()). getString("restaurant_id", null);
-				userRate   = Boolean.parseBoolean(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user_rate", null));				
+				userRate   = Boolean.parseBoolean(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("user_rate", "false"));				
+				showMenu   = Boolean.parseBoolean(PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("show_menu", "false"));				
 			}
+			
+			View layoutFooter = findViewById(R.id.layout_menu_footer); 
+			View layoutRateFood = findViewById(R.id.layout_menu_rate_food); 
+			if (showMenu) {
+				layoutFooter.setVisibility(View.VISIBLE);
+				layoutRateFood.setVisibility(View.VISIBLE);
+			} else {
+				layoutFooter.setVisibility(View.GONE);
+				layoutRateFood.setVisibility(View.GONE);				
+			}
+			
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
 			
@@ -122,6 +137,7 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
             getRestaurant();
  			
 			restaurantId = (String) jobject.getString("id");
+			rateCount = jobject.getString("rateCount");
 			rateAvg = decimalFormat.format(Double.parseDouble(jobject.getString("rateAvg")));
 			rateFoodAvg = Double.parseDouble(jobject.getString("rateFoodAvg"));
 			rateAmbientAvg = Double.parseDouble(jobject.getString("rateAmbientAvg"));

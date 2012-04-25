@@ -11,6 +11,7 @@ public class UserRate {
 	private String avgRate;
 	private String rateDateTime;
 	private String rateHoursAgo;
+	private String userId;
 	private String userName;
 	private String userSurname;
 	private String restaurantName;
@@ -46,6 +47,14 @@ public class UserRate {
 
 	public void setRateHoursAgo(String rateHoursAgo) {
 		this.rateHoursAgo = rateHoursAgo;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {

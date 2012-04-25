@@ -63,12 +63,10 @@ public class MapFriendsActivity extends MapActivity {
         mapView.setBuiltInZoomControls(true);
         MapController mc = mapView.getController();
         mc.setZoom(Integer.parseInt(getString(R.string.map_friends_zoom_level)));
-        
+		mapOverlays = mapView.getOverlays();
+		         
         myLocationOverlay = new MyLocationOverlay(this, mapView);
 		
-		mapOverlays = mapView.getOverlays();
-        mapOverlays.add(myLocationOverlay);
-
 		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		int screenWidth = display.getWidth();
 		int screenHeight = display.getHeight();
@@ -98,6 +96,8 @@ public class MapFriendsActivity extends MapActivity {
         //mapOverlays.add(friendsBackgroundItemizedOverlay); 
 		friendsItemizedOverlay = new MapItemizedOverlay(this.getResources().getDrawable(R.drawable.poi), this, screenWidth, screenHeight, lf, venue, userName, showLocation, 10, 20, 0, 15);
         mapOverlays.add(friendsItemizedOverlay);
+
+        mapOverlays.add(myLocationOverlay);
 
         mapView.postInvalidate();
     }
