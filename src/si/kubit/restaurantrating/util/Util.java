@@ -73,6 +73,7 @@ public class Util {
 
 	static public User getUserFromPreferencies() {
 		String userText = PreferenceManager.getDefaultSharedPreferences(RestaurantRating.getContext()).getString("user", null);				
+		if (userText == null) return null;
 		User user = new User();
 		user.json2user(userText);
 		return user;

@@ -39,8 +39,6 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 		
 		View tipAddButtonSubmit = findViewById(R.id.button_tip_add); 
 		tipAddButtonSubmit.setOnClickListener(this);
-		View photoAddButtonSubmit = findViewById(R.id.button_photo_add); 
-		photoAddButtonSubmit.setOnClickListener(this);
     }
 
 	@Override
@@ -87,16 +85,6 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 		        	
 				Intent intentRestaurantTips = new Intent(RestaurantTipAddActivity.this, RestaurantTipsActivity.class);
 			  	RestaurantTipAddActivity.this.startActivity(intentRestaurantTips);
-				break;
-			case R.id.button_photo_add:
-			    if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
-				    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				    startActivityForResult(intent, CAMERA_PIC_REQUEST);
-			    } else {
-		        	Toast toast = Toast.makeText(this, getString(R.string.no_camera), Toast.LENGTH_LONG);
-		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-		        	toast.show();
-			    }
 				break;
     	}
 	}

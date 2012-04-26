@@ -16,9 +16,9 @@ import si.kubit.restaurantrating.objects.User;
 import si.kubit.restaurantrating.objects.UserRate;
 import si.kubit.restaurantrating.util.Util;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -44,25 +44,41 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
-
+ 
         //povezem na streznik
         Comm comm = new Comm(getString(R.string.server_url), null, null);
         ((RestaurantRating)getApplicationContext()).setComm(comm);
-        
-		//nastavim userja
-        getUser("marko", "okram");
-        
-		//nastavim podatke za fsq dostop
-        Foursquare fsq = setFoursquare();
-        ((RestaurantRating)getApplicationContext()).setFoursquare(fsq);
 
+        //nastavim podatke za fsq dostop
+    	Foursquare fsq = createFoursquare();
+    	((RestaurantRating)getApplicationContext()).setFoursquare(fsq);
+
+		//nastavim userja
+        //prijava poteka
+        //checkLoginFromPrefs()
+        //ce je user f prefsih, preverim oauth ali ima avtoriziran dostop do 4sq
+        	//ce nima oauth naredim autorizacijo in podatke o autorizaciji vpisem v bazo
+        //ce user ni v prefsih
+        	//naredim oauth
+        	//naredim users/self/lists
+        	//podatke o autorizaciji in ostale podatke (id, firstname, lastname) vpisem v bazo in v prefse
+        //getUser("marko", "okram");
+        
         checkUserOAuth();
-		try  {
+		
+        User user = Util.getUserFromPreferencies();	
+		if (user == null) {
+			//naredim users/self/lists
+        	//podatke (id, firstname, lastname) vpisem v bazo in v prefse
+	        getUser("marko", "okram"); //tole pol zakomentiram
+		}
+		Util.SetUserOAuth(((RestaurantRating)getApplicationContext()).getFoursquare().getUserOAuth());
+        
+		try  { 
 			fsq.setCategories();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
         
         userRatesList = new ArrayList<UserRate>();
         this.listAdapter = new UserRatesListAdapter(this, R.layout.user_rates_list, userRatesList);
@@ -104,7 +120,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     {
     	try { 
 			User user = Util.getUserFromPreferencies();	
-	    	if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
+	    	if (user==null || user.getOauthToken()==null || user.getOauthToken().equals("null")) {
 				//uporabnik nima autorizacije. Zahtevam
     			Intent authorization = new Intent(this, AuthorizationActivity.class); 
     			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
@@ -125,7 +141,6 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
-    			Util.SetUserOAuth(accessToken);
     			((RestaurantRating)getApplicationContext()).getFoursquare().setUserOAuth(accessToken);
         	} else if (resultCode == RESULT_CANCELED) {
         		if (data != null) {
@@ -137,13 +152,15 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     	}
     }
 
-    private Foursquare setFoursquare() {
+    private Foursquare createFoursquare() {
 		//pridobim serverske nastavitev za komunikacijo z 4SQ
     	Foursquare fsq = null;
-    	try {
-    		String settings = ((RestaurantRating)getApplicationContext()).getComm().get("settings");
+		try {
+			String settings = ((RestaurantRating)getApplicationContext()).getComm().get("settings");
     		fsq = new Foursquare(settings);
+    		
         } catch (SocketException e) {
+        	e.printStackTrace();
         	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
@@ -154,7 +171,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         	toast.show();
    		}
     	
-    	return fsq;
+		return fsq;
     }
     
     private void getUser(String username, String password) {
@@ -181,7 +198,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	@Override
 	protected void onResume() { 
 		super.onResume();
-		GetUsersRatesList();
+		getUsersRatesList();
 	}
 	
     @Override
@@ -199,7 +216,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 			case R.id.button_settings:
 				break;
 			case R.id.button_friends:
-				GetUsersRatesList();
+				getUsersRatesList();
 				break;
 			case R.id.button_rate:
     			Intent restaurants = new Intent(this, RestaurantsActivity.class); 
@@ -211,7 +228,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	}
     
     
-    private void GetUsersRatesList()
+    private void getUsersRatesList()
     {
     	String userRates = "";
         try { 

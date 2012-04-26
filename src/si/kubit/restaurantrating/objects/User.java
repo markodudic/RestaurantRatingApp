@@ -85,7 +85,8 @@ public class User {
 			this.setSurname(jUser.getString("surname"));
 			this.setPassword(jUser.getString("password"));
 			this.setUsername(jUser.getString("username"));
-			this.setOauthToken(jUser.getString("oauthToken"));
+			if (jUser.has("oauthToken"))
+				this.setOauthToken(jUser.getString("oauthToken"));
 		} catch (JSONException ne) {
    			ne.printStackTrace();
 		}
