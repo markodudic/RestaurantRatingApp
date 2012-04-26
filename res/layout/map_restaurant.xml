@@ -89,7 +89,7 @@
 	        android:enabled="true"
 			android:clickable="true"
 			style="@style/MapRestaurant"
-			android:apiKey="0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw"/>
+			android:apiKey="@string/map_api_key"/>
 	</LinearLayout>
 
     <LinearLayout

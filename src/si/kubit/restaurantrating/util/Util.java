@@ -78,12 +78,12 @@ public class Util {
 		user.json2user(userText);
 		return user;
     }
-
+ 
     static public void SetUserOAuth(String oauth)
     {
     	User user = Util.getUserFromPreferencies();	
 		user.setOauthToken(oauth);
-        addPreferencies("user", user.user2json());
+		addPreferencies("user", user.user2json());
 		
         Comm c = new Comm(RestaurantRating.getContext().getString(R.string.server_url), null, null);
         try {

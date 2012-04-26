@@ -44,6 +44,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_rates);
         Log.d("**********************************", "START");
+		//PreferenceManager.getDefaultSharedPreferences(RestaurantRating.getContext()).edit().clear().commit();				
  
         //povezem na streznik
         Comm comm = new Comm(getString(R.string.server_url), null, null);
@@ -51,35 +52,13 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 
         //nastavim podatke za fsq dostop
     	Foursquare fsq = createFoursquare();
+    	if (fsq == null) {
+        	Toast toast = Toast.makeText(this, getString(R.string.conn_error), Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        	toast.show();    		 
+    	}
     	((RestaurantRating)getApplicationContext()).setFoursquare(fsq);
 
-		//nastavim userja
-        //prijava poteka
-        //checkLoginFromPrefs()
-        //ce je user f prefsih, preverim oauth ali ima avtoriziran dostop do 4sq
-        	//ce nima oauth naredim autorizacijo in podatke o autorizaciji vpisem v bazo
-        //ce user ni v prefsih
-        	//naredim oauth
-        	//naredim users/self/lists
-        	//podatke o autorizaciji in ostale podatke (id, firstname, lastname) vpisem v bazo in v prefse
-        //getUser("marko", "okram");
-        
-        checkUserOAuth();
-		
-        User user = Util.getUserFromPreferencies();	
-		if (user == null) {
-			//naredim users/self/lists
-        	//podatke (id, firstname, lastname) vpisem v bazo in v prefse
-	        getUser("marko", "okram"); //tole pol zakomentiram
-		}
-		Util.SetUserOAuth(((RestaurantRating)getApplicationContext()).getFoursquare().getUserOAuth());
-        
-		try  { 
-			fsq.setCategories();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        
         userRatesList = new ArrayList<UserRate>();
         this.listAdapter = new UserRatesListAdapter(this, R.layout.user_rates_list, userRatesList);
         setListAdapter(this.listAdapter);
@@ -88,7 +67,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         lv.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> a, View v, int position, long id) {		    	
 		    	try {
-		    		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(position);
+		    		JSONObject jobject = (JSONObject) jUserRates.getJSONObject(position+1);
 
 		    		Intent intentRestaurantRate = new Intent(UserRatesActivity.this, RestaurantRateActivity.class);
 				  	Bundle extras = new Bundle();	
@@ -113,19 +92,20 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 		rateButtonSubmit.setOnClickListener(this);
 		View userButtonSubmit = findViewById(R.id.button_user); 
 		userButtonSubmit.setOnClickListener(this);
-	
+
+        checkUserOAuth();
     } 
-    
+     
     private void checkUserOAuth()
     {
     	try { 
 			User user = Util.getUserFromPreferencies();	
-	    	if (user==null || user.getOauthToken()==null || user.getOauthToken().equals("null")) {
+	    	if (user==null || user.getOauthToken()==null) {
 				//uporabnik nima autorizacije. Zahtevam
-    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
+	    		Intent authorization = new Intent(this, AuthorizationActivity.class); 
     			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
 		    } else {
-    			((RestaurantRating)getApplicationContext()).getFoursquare().setUserOAuth(user.getOauthToken());
+	    		setLogin(user.getOauthToken());
 		    }
    		} catch (Exception ne) {
    			ne.printStackTrace();
@@ -141,8 +121,8 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");
     			//shrani oatuh za userja
-    			((RestaurantRating)getApplicationContext()).getFoursquare().setUserOAuth(accessToken);
-        	} else if (resultCode == RESULT_CANCELED) {
+    			setLogin(accessToken);
+    		} else if (resultCode == RESULT_CANCELED) {
         		if (data != null) {
 		        	Toast toast = Toast.makeText(this, getString(R.string.oauth_requered), Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -172,10 +152,30 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
    		}
     	
 		return fsq;
+    } 
+    
+    private void setLogin(String oauth) {
+		User user = Util.getUserFromPreferencies();	
+		if (user == null) {
+			//naredim users/self/lists
+        	//podatke (id, firstname, lastname) vpisem v bazo in v prefse
+	        getUser("marko", "okram"); //tole pol zakomentiram
+		}
+
+		((RestaurantRating)getApplicationContext()).getFoursquare().setUserOAuth(oauth);
+		Util.SetUserOAuth(oauth);
+        
+		try  { 
+			((RestaurantRating)getApplicationContext()).getFoursquare().setCategories();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		getUsersRatesList();
     }
     
     private void getUser(String username, String password) {
-		//preverim kateri uporabnik je prijavljen in ga vpišem v shared preferncies
+		//preverim kateri uporabnik je prijavljen in ga vpiï¿½em v shared preferncies
         try {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        nameValuePairs.add(new BasicNameValuePair("username", username));
@@ -198,7 +198,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 	@Override
 	protected void onResume() { 
 		super.onResume();
-		getUsersRatesList();
+		//getUsersRatesList();
 	}
 	
     @Override
@@ -241,6 +241,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();
    		} catch (Exception ne) {
+   			ne.printStackTrace();
    			Toast toast = Toast.makeText(this, getString(R.string.json_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         	toast.show();

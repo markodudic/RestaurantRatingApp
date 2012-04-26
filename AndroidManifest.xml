@@ -21,8 +21,7 @@
         <activity
           	android:label="@string/app_name"
           	android:name=".UserRatesActivity" 
- 	      	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-      		android:launchMode="singleInstance" >
+ 	      	android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
           	<intent-filter >
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.LAUNCHER" />

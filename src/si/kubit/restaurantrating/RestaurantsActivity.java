@@ -147,7 +147,6 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
 		registerListener();
 		Location lastKnownLocation = locationManager.getLastKnownLocation(provider);
 		if(lastKnownLocation != null) { 
-			Log.d("lastKnownLocation", lastKnownLocation.getLatitude() + "-" + lastKnownLocation.getLongitude());
 			GetRestaurantsList(lastKnownLocation);
 		}
 		//dummy podatki za emulator

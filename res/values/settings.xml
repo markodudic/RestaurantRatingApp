@@ -3,16 +3,8 @@
 	<!-- string name="server_url">http://10.0.2.2:8080/RestaurantRating/</string -->
 	<string name="server_url">http://93.103.12.155:8080/RestaurantRating/</string >
 	<!-- string name="server_url">http://192.168.1.107:8080/RestaurantRating/</string -->
-	<!-- String name="server_url">http://192.168.1.103:8080/RestaurantRating/</string -->
+	<!-- string name="server_url">http://192.168.1.103:8080/RestaurantRating/</string -->
 	<!-- string name="server_url">http://192.168.1.76:8080/RestaurantRating/</string -->
-	<string name="server_user"></string>
-	<string name="server_pass"></string>
-
-<!-- 		 
-	<string name="server_url">http://kbp.innovatif.com/blaz/android/pass/</string>
-	<string name="server_user">test</string>
-	<string name="server_pass">test</string>
-	 -->
 
 	<string name="font_big_text">steelfish_rg.otf</string>
 	<!--string name="font_list_small">DINMittelschrift.TTF</string-->
@@ -35,5 +27,10 @@
 	<string name="map_restaurant_zoom_level">17</string>
 	<string name="map_restaurants_zoom_level">14</string>
 	<string name="map_friends_hour_interval">-24</string>
+
+	<!-- iz sluzbe -->
+	<string name="map_api_key">0DAuYjolO2ZLAPteWcUSneRZ6nO3mDT6X5eJvuw</string>
+	<!-- s prenosnika -->
+	<!-- string name="map_api_key">0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw</string -->
 						
 </resources>

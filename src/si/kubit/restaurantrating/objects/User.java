@@ -5,6 +5,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.util.Log;
+
 
 public class User {
 
@@ -85,8 +87,8 @@ public class User {
 			this.setSurname(jUser.getString("surname"));
 			this.setPassword(jUser.getString("password"));
 			this.setUsername(jUser.getString("username"));
-			if (jUser.has("oauthToken"))
-				this.setOauthToken(jUser.getString("oauthToken"));
+			if (jUser.has("oauthtoken"))
+				this.setOauthToken(jUser.getString("oauthtoken"));
 		} catch (JSONException ne) {
    			ne.printStackTrace();
 		}

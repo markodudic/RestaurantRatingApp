@@ -7,12 +7,12 @@
 
 	        
     <com.google.android.maps.MapView
-        android:id="@+id/friends_map_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:enabled="true"
-		android:clickable="true"
-		android:apiKey="0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw"  />
+          android:id="@+id/friends_map_view"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:enabled="true"
+ 			 android:clickable="true"
+ 			 android:apiKey="@string/map_api_key"/>
     
     <LinearLayout android:id="@+id/layout_friends"
         android:layout_width="fill_parent" 
