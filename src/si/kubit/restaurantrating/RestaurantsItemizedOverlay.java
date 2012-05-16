@@ -65,6 +65,8 @@ public class RestaurantsItemizedOverlay extends MapItemizedOverlay {
 	    userName.setText(((OverlayItem)overlayItems.get(index)).getSnippet());
 	    category.setText((String)overlayCategories.get(index));
 	  
+	    selectedItem = index;	    
+
 	    return true;
 	}
 

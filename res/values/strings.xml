@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, RestaurantRatingAppActivity!</string>
-    <string name="app_name">APP TITLE</string>
+    <string name="app_name">F*RATE</string>
     <string name="hours_ago">HOURS AGO</string>
     <string name="days_ago">DAYS AGO</string>
     <string name="weeks_ago">WEEKS AGO</string>

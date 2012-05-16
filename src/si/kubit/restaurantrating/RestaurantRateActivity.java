@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.Restaurant;
+import si.kubit.restaurantrating.objects.User;
 import si.kubit.restaurantrating.util.Util;
 
 import android.app.ListActivity;
@@ -97,7 +98,6 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	protected void onResume() { 
 		super.onResume();
 		try {
-			String restaurantId;
 			boolean showMenu = false;
 			Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantRateActivity");
 			if (extras != null) {
@@ -234,7 +234,7 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
  			   //vpisem podatke v bazo
 	 	 	   List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	 	       nameValuePairs.add(new BasicNameValuePair("restaurant_id", restaurantId+""));
-	 	       nameValuePairs.add(new BasicNameValuePair("user_id", "1"));
+	 	       nameValuePairs.add(new BasicNameValuePair("user_id", Util.getUserFromPreferencies().getId()+""));
 	 	       nameValuePairs.add(new BasicNameValuePair("rate_food", rateFood+""));
 	 	       nameValuePairs.add(new BasicNameValuePair("rate_ambient", rateAmbient+""));
 	 	       nameValuePairs.add(new BasicNameValuePair("rate_service", rateService+""));

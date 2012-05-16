@@ -110,7 +110,7 @@ public class MapRestaurantsActivity extends MapActivity {
 			
 			if (jLocations == null) return;
 			
-			Drawable d1 = this.getResources().getDrawable(R.drawable.image_bck);	
+			Drawable d1 = this.getResources().getDrawable(R.drawable.image_bck_unpressed);	
 			for(int i=0; i<jLocations.length(); i++) {
         		JSONObject jrestaurant = (JSONObject) jLocations.getJSONObject(i);
         		JSONObject jVenueLocation = (JSONObject) jrestaurant.get("location");

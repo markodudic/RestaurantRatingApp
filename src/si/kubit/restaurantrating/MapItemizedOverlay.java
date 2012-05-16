@@ -37,6 +37,7 @@ public class MapItemizedOverlay extends ItemizedOverlay {
 	protected int extraHeight;
 	protected int correctionX;
 	protected int correctionY;
+	protected int selectedItem = -1;
 	
 	protected final int SCALE_SIZE = 10;
 
@@ -92,7 +93,11 @@ public class MapItemizedOverlay extends ItemizedOverlay {
 			paint.setFilterBitmap(true);
 
 			//zrisem back
-			Drawable markerBack = context.getResources().getDrawable(R.drawable.image_bck);	
+			Drawable markerBack = context.getResources().getDrawable(R.drawable.image_bck_unpressed);
+			if (selectedItem>-1)
+				Log.d(selectedItem+"", i+"");
+			if (selectedItem == i)
+				markerBack = context.getResources().getDrawable(R.drawable.image_bck_pressed);
 			Bitmap bitmapBack = ((BitmapDrawable)markerBack).getBitmap();
 			
 			float ratioX = (newWidth + extraWidth) / ((float) bitmapBack.getWidth());
@@ -131,7 +136,9 @@ public class MapItemizedOverlay extends ItemizedOverlay {
 	    layout.setVisibility(View.VISIBLE);
 	    venueName.setText(((OverlayItem)overlayItems.get(index)).getTitle());
 	    userName.setText(((OverlayItem)overlayItems.get(index)).getSnippet());
-	  
+	    
+	    selectedItem = index;	    
+		
 	    return true;
 	}
 

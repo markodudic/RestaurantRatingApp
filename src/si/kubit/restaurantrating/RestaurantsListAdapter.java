@@ -43,7 +43,7 @@ public class RestaurantsListAdapter extends ArrayAdapter<Restaurant> {
 	      }
 
     	  Restaurant r = aItems.get(position);
-          if (r != null) {
+  		  if (r != null) {
               TextView textRate = (TextView) vi.findViewById(R.id.text_rate);
               TextView textReviews=(TextView)vi.findViewById(R.id.text_reviews);
               TextView textRestaurantName = (TextView)vi.findViewById(R.id.text_restaurant_name);
