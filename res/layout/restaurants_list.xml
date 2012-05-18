@@ -12,13 +12,13 @@
 	  	android:layout_width="wrap_content"
 		android:orientation="vertical">
 		
-	    <si.kubit.restaurantrating.TextViewFont 
+	    <si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_rate"
 	        android:layout_width="wrap_content"
 	        restaurantrating:font_name="@string/font_big_text"
 	        style="@style/TextRate.Big" />
 	    
-	    <si.kubit.restaurantrating.TextViewFont 
+	    <si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_reviews"
 	        android:layout_width="wrap_content"
 	        restaurantrating:font_name="@string/font_list_small"
@@ -34,21 +34,21 @@
         android:paddingTop="5px"
         android:paddingRight="40px" >
 	
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_restaurant_name"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        restaurantrating:font_name="@string/font_big_text"
 	        style="@style/TextRestaurant" />
 	
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_restaurant_category"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        restaurantrating:font_name="@string/font_list_small"
 	        style="@style/TextUserUnder.Blue" />
 
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_restaurant_distance"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"

@@ -11,7 +11,9 @@
 	<string name="font_list_small">PFDinDisplayPro-Reg_0.ttf</string>
 	<string name="font_small_text">HelveticaBold.ttf</string>
 	
+	<color name="white">#ffffff</color>
 	<color name="titleColor">#9789a2</color>
+	<color name="titleColorEnd">#82768c</color>
 	<color name="firstListColor">#ffffff</color>
 	<color name="secondListColor">#232323</color>
 	<color name="backgroundColor">#232323</color>
@@ -21,8 +23,10 @@
 	<color name="valueRateColor">#2e8374</color>
 	<color name="smallTextColor">#00c6d2</color>
 	<color name="smallTextDarkColor">#69646c</color>
-	<color name="translucentBlack">#DD000000</color>
-	
+	<color name="mapColor">#e8e8e8</color>
+	<color name="translucentBlack">#dd000000</color>
+	<color name="translucentWhite">#ffffffff</color>
+		
 	<string name="map_friends_zoom_level">14</string>
 	<string name="map_restaurant_zoom_level">17</string>
 	<string name="map_restaurants_zoom_level">14</string>

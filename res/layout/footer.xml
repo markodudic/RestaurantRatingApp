@@ -18,7 +18,7 @@
 		           android:layout_width="32sp"
 		           android:layout_height="21sp" />
 		       
-			    <si.kubit.restaurantrating.TextViewFont
+			    <si.kubit.restaurantrating.components.TextViewFont
 			        android:id="@+id/text_user"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
 		           android:layout_width="24sp"
 		           android:layout_height="20sp" />
 		       
-			    <si.kubit.restaurantrating.TextViewFont
+			    <si.kubit.restaurantrating.components.TextViewFont
 			        android:id="@+id/text_user"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"

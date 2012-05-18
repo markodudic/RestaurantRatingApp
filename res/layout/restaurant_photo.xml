@@ -5,10 +5,14 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <FrameLayout android:layout_width="fill_parent" 
+    <si.kubit.restaurantrating.components.RoundedFrameLayout
+        android:id="@+id/frame_photos"
+        android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
-	    android:orientation="horizontal"
-    	android:background="@drawable/layout_rounded_top_dark">
+        restaurantrating:radii="15, 15, 15, 15, 0, 0, 0, 0"
+        restaurantrating:color_fill="@color/backgroundColor"
+        restaurantrating:color_stroke="@color/translucentWhite"
+	    android:orientation="horizontal">
 
         
        <Button android:id="@+id/button_number_photos"
@@ -16,7 +20,7 @@
     			style="@style/TextUser.Small.AppTitleButtonLeft"
 		    	android:text="photos" />
 
-	    <si.kubit.restaurantrating.TextViewFont 
+	    <si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_photo_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -24,7 +28,7 @@
 	        restaurantrating:font_name="@string/font_big_text"
 	        style="@style/AppTitle.White" 
 	    	android:text="number photos" />
-	</FrameLayout>  
+	</si.kubit.restaurantrating.components.RoundedFrameLayout>  
 	
 	 
     <LinearLayout android:layout_width="fill_parent" 
@@ -46,7 +50,7 @@
         android:layout_height="wrap_content" 
         android:layout_marginBottom="10dip">
 	
-	    <si.kubit.restaurantrating.TextViewFont 
+	    <si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_user"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import si.kubit.restaurantrating.components.MapItemizedOverlay;
 import si.kubit.restaurantrating.conn.Foursquare;
 import si.kubit.restaurantrating.util.Util;
 import android.content.Intent;

@@ -7,8 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import si.kubit.restaurantrating.objects.Tip;
-import si.kubit.restaurantrating.objects.User;
-import si.kubit.restaurantrating.util.Util;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;

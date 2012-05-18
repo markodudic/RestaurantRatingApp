@@ -5,17 +5,18 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <FrameLayout android:layout_width="fill_parent" 
+    <si.kubit.restaurantrating.components.TitleFrameLayout
+        android:id="@+id/frame_restaurant_rate"
+        android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
-	    android:orientation="horizontal"
-    android:background="@drawable/layout_rounded_top">
+	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_back"
             android:background="@drawable/cancel"
-    			style="@style/TextUser.Small.AppTitleButtonLeft"
-		    	android:text="@string/places" />
+    		style="@style/TextUser.Small.AppTitleButtonLeft"
+		    android:text="@string/places" />
 
-		<si.kubit.restaurantrating.TextViewFont 
+		<si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_restaurnt_name"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -25,8 +26,8 @@
 
 		<Button android:id="@+id/button_map"
             android:background="@drawable/map"
-    			style="@style/AppTitleButtonMap"   />
-	 </FrameLayout>        
+    		style="@style/AppTitleButtonMap"   />
+	 </si.kubit.restaurantrating.components.TitleFrameLayout>        
          	   
 
     
@@ -52,7 +53,7 @@
 		android:layout_weight="10"
 		style="@style/LayoutDefaultLight" >
 
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_restaurant_rate_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -62,68 +63,84 @@
 	        android:paddingTop="10dip"
 	        android:paddingLeft="10dip"/>
 	    
-	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+	    <si.kubit.restaurantrating.components.RestaurantRateItemLayout 
         	  android:id="@+id/layout_rate_food"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_food"
-	    	  restaurantrating:rate_item="@drawable/rate_item_food"
-	    	  restaurantrating:rate_item_press="@drawable/rate_item_food_press"
+	    	  restaurantrating:color_fill="@color/firstListColor"
+        	  restaurantrating:color_stroke="@color/foodRateColor"
+        	  restaurantrating:color_default="@color/backgroundColor"
+        	  restaurantrating:stroke_width="4"
+        	  restaurantrating:width="54"
+        	  restaurantrating:height="54"
 	    	  android:layout_weight="1" />
 	    	    
-	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+	    <si.kubit.restaurantrating.components.RestaurantRateItemLayout 
         	  android:id="@+id/layout_rate_ambient"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_ambient"
-	    	  restaurantrating:rate_item="@drawable/rate_item_ambient"
-	    	  restaurantrating:rate_item_press="@drawable/rate_item_ambient_press"
+	    	  restaurantrating:color_fill="@color/firstListColor"
+        	  restaurantrating:color_stroke="@color/ambientRateColor"
+        	  restaurantrating:stroke_width="4"
+        	  restaurantrating:width="54"
+        	  restaurantrating:height="54"
 	    	  android:layout_weight="1" />
 
 
-	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+	    <si.kubit.restaurantrating.components.RestaurantRateItemLayout 
         	  android:id="@+id/layout_rate_service"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_service"
-	    	  restaurantrating:rate_item="@drawable/rate_item_service"
-	    	  restaurantrating:rate_item_press="@drawable/rate_item_service_press"
+	    	  restaurantrating:color_fill="@color/firstListColor"
+        	  restaurantrating:color_stroke="@color/serviceRateColor"
+        	  restaurantrating:stroke_width="4"
+        	  restaurantrating:width="54"
+        	  restaurantrating:height="54"
 	    	  android:layout_weight="1" />
 
 
-	    <si.kubit.restaurantrating.RestaurantRateItemLayout 
+	    <si.kubit.restaurantrating.components.RestaurantRateItemLayout 
         	  android:id="@+id/layout_rate_value"
         	  android:layout_width="wrap_content"
         	  android:layout_height="wrap_content"
 	    	  restaurantrating:rate_item_text="@string/tip_value"
-	    	  restaurantrating:rate_item="@drawable/rate_item_value"
-	    	  restaurantrating:rate_item_press="@drawable/rate_item_value_press"
+	    	  restaurantrating:color_fill="@color/firstListColor"
+        	  restaurantrating:color_stroke="@color/valueRateColor"
+        	  restaurantrating:stroke_width="4"
+        	  restaurantrating:width="54"
+        	  restaurantrating:height="54"
 	    	  android:layout_weight="1" />
 	    
         	    
     </LinearLayout>	     
     
-    <FrameLayout android:layout_width="fill_parent" 
+    <si.kubit.restaurantrating.components.RoundedFrameLayout
+        	android:id="@+id/layout_tips_photos"
+        	android:layout_width="fill_parent" 
 	     	android:gravity="center" 
 		   	android:layout_height="wrap_content"
 			android:orientation="horizontal"
 			style="@style/LayoutDefaultLight"
-			android:paddingBottom="40px"
-	    	android:background="@drawable/layout_rounded_bottom_white" >
+	        restaurantrating:radii="0, 0, 0, 0, 15, 15, 15, 15"
+	        restaurantrating:color_fill="@color/white"
+	        restaurantrating:color_stroke="@color/translucentWhite"
+			android:paddingBottom="40px">
 	    
-		<si.kubit.restaurantrating.TextViewFont
+		<si.kubit.restaurantrating.components.TextViewFont
 	        android:background="@drawable/user_tips"
-    		  restaurantrating:font_name="@string/font_list_small"
+    		restaurantrating:font_name="@string/font_list_small"
 	        style="@style/TextUserUnder.Blue.Left"
 	        android:id="@+id/button_tips"/>
 
-		<si.kubit.restaurantrating.TextViewFont
+		<si.kubit.restaurantrating.components.TextViewFont
 	        android:background="@drawable/user_photos"
     		android:id="@+id/button_photos"
             restaurantrating:font_name="@string/font_list_small"
-	        style="@style/TextUserUnder.Blue.Left.Right"/>
-			    
-    </FrameLayout>	        
+	        style="@style/TextUserUnder.Blue.Left.Right"/>			    
+    </si.kubit.restaurantrating.components.RoundedFrameLayout>	        
  
    	<include android:id="@+id/layout_menu_footer" layout="@layout/footer" />
    	<include android:id="@+id/layout_menu_rate_food" layout="@layout/rate_food" />

@@ -1,12 +1,11 @@
 package si.kubit.restaurantrating;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import si.kubit.restaurantrating.conn.Foursquare;
+import si.kubit.restaurantrating.components.RestaurantItemizedOverlay;
 import si.kubit.restaurantrating.util.Util;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationListener;
@@ -65,6 +64,7 @@ public class MapRestaurantActivity extends MapActivity {
         mapOverlays.add(restaurantItemizedOverlay);
         
         mapView.postInvalidate();
+
     }
 
     private void getRestaurant(){

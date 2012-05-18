@@ -7,7 +7,7 @@
     style="@style/UserRateList"
     android:gravity="top" >
 
-    <si.kubit.restaurantrating.TextViewFont 
+    <si.kubit.restaurantrating.components.TextViewFont 
         android:id="@+id/text_rate"
         android:layout_height="wrap_content"
         restaurantrating:font_name="@string/font_big_text"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 	
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_user"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
 		  	restaurantrating:font_name="@string/font_big_text"
 	        style="@style/TextUser" />
 	
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_restaurant"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
 	        restaurantrating:font_name="@string/font_list_small"
 	        style="@style/TextUserUnder.Blue" />
 
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_hours_ago"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"

@@ -1,6 +1,8 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.components;
 
 import si.kubit.restaurantrating.R;
+import si.kubit.restaurantrating.R.string;
+import si.kubit.restaurantrating.R.styleable;
 
 import android.content.Context;
 import android.content.res.TypedArray;

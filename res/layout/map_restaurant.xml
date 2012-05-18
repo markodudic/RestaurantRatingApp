@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<si.kubit.restaurantrating.components.RoundedLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:restaurantrating="http://schemas.android.com/apk/res/si.kubit.restaurantrating"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-	android:background="@drawable/layout_rounded_gray" >
+    restaurantrating:radii="15, 15, 15, 15, 15, 15, 15, 15"
+    restaurantrating:color_fill="@color/mapColor"
+    restaurantrating:color_stroke="@color/translucentWhite"
+    android:id="@+id/layout_map_restaurant" >
 
-    <LinearLayout android:layout_width="fill_parent" 
+    <si.kubit.restaurantrating.components.RoundedLinearLayout
+        android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
 	    android:orientation="horizontal" 
-    	android:background="@drawable/layout_rounded_top">
+        restaurantrating:radii="15, 15, 15, 15, 0, 0, 0, 0"
+        restaurantrating:color_fill="@color/titleColor"
+        restaurantrating:color_stroke="@color/translucentWhite"
+    	android:id="@+id/layout_map_restaurant_title">
 
-		<si.kubit.restaurantrating.TextViewFont 
+		<si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_app_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="fill_parent"
@@ -19,7 +27,7 @@
 	        restaurantrating:font_name="@string/font_big_text"
 	        style="@style/AppTitle" 
             android:text="@string/app_name" />
-	</LinearLayout>	        
+	</si.kubit.restaurantrating.components.RoundedLinearLayout>	        
     	        
     <LinearLayout android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
@@ -40,7 +48,7 @@
 			android:orientation="vertical"
 			android:layout_gravity="left|top" >
 		
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_restaurant_name"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -48,7 +56,7 @@
 			  	restaurantrating:font_name="@string/font_big_text"
 		        style="@style/TextRestaurantMap" />
 		
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_restaurant_address"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -56,7 +64,7 @@
 		        restaurantrating:font_name="@string/font_list_small"
 		        style="@style/TextRestaurantMap.Small" />
 	
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_restaurant_city"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -64,7 +72,7 @@
 		        restaurantrating:font_name="@string/font_list_small"
 		        style="@style/TextRestaurantMap.Small" />
 		    
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_restaurant_phone"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -104,7 +112,7 @@
 	        android:layout_height="wrap_content"
 	    	android:orientation="vertical" >
 	    
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_rate_avg"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -113,7 +121,7 @@
 			  	restaurantrating:font_name="@string/font_big_text"
 		        style="@style/TextRestaurantMapData.Small" />
 	        
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_rate_avg_value"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -129,7 +137,7 @@
 	        android:layout_height="wrap_content"
 	    	android:orientation="vertical" >
 	    
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_rate_count"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -138,7 +146,7 @@
 			  	restaurantrating:font_name="@string/font_big_text"
 		        style="@style/TextRestaurantMapData.Small" />
 	        
-		    <si.kubit.restaurantrating.TextViewFont
+		    <si.kubit.restaurantrating.components.TextViewFont
 		        android:id="@+id/text_rate_count_value"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -150,4 +158,4 @@
 	    	    
 	</LinearLayout>
     	    
-</LinearLayout>
+</si.kubit.restaurantrating.components.RoundedLinearLayout>

@@ -7,17 +7,18 @@
     style="@style/LayoutDefaultLight"
     android:background="@drawable/layout_rounded" >
 
-    <FrameLayout android:layout_width="fill_parent" 
+    <si.kubit.restaurantrating.components.TitleFrameLayout
+        android:id="@+id/frame_restaurant_photos"
+        android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
-	    android:orientation="horizontal"
-    android:background="@drawable/layout_rounded_top">
+	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_location"
             android:background="@drawable/cancel"
     			style="@style/TextUser.Small.AppTitleButtonLeft"
 		    	android:text="@string/location" />
 
-		<si.kubit.restaurantrating.TextViewFont 
+		<si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_photos_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
 		<Button android:id="@+id/button_photo"
             android:background="@drawable/photo"
     			style="@style/AppTitleButtonTip"  />
-	 </FrameLayout>  	        
+	 </si.kubit.restaurantrating.components.TitleFrameLayout>  	        
 
      <GridView android:id="@+id/grid_photos"
 		android:layout_width="fill_parent" 

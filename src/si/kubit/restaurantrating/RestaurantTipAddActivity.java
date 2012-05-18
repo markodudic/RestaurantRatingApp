@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import si.kubit.restaurantrating.components.CustomShapeDrawable;
 import si.kubit.restaurantrating.conn.Comm;
 import si.kubit.restaurantrating.objects.User;
 import si.kubit.restaurantrating.util.Util;
@@ -13,6 +14,9 @@ import si.kubit.restaurantrating.util.Util;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,6 +43,10 @@ public class RestaurantTipAddActivity extends Activity implements OnClickListene
 		
 		View tipAddButtonSubmit = findViewById(R.id.button_tip_add); 
 		tipAddButtonSubmit.setOnClickListener(this);
+        RoundRectShape rs1 = new RoundRectShape(new float[] { 15, 15, 15, 15, 15, 15, 15, 15 }, null, null);
+        ShapeDrawable sd1 = new CustomShapeDrawable(rs1, Color.GREEN, Color.TRANSPARENT, 0);
+        tipAddButtonSubmit.setBackgroundDrawable(sd1);
+
     }
 
 	@Override

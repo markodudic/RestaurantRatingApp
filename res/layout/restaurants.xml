@@ -5,17 +5,18 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <FrameLayout android:layout_width="fill_parent" 
+    <si.kubit.restaurantrating.components.TitleFrameLayout
+        android:id="@+id/frame_restaurants"
+        android:layout_width="fill_parent" 
 		style="@style/AppTitleLayout" 
-	    android:orientation="horizontal"
-    android:background="@drawable/layout_rounded_top">
+	    android:orientation="horizontal">
 
        <Button android:id="@+id/button_cancel"
             android:background="@drawable/cancel"
-    			style="@style/TextUser.Small.AppTitleButtonLeft"
+    		style="@style/TextUser.Small.AppTitleButtonLeft"
 		    android:text="@string/cancel" />
 
-	    <si.kubit.restaurantrating.TextViewFont 
+	    <si.kubit.restaurantrating.components.TextViewFont 
 	        android:id="@+id/text_app_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -26,8 +27,8 @@
 
 	    <Button android:id="@+id/button_map"
             android:background="@drawable/map"
-    			style="@style/AppTitleButtonMap"  />
-	 </FrameLayout>        
+    		style="@style/AppTitleButtonMap"  />
+	 </si.kubit.restaurantrating.components.TitleFrameLayout>        
          	   
     <FrameLayout android:layout_width="fill_parent" 
      	android:layout_height="40dip"
@@ -51,35 +52,28 @@
 
 	 </FrameLayout>	        
         
-	<FrameLayout 
+	<LinearLayout 
 	    android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	android:orientation="vertical" >
 	   
 	    <ListView android:id="@+id/android:list"
-		       android:layout_width="fill_parent"
-		       android:layout_height="wrap_content"
+		      android:layout_width="fill_parent"
+		      android:layout_height="wrap_content"
 	          android:layout_weight="1"
 	          android:drawSelectorOnTop="false"
 	          android:textFilterEnabled="true"
 	          android:fadingEdge="none">
-		 </ListView>	 
+		</ListView>	 
 	   
-	    <LinearLayout android:layout_width="fill_parent" 
-	     	android:gravity="center" 
-		   android:layout_height="50dip"
-			android:orientation="horizontal"
-	    	android:background="@color/translucentBlack"
-	    	android:layout_gravity="center_horizontal|bottom">
-		   
-		    <TextView android:id="@+id/text_places_nearby"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        restaurantrating:font_name="@string/font_list_small"
-		        style="@style/TextUser.Small"
-			    android:text="@string/places_nearby" />	
-	    </LinearLayout>
+	    <TextView android:id="@+id/text_places_nearby"
+	        android:layout_width="fill_parent"
+	        android:layout_height="50dip"
+	        restaurantrating:font_name="@string/font_list_small"
+	        style="@style/AppFooterLayout.Small"
+	        android:text="@string/places_nearby" />	
+	</LinearLayout>	        
+
 	    	        
-	</FrameLayout>	        
-	    
+	
 </LinearLayout>

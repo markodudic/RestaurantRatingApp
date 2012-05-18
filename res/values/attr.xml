@@ -7,5 +7,12 @@
         <attr name="rate_item_press" format="integer" /> 
         <attr name="sel_rate_value" format="string" /> 
         <attr name="font_name" format="string" /> 
+        <attr name="radii" format="string" /> 
+        <attr name="color_fill" format="string" /> 
+        <attr name="color_stroke" format="string" /> 
+        <attr name="color_default" format="string" /> 
+        <attr name="stroke_width" format="integer" /> 
+        <attr name="width" format="integer" /> 
+        <attr name="height" format="integer" /> 
     </declare-styleable>  
 </resources>

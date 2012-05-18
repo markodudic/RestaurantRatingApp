@@ -9,13 +9,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import si.kubit.restaurantrating.conn.Comm;
+import si.kubit.restaurantrating.components.RestaurantRateItemLayout;
 import si.kubit.restaurantrating.objects.Restaurant;
-import si.kubit.restaurantrating.objects.User;
 import si.kubit.restaurantrating.util.Util;
-
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -38,10 +37,10 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 	private double rateValueAvg;
     
 	private Handler mHandler = new Handler();
-	private View layoutRateFood;
-	private View layoutRateAmbient;
-	private View layoutRateService;
-	private View layoutRateValue;
+	private RestaurantRateItemLayout layoutRateFood;
+	private RestaurantRateItemLayout layoutRateAmbient;
+	private RestaurantRateItemLayout layoutRateService;
+	private RestaurantRateItemLayout layoutRateValue;
 	private TextView rateFoodValue;
 	private TextView rateAmbientValue;
 	private TextView rateServiceValue;
@@ -61,13 +60,13 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_rate);
         		
-		layoutRateFood = (View) this.findViewById(R.id.layout_rate_food);
+		layoutRateFood = (RestaurantRateItemLayout) this.findViewById(R.id.layout_rate_food);
 		rateFoodValue = (TextView) layoutRateFood.findViewById(R.id.rate_item_value);
-        layoutRateAmbient = (View) this.findViewById(R.id.layout_rate_ambient);
+        layoutRateAmbient = (RestaurantRateItemLayout) this.findViewById(R.id.layout_rate_ambient);
 		rateAmbientValue = (TextView) layoutRateAmbient.findViewById(R.id.rate_item_value);
-        layoutRateService = (View) this.findViewById(R.id.layout_rate_service);
+        layoutRateService = (RestaurantRateItemLayout) this.findViewById(R.id.layout_rate_service);
 		rateServiceValue = (TextView) layoutRateService.findViewById(R.id.rate_item_value);
-        layoutRateValue = (View) this.findViewById(R.id.layout_rate_value);
+        layoutRateValue = (RestaurantRateItemLayout) this.findViewById(R.id.layout_rate_value);
 		rateValueValue = (TextView) layoutRateValue.findViewById(R.id.rate_item_value);
 
 		View mapButtonSubmit = findViewById(R.id.button_map); 
@@ -91,7 +90,7 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
         restaurantsList = new ArrayList<Restaurant>();
         this.listAdapter = new RestaurantsListAdapter(this, R.layout.restaurants_list, restaurantsList, false);
         setListAdapter(this.listAdapter);
-		
+        
     }
     
 	@Override
@@ -210,10 +209,10 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
  	    	   rateService > 0 &&
  	    	   rateValue > 0) {
  	    	   textRateTitle.setText(getString(R.string.rate_values_title));
- 	 	       setRateItem(layoutRateFood, rateFood, R.drawable.rate_item_food_press, R.drawable.rate_item_food);
- 	 	       setRateItem(layoutRateAmbient, rateAmbient, R.drawable.rate_item_ambient_press, R.drawable.rate_item_ambient);
- 	 	       setRateItem(layoutRateService, rateService, R.drawable.rate_item_service_press, R.drawable.rate_item_service);
- 	 	       setRateItem(layoutRateValue, rateValue, R.drawable.rate_item_value_press, R.drawable.rate_item_value);
+ 	 	       setRateItem(layoutRateFood, rateFood, layoutRateFood.getRateItemPressedDrawable(), layoutRateFood.getRateItemDrawable());
+ 	 	       setRateItem(layoutRateAmbient, rateAmbient, layoutRateAmbient.getRateItemPressedDrawable(), layoutRateAmbient.getRateItemDrawable());
+ 	 	       setRateItem(layoutRateService, rateService, layoutRateService.getRateItemPressedDrawable(), layoutRateService.getRateItemDrawable());
+ 	 	       setRateItem(layoutRateValue, rateValue, layoutRateValue.getRateItemPressedDrawable(), layoutRateValue.getRateItemDrawable());
  	 	        
  	 	       //nastavim nove vrednosti za rate
  	 	       try {
@@ -262,20 +261,20 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
   	};
 
   	private void showRatesTask() {
-	       setRateItem(layoutRateFood, (int) Math.round(rateFoodAvg), R.drawable.rate_item_food_press, R.drawable.rate_item_food);
-	       setRateItem(layoutRateAmbient, (int) Math.round(rateAmbientAvg), R.drawable.rate_item_ambient_press, R.drawable.rate_item_ambient);
-	       setRateItem(layoutRateService, (int) Math.round(rateServiceAvg), R.drawable.rate_item_service_press, R.drawable.rate_item_service);
-	       setRateItem(layoutRateValue, (int) Math.round(rateValueAvg), R.drawable.rate_item_value_press, R.drawable.rate_item_value);
+	       setRateItem(layoutRateFood, (int) Math.round(rateFoodAvg), layoutRateFood.getRateItemPressedDrawable(), layoutRateFood.getRateItemDrawable());
+	       setRateItem(layoutRateAmbient, (int) Math.round(rateAmbientAvg), layoutRateAmbient.getRateItemPressedDrawable(), layoutRateAmbient.getRateItemDrawable());
+	       setRateItem(layoutRateService, (int) Math.round(rateServiceAvg), layoutRateService.getRateItemPressedDrawable(), layoutRateService.getRateItemDrawable());
+	       setRateItem(layoutRateValue, (int) Math.round(rateValueAvg), layoutRateValue.getRateItemPressedDrawable(), layoutRateValue.getRateItemDrawable());
 
-	 	   showRateItem(layoutRateFood, rateFoodAvg, R.drawable.rate_item_food_press);
-	       showRateItem(layoutRateAmbient, rateAmbientAvg, R.drawable.rate_item_ambient_press);
-	       showRateItem(layoutRateService, rateServiceAvg, R.drawable.rate_item_service_press);
-	       showRateItem(layoutRateValue, rateValueAvg, R.drawable.rate_item_value_press);
+	 	   showRateItem(layoutRateFood, rateFoodAvg, layoutRateFood.getRateItemPressedDrawable());
+	       showRateItem(layoutRateAmbient, rateAmbientAvg, layoutRateAmbient.getRateItemPressedDrawable());
+	       showRateItem(layoutRateService, rateServiceAvg, layoutRateService.getRateItemPressedDrawable());
+	       showRateItem(layoutRateValue, rateValueAvg, layoutRateValue.getRateItemPressedDrawable());
 	       
 	       mHandler.removeCallbacks(mShowRatesTask);  	
   	}
 
-  	private void setRateItem(View layout, int rate, int item_pressed, int item) {
+  	private void setRateItem(View layout, int rate, Drawable item_pressed, Drawable item) {
       TextView rateItem1 = (TextView) layout.findViewById(R.id.rate_item_1);
       TextView rateItem2 = (TextView) layout.findViewById(R.id.rate_item_2);
       TextView rateItem3 = (TextView) layout.findViewById(R.id.rate_item_3);
@@ -301,19 +300,19 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
       rateItem3.setVisibility(rate > 2 ? View.VISIBLE : View.INVISIBLE);
       rateItem4.setVisibility(rate > 3 ? View.VISIBLE : View.INVISIBLE);
       rateItem5.setVisibility(rate > 4 ? View.VISIBLE : View.INVISIBLE);
-      rateItem1.setBackgroundResource(rate > 0 ? item_pressed : item);
-      rateItem2.setBackgroundResource(rate > 1 ? item_pressed : item);
-      rateItem3.setBackgroundResource(rate > 2 ? item_pressed : item);
-      rateItem4.setBackgroundResource(rate > 3 ? item_pressed : item);
-      rateItem5.setBackgroundResource(rate > 4 ? item_pressed : item);
+      rateItem1.setBackgroundDrawable(rate > 0 ? item_pressed : item);
+      rateItem2.setBackgroundDrawable(rate > 1 ? item_pressed : item);
+      rateItem3.setBackgroundDrawable(rate > 2 ? item_pressed : item);
+      rateItem4.setBackgroundDrawable(rate > 3 ? item_pressed : item);
+      rateItem5.setBackgroundDrawable(rate > 4 ? item_pressed : item);
 	}
 
-  	private void showRateItem(View layout, double rateAvg, int item_pressed) {
+  	private void showRateItem(View layout, double rateAvg, Drawable item_pressed) {
         TextView rateItem5 = (TextView) layout.findViewById(R.id.rate_item_5);
         rateItem5.setText(decimalFormat.format(rateAvg));
-        rateItem5.setBackgroundResource(item_pressed);
+        rateItem5.setBackgroundDrawable(item_pressed);
         if (Double.parseDouble(decimalFormat.format(rateAvg)) < 4.5)
-        	rateItem5.setBackgroundDrawable(getResources().getDrawable(R.drawable.rate_item_default));
+        	rateItem5.setBackgroundDrawable(layoutRateFood.getRateItemDefaultDrawable());
         rateItem5.setVisibility(View.VISIBLE);
 
   	}	

@@ -1,8 +1,10 @@
-package si.kubit.restaurantrating;
+package si.kubit.restaurantrating.components;
 
 
 import java.util.ArrayList;
 
+import si.kubit.restaurantrating.R;
+import si.kubit.restaurantrating.R.anim;
 import si.kubit.restaurantrating.util.Util;
 
 import android.content.Context;

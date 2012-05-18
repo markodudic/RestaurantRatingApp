@@ -11,7 +11,7 @@
      	android:layout_height="fill_parent"
 		android:orientation="horizontal" >
 		
-	    <si.kubit.restaurantrating.TextViewFont
+	    <si.kubit.restaurantrating.components.TextViewFont
 	        android:id="@+id/text_rate_item"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -32,35 +32,35 @@
 		    android:visibility="invisible"
 			android:text="0" />
   
-		 <si.kubit.restaurantrating.TextViewFont
+		 <si.kubit.restaurantrating.components.TextViewFont
 		    android:id="@+id/rate_item_1"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content" />
 
 		<LinearLayout android:layout_weight="1" android:layout_width="10dip"	android:layout_height="0dip"/>
 		 
-		<si.kubit.restaurantrating.TextViewFont
+		<si.kubit.restaurantrating.components.TextViewFont
 		    android:id="@+id/rate_item_2"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"/>
 
 		<LinearLayout android:layout_weight="1" android:layout_width="10dip"	android:layout_height="0dip"/>
 		
-		<si.kubit.restaurantrating.TextViewFont
+		<si.kubit.restaurantrating.components.TextViewFont
 		    android:id="@+id/rate_item_3"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"/>
 		
 		<LinearLayout android:layout_weight="1" android:layout_width="10dip"	android:layout_height="0dip"/>
 
-		<si.kubit.restaurantrating.TextViewFont
+		<si.kubit.restaurantrating.components.TextViewFont
 		    android:id="@+id/rate_item_4"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content" />
 
 		<LinearLayout android:layout_weight="1" android:layout_width="10dip"	android:layout_height="0dip"/>
 
-		<si.kubit.restaurantrating.TextViewFont
+		<si.kubit.restaurantrating.components.TextViewFont
 		    android:id="@+id/rate_item_5"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
