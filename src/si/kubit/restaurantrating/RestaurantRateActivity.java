@@ -340,16 +340,10 @@ public class RestaurantRateActivity extends ListActivity implements OnClickListe
 				break;
 			case R.id.button_tips:
 		    	Intent intentRestaurantTips = new Intent(RestaurantRateActivity.this, RestaurantTipsActivity.class);
-				//Bundle extras = new Bundle();
-			  	//extras.putString("restaurant_id", restaurantId);
-			  	//intentRestaurantTips.putExtra("si.kubit.restaurantrating.RestaurantTipsActivity", extras);
 			  	RestaurantRateActivity.this.startActivity(intentRestaurantTips);
 				break;
 			case R.id.button_photos:
 		    	Intent intentRestaurantPhotos = new Intent(RestaurantRateActivity.this, RestaurantPhotosActivity.class);
-			  	//extras = new Bundle();
-			  	//extras.putString("restaurant_id", restaurantId);
-			  	//intentRestaurantPhotos.putExtra("si.kubit.restaurantrating.RestaurantPhotosActivity", extras);
 			  	RestaurantRateActivity.this.startActivity(intentRestaurantPhotos);
 				break;
 			case R.id.button_friends:

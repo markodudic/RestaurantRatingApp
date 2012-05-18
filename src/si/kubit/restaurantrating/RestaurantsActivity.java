@@ -165,10 +165,6 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     	switch (v.getId()) { 
 			case R.id.button_map:
 		    	Intent mapRestaurantsActivity = new Intent(RestaurantsActivity.this, MapRestaurantsActivity.class);
-			  	/*Bundle extras = new Bundle();
-			  	extras.putString("lat", location.getLatitude()+"");
-			  	extras.putString("lng", location.getLongitude()+"");
-			  	mapRestaurantsActivity.putExtra("si.kubit.restaurantrating.MapRestaurantsActivity", extras);*/
 			  	RestaurantsActivity.this.startActivity(mapRestaurantsActivity);
 				break;
 			case R.id.button_cancel:
@@ -187,7 +183,7 @@ public class RestaurantsActivity extends ListActivity implements OnClickListener
     	if ((m_ProgressDialog != null) && ( m_ProgressDialog.isShowing())) {
     		m_ProgressDialog.dismiss();
     	}
-    	
+     	
 		if (location == null) {
         	Toast toast = Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);

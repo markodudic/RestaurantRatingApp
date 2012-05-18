@@ -103,15 +103,7 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
 				break;
 			case R.id.button_photo:
 			    if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
-					//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-	    			/*User user = Util.getUserFromPreferencies();	
-					if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
-						//uporabnik nima autorizacije. Zahtevam
-		    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
-		    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
-					} else {*/
-						startCamera();
-					//}
+					startCamera();
 			    } else {
 		        	Toast toast = Toast.makeText(this, getString(R.string.no_camera), Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -204,17 +196,8 @@ public class RestaurantPhotosActivity extends Activity implements OnClickListene
     {
     	String photos = "";
         try { 
-			//Bundle extras = getIntent().getBundleExtra("si.kubit.restaurantrating.RestaurantPhotosActivity");
-			//String restaurantId = extras.getString("restaurant_id");
 			String restaurantId = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("restaurant_id", null);				
         	
-			/*List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        nameValuePairs.add(new BasicNameValuePair("venue_id", restaurantId));
-	        
-	        photos = ((RestaurantRating)getApplicationContext()).getComm().post("photos",nameValuePairs);
-
-	        jPhotos = (JSONArray)new JSONTokener(photos).nextValue();
-	        */
 	        jPhotos = ((RestaurantRating)getApplicationContext()).getFoursquare().getPhotos(restaurantId);
 
 	    	TextView title = (TextView)findViewById(R.id.text_photos_title);

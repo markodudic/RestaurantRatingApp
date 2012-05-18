@@ -28,9 +28,6 @@ public class AuthorizationActivity extends Activity
         String url = "";
         
 		try {
-	        //String settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("settings", null);				
-	        //JSONObject jSettings = ((JSONArray)new JSONTokener(settings).nextValue()).getJSONObject(0);
-			//Log.d("SETTINGS=",jSettings.toString());
 			Foursquare fsq = ((RestaurantRating)getApplicationContext()).getFoursquare();
 			url = fsq.getFoursquareAuthenticateUrl() + 
 	                "?client_id=" + fsq.getClientId() + 
@@ -70,7 +67,6 @@ public class AuthorizationActivity extends Activity
 	            }
 	        });
 	        
-	        Log.d("URL=",url);
 	        webview.loadUrl(url);
    		} catch (Exception e) {
    			e.printStackTrace();

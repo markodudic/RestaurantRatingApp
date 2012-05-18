@@ -11,7 +11,7 @@
 		style="@style/AppTitleLayout" 
         restaurantrating:radii="15, 15, 15, 15, 0, 0, 0, 0"
         restaurantrating:color_fill="@color/backgroundColor"
-        restaurantrating:color_stroke="@color/translucentWhite"
+        restaurantrating:color_stroke="@color/translucentBlack"
 	    android:orientation="horizontal">
 
         

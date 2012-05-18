@@ -21,6 +21,7 @@
         <activity
           	android:label="@string/app_name"
           	android:name=".UserRatesActivity" 
+          	android:launchMode="singleTop"
  	      	android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
           	<intent-filter >
               <action android:name="android.intent.action.MAIN" />
@@ -28,38 +29,44 @@
           	</intent-filter>
       	</activity>
       	<activity android:name=".RestaurantsActivity" 
-      	  	android:launchMode="singleInstance"
+      	  	android:launchMode="singleTop"
 	  		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
   		</activity>	
       	<activity android:name=".RestaurantRateActivity" 
-      		android:launchMode="singleInstance"
+      		android:launchMode="singleTop"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
       	<activity android:name=".RestaurantTipsActivity" 
+      		android:launchMode="singleTop"
       		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
       	<activity android:name=".RestaurantTipAddActivity" 
-      		android:launchMode="singleInstance"
+      		android:launchMode="singleTop"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
       	<activity android:name=".RestaurantPhotosActivity" 
-      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+      		android:launchMode="singleTop"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
      	<activity android:name=".RestaurantPhotoActivity" 
-      		android:launchMode="singleInstance"
+      		android:launchMode="singleTop"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
      	<activity android:name=".AuthorizationActivity"
-     	    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+     	    android:launchMode="singleTop"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>
      	<activity android:name=".MapFriendsActivity" 
-      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+      		android:launchMode="singleTop"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
      	<activity android:name=".MapRestaurantActivity" 
-      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+      		android:launchMode="singleTop"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
      	<activity android:name=".MapRestaurantsActivity" 
-      		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
+      		android:launchMode="singleTop"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  >
 		</activity>	
     </application>
     

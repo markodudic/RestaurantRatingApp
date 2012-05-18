@@ -32,9 +32,9 @@
 	<string name="map_restaurants_zoom_level">14</string>
 	<string name="map_friends_hour_interval">-24</string>
 
-	<!-- iz sluzbe -->
-	<string name="map_api_key">0DAuYjolO2ZLAPteWcUSneRZ6nO3mDT6X5eJvuw</string>
 	<!-- s prenosnika -->
-	<!-- string name="map_api_key">0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw</string -->
+	<!-- string name="map_api_key">0DAuYjolO2ZLAPteWcUSneRZ6nO3mDT6X5eJvuw</string -->
+	<!-- iz sluzbe -->
+	<string name="map_api_key">0DAuYjolO2ZLXMCYBkUtWbpIpWpvX-RsrlIuSmw</string>
 						
 </resources>

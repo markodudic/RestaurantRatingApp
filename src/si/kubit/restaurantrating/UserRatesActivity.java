@@ -116,6 +116,7 @@ public class UserRatesActivity extends ListActivity implements OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	Log.d("onActivityResult", requestCode+"");
     	if (requestCode == AUTHORIZATION_REQUEST) {
     		if (resultCode == RESULT_OK) {
     			String accessToken = data.getStringExtra("accessToken");

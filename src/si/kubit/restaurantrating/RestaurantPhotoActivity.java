@@ -16,6 +16,7 @@ import org.json.JSONTokener;
 import si.kubit.restaurantrating.util.Util;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -79,7 +80,8 @@ public class RestaurantPhotoActivity extends Activity implements OnClickListener
     public void onClick(View v) {
     	switch (v.getId()) { 
 			case R.id.button_number_photos:
-				finish();
+		    	Intent intentRestaurantPhotos = new Intent(RestaurantPhotoActivity.this, RestaurantPhotosActivity.class);
+		    	RestaurantPhotoActivity.this.startActivity(intentRestaurantPhotos);
 				break;
     	}
 	}

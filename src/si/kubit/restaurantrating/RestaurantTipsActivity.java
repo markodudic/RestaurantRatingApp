@@ -27,7 +27,7 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
 	private ArrayList<Tip> tipsList = null;
 	private Runnable viewTips;
 	private ProgressDialog m_ProgressDialog = null;
-
+ 
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,16 +63,8 @@ public class RestaurantTipsActivity extends ListActivity implements OnClickListe
     			startActivity(restaurantRate); 
 				break;
 			case R.id.button_tip:
-				//preverimo ce uporabnik ima authorizaco, ce nima jo probamo dobiti
-    			/*User user = Util.getUserFromPreferencies();	
-				if (user.getOauthToken()==null || user.getOauthToken().equals("null")) {
-					//uporabnik nima autorizacije. Zahtevam
-	    			Intent authorization = new Intent(this, AuthorizationActivity.class); 
-	    			startActivityForResult(authorization, AUTHORIZATION_REQUEST); 
-				} else {*/
-	    			Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
-	    			startActivity(restaurantTipAdd); 
-				//}
+    			Intent restaurantTipAdd = new Intent(this, RestaurantTipAddActivity.class); 
+    			startActivity(restaurantTipAdd); 
 				break;
     	}
 	}
